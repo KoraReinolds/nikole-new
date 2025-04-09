@@ -50,16 +50,6 @@ module.exports = {
         "add2-gray": "#755962",
         "add2-sat": "#94475E",
       },
-      backgroundImage: {
-        // Linear gradient colors from the image
-        "linear-gradient": "linear-gradient(to bottom, #14090C 0%, #16080E 100%)",
-
-        // Radial gradient colors from the image
-        "radial-gradient": "radial-gradient(circle, #563C34 0%, #402E28 50%, #16080E 100%)",
-
-        // Pink gradient for text
-        "pink-gradient": "linear-gradient(to bottom, #FF4A81 0%, #ADD2_WHITE2 100%)",
-      },
     },
   },
   plugins: [],

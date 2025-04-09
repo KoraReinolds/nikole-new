@@ -3,10 +3,10 @@
   Component for displaying a promotional section for beauty/hair removal services
 -->
 <template>
-  <div class="relative bg-radial-gradient bg-linear-gradient min-h-screen flex items-center">
-    <div class="container mx-auto px-4">
+  <div class="relative h-[1220px] flex items-start overflow-hidden background-container">
+    <div class="container mx-auto px-4 max-w-[1080px] h-full relative z-10">
       <!-- Header section with logo and navigation -->
-      <div class="w-full relative mb-16">
+      <div class="w-full relative mb-16 mt-12">
         <div class="flex justify-start items-center">
           <!-- Logo on the left -->
           <div class="w-72 mr-12">
@@ -63,7 +63,7 @@
         <!-- Left Content Section -->
         <div class="w-[870px] py-10 z-10">
           <!-- Main Headline -->
-          <h1 class="text-main-white2 text-6xl font-bold font-raleway mb-10">
+          <h1 class="text-main-white2 text-6xl font-bold font-raleway mb-[106px]">
             Гладкая кожа <span class="pink-text-gradient font-bold">НАВСЕГДА</span><br>
             без боли и лишних сеансов
           </h1>
@@ -93,36 +93,32 @@
           </ul>
 
           <!-- CTA Button -->
-          <div class="mt-10">
+          <div class="mt-[120px] relative">
+            <!-- Butterfly Decoration -->
+            <div class="absolute bottom-20 left-20 w-[300px] -translate-x-[280px] translate-y-[200px]">
+              <img
+                src="/images/butterfly.png"
+                alt="Декоративная бабочка"
+                class="w-full h-full"
+              >
+            </div>
             <button
-              class="py-4 px-8 bg-sup2-sat text-white text-2xl font-medium font-roboto rounded-md hover:bg-opacity-90 transition-all shadow-lg"
+              class="py-4 px-8 font-bold bg-sup2-white text-additional-black text-2xl font-roboto rounded-md hover:bg-opacity-90 transition-all shadow-lg"
             >
               Получить подарок
             </button>
           </div>
         </div>
-
-        <!-- Right Image Section with Radial Gradient -->
-        <div class="lg:w-1/2 hidden lg:block absolute">
-          <!-- <div class="absolute inset-0 bg-radial-gradient rounded-lg opacity-70" />
-          <div class="absolute inset-0 flex items-center justify-center">
-          </div> -->
-          <img
-            src="/images/promo-flowers.png"
-            alt="Декоративные цветы"
-            class="object-cover h-full z-10"
-          >
-        </div>
       </div>
-    </div>
 
-    <!-- Butterfly Decoration -->
-    <div class="absolute bottom-20 left-20 w-16 h-16 opacity-70">
-      <img
-        src="/images/butterfly.png"
-        alt="Декоративная бабочка"
-        class="w-full h-full"
-      >
+      <!-- Right Image Section -->
+      <div class="lg:w-1/2 hidden lg:block absolute -right-[150px] bottom-[0px]">
+        <img
+          src="/images/promo-flowers.png"
+          alt="Декоративные цветы"
+          class="object-cover h-full z-10 scale-125"
+        >
+      </div>
     </div>
   </div>
 </template>
@@ -152,5 +148,34 @@
   color: transparent;
   text-shadow: 0 0 10px rgba(255, 74, 129, 0.4);
   display: inline-block;
+}
+
+/* Background setup with rotated gradient */
+.background-container {
+  background-color: #16080E;
+  position: relative;
+}
+
+.background-container::before {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: radial-gradient(ellipse 20% 30% at 40%, #563C34 0%, #402E28 30%, #16080E 100%);
+  transform: rotate(-25deg);
+  z-index: 1;
+}
+
+.background-container::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(to bottom, rgba(148, 119, 12, 0.0) 70%, rgba(22, 8, 14, 1.0) 100%);
+  z-index: 2;
 }
 </style>
