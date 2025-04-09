@@ -72,7 +72,7 @@
             </h1>
 
             <!-- Bullet Points -->
-            <ul class="space-y-4 mb-8 text-main-white2 text-2xl font-normal font-roboto">
+            <ul class="space-y-4 mb-8 text-main-white2 text-2xl font-normal font-montserrat">
               <li class="flex items-start">
                 <span class="mr-2">•</span>
                 <span>с <span class="pink-text-gradient font-medium">выгодой до 20.000</span> рублей</span>

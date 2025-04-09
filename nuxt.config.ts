@@ -50,6 +50,7 @@ export default defineNuxtConfig({
     families: {
       Raleway: [400, 500, 700],
       Roboto: [400, 500],
+      Montserrat: [400, 500, 700],
     },
     display: "swap",
     prefetch: true,

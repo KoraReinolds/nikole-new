@@ -17,14 +17,14 @@
       <!-- Right side with quiz content -->
       <div class="pt-[120px] pb-16 flex flex-col w-full">
         <!-- Quiz header -->
-        <h2 class="text-add2-black text-6xl font-bold font-raleway">
+        <h2 class="text-add2-black text-6xl font-bold font-raleway mb-10">
           Ответьте на 5 вопросов<br>
           и получите <span class="text-add2-sat">подарок</span>
         </h2>
 
         <div class="mb-8 flex gap-16 w-full">
           <!-- Progress bar -->
-          <div class="relative h-4 mt-10 min-w-[555px]">
+          <div class="relative h-4 min-w-[555px] mt-3">
             <div class="absolute w-[555px] h-[18px] bg-[#454B57] rounded-lg" />
             <div
               class="absolute left-[2px] top-[2px] h-[14px] bg-sup2-white2 rounded-lg shadow-[0px_0px_0px_0px_rgba(173,219,136,1.00)]"
@@ -40,28 +40,20 @@
                 v-if="currentStep === 1"
                 class="quiz-step"
               >
-                <h3 class="text-[#333] text-2xl font-medium mb-8">
-                  Сколько Вам лет?
-                </h3>
+                <QuizHeading>Сколько Вам лет?</QuizHeading>
                 <div class="space-y-4 ml-4">
-                  <label class="flex items-center cursor-pointer">
-                    <input
-                      v-model="userAnswers.age"
-                      type="radio"
-                      value="under18"
-                      class="form-radio h-5 w-5 text-[#FF6B9C]"
-                    >
-                    <span class="ml-4 text-lg">До 18</span>
-                  </label>
-                  <label class="flex items-center cursor-pointer">
-                    <input
-                      v-model="userAnswers.age"
-                      type="radio"
-                      value="over18"
-                      class="form-radio h-5 w-5 text-[#FF6B9C]"
-                    >
-                    <span class="ml-4 text-lg">Больше 18</span>
-                  </label>
+                  <RadioOption
+                    v-model="userAnswers.age"
+                    value="under18"
+                  >
+                    До 18
+                  </RadioOption>
+                  <RadioOption
+                    v-model="userAnswers.age"
+                    value="over18"
+                  >
+                    Больше 18
+                  </RadioOption>
                 </div>
               </div>
 
@@ -70,9 +62,9 @@
                 v-if="currentStep === 2"
                 class="quiz-step"
               >
-                <h3 class="text-[#333] text-2xl font-medium mb-6">
+                <QuizHeading variant="dark">
                   Выберите способ
-                </h3>
+                </QuizHeading>
 
                 <div class="mb-2 flex">
                   <div class="w-[180px]" />
@@ -91,15 +83,12 @@
                   <div class="flex items-center">
                     <div class="w-[180px] flex items-center">
                       <span class="inline-flex items-center justify-center w-5 h-5 mr-2 rounded-full bg-gray-200 text-gray-600">?</span>
-                      <label class="flex items-center cursor-pointer">
-                        <input
-                          v-model="userAnswers.method"
-                          type="radio"
-                          value="electro"
-                          class="form-radio h-5 w-5 text-[#FF6B9C]"
-                        >
-                        <span class="ml-2 text-lg">Электроэпиляция</span>
-                      </label>
+                      <RadioOption
+                        v-model="userAnswers.method"
+                        value="electro"
+                      >
+                        Электроэпиляция
+                      </RadioOption>
                     </div>
                     <div class="flex flex-1 justify-between">
                       <div class="w-[160px] px-3">
@@ -125,15 +114,12 @@
                   <div class="flex items-center">
                     <div class="w-[180px] flex items-center">
                       <span class="inline-flex items-center justify-center w-5 h-5 mr-2 rounded-full bg-gray-200 text-gray-600">?</span>
-                      <label class="flex items-center cursor-pointer">
-                        <input
-                          v-model="userAnswers.method"
-                          type="radio"
-                          value="sugaring"
-                          class="form-radio h-5 w-5 text-[#FF6B9C]"
-                        >
-                        <span class="ml-2 text-lg">Шугаринг</span>
-                      </label>
+                      <RadioOption
+                        v-model="userAnswers.method"
+                        value="sugaring"
+                      >
+                        Шугаринг
+                      </RadioOption>
                     </div>
                     <div class="flex flex-1 justify-between">
                       <div class="w-[160px] px-3">
@@ -159,19 +145,13 @@
                   <div class="flex items-center">
                     <div class="w-[180px] flex items-center">
                       <span class="inline-flex items-center justify-center w-5 h-5 mr-2 rounded-full bg-gray-200 text-gray-600">?</span>
-                      <label class="flex items-center cursor-pointer">
-                        <input
-                          v-model="userAnswers.method"
-                          type="radio"
-                          value="laser"
-                          class="form-radio h-5 w-5 text-[#FF6B9C]"
-                          :disabled="!allowLaser"
-                        >
-                        <span
-                          class="ml-2 text-lg"
-                          :class="{ 'text-gray-400': !allowLaser }"
-                        >Лазерная эпиляция</span>
-                      </label>
+                      <RadioOption
+                        v-model="userAnswers.method"
+                        value="laser"
+                        :disabled="!allowLaser"
+                      >
+                        Лазерная эпиляция
+                      </RadioOption>
                     </div>
                     <div class="flex flex-1 justify-between">
                       <div class="w-[160px] px-3">
@@ -200,9 +180,9 @@
                 v-if="currentStep === 3"
                 class="quiz-step"
               >
-                <h3 class="text-[#333] text-2xl font-medium mb-6">
+                <QuizHeading variant="dark">
                   Выберите зону
-                </h3>
+                </QuizHeading>
 
                 <div class="grid grid-cols-2 gap-x-12 gap-y-4 mb-6">
                   <!-- Method prices -->
@@ -235,60 +215,42 @@
 
                   <!-- Zone selection -->
                   <div class="col-span-1 grid grid-cols-2 gap-4">
-                    <label class="flex items-center cursor-pointer">
-                      <input
-                        v-model="userAnswers.zone"
-                        type="radio"
-                        value="legs"
-                        class="form-radio h-5 w-5 text-[#FF6B9C]"
-                      >
-                      <span class="ml-2">Ноги</span>
-                    </label>
-                    <label class="flex items-center cursor-pointer">
-                      <input
-                        v-model="userAnswers.zone"
-                        type="radio"
-                        value="bikini"
-                        class="form-radio h-5 w-5 text-[#FF6B9C]"
-                      >
-                      <span class="ml-2">Бикини</span>
-                    </label>
-                    <label class="flex items-center cursor-pointer">
-                      <input
-                        v-model="userAnswers.zone"
-                        type="radio"
-                        value="face"
-                        class="form-radio h-5 w-5 text-[#FF6B9C]"
-                      >
-                      <span class="ml-2">Лицо</span>
-                    </label>
-                    <label class="flex items-center cursor-pointer">
-                      <input
-                        v-model="userAnswers.zone"
-                        type="radio"
-                        value="arms"
-                        class="form-radio h-5 w-5 text-[#FF6B9C]"
-                      >
-                      <span class="ml-2">Руки</span>
-                    </label>
-                    <label class="flex items-center cursor-pointer">
-                      <input
-                        v-model="userAnswers.zone"
-                        type="radio"
-                        value="back"
-                        class="form-radio h-5 w-5 text-[#FF6B9C]"
-                      >
-                      <span class="ml-2">Спина</span>
-                    </label>
-                    <label class="flex items-center cursor-pointer">
-                      <input
-                        v-model="userAnswers.zone"
-                        type="radio"
-                        value="stomach"
-                        class="form-radio h-5 w-5 text-[#FF6B9C]"
-                      >
-                      <span class="ml-2">Живот</span>
-                    </label>
+                    <RadioOption
+                      v-model="userAnswers.zone"
+                      value="legs"
+                    >
+                      Ноги
+                    </RadioOption>
+                    <RadioOption
+                      v-model="userAnswers.zone"
+                      value="bikini"
+                    >
+                      Бикини
+                    </RadioOption>
+                    <RadioOption
+                      v-model="userAnswers.zone"
+                      value="face"
+                    >
+                      Лицо
+                    </RadioOption>
+                    <RadioOption
+                      v-model="userAnswers.zone"
+                      value="arms"
+                    >
+                      Руки
+                    </RadioOption>
+                    <RadioOption
+                      v-model="userAnswers.zone"
+                      value="back"
+                    >
+                      Спина
+                    </RadioOption>
+                    <RadioOption
+                      v-model="userAnswers.zone"
+                      value="stomach"
+                    >
+                      Живот
+                    </RadioOption>
                   </div>
                 </div>
 
@@ -316,37 +278,28 @@
                 v-if="currentStep === 4"
                 class="quiz-step"
               >
-                <h3 class="text-[#333] text-2xl font-medium mb-8">
+                <QuizHeading variant="dark">
                   Выберите канал для связи
-                </h3>
+                </QuizHeading>
                 <div class="space-y-4 ml-4">
-                  <label class="flex items-center cursor-pointer">
-                    <input
-                      v-model="userAnswers.contactMethod"
-                      type="radio"
-                      value="telegram"
-                      class="form-radio h-5 w-5 text-[#FF6B9C]"
-                    >
-                    <span class="ml-4 text-lg">Telegram</span>
-                  </label>
-                  <label class="flex items-center cursor-pointer">
-                    <input
-                      v-model="userAnswers.contactMethod"
-                      type="radio"
-                      value="whatsapp"
-                      class="form-radio h-5 w-5 text-[#FF6B9C]"
-                    >
-                    <span class="ml-4 text-lg">WhatsApp</span>
-                  </label>
-                  <label class="flex items-center cursor-pointer">
-                    <input
-                      v-model="userAnswers.contactMethod"
-                      type="radio"
-                      value="phone"
-                      class="form-radio h-5 w-5 text-[#FF6B9C]"
-                    >
-                    <span class="ml-4 text-lg">Телефон</span>
-                  </label>
+                  <RadioOption
+                    v-model="userAnswers.contactMethod"
+                    value="telegram"
+                  >
+                    Telegram
+                  </RadioOption>
+                  <RadioOption
+                    v-model="userAnswers.contactMethod"
+                    value="whatsapp"
+                  >
+                    WhatsApp
+                  </RadioOption>
+                  <RadioOption
+                    v-model="userAnswers.contactMethod"
+                    value="phone"
+                  >
+                    Телефон
+                  </RadioOption>
                 </div>
 
                 <div
@@ -368,9 +321,9 @@
                 v-if="currentStep === 5"
                 class="quiz-step"
               >
-                <h3 class="text-[#333] text-2xl font-medium mb-4">
+                <QuizHeading variant="dark">
                   Выберите подарок
-                </h3>
+                </QuizHeading>
                 <p class="text-gray-600 mb-6">
                   За прохождение теста мы дарим вам один из подарков на выбор:
                 </p>
@@ -449,6 +402,8 @@
  * Collects user preferences and subtly guides them toward electro-epilation
  */
 import { ref, computed } from "vue";
+import RadioOption from "./RadioOption.vue";
+import QuizHeading from "./QuizHeading.vue";
 
 // Define quiz steps and state
 const currentStep = ref(1);
@@ -531,27 +486,6 @@ const submitQuiz = () => {
 <style scoped>
 .quiz-container {
   position: relative;
-}
-
-/* Custom styling for radio buttons */
-.form-radio {
-  appearance: none;
-  width: 18px;
-  height: 18px;
-  border: 2px solid #FF6B9C;
-  border-radius: 50%;
-  outline: none;
-  transition: all 0.2s ease;
-}
-
-.form-radio:checked {
-  background-color: #FF6B9C;
-  box-shadow: inset 0 0 0 3px white;
-}
-
-.form-radio:disabled {
-  border-color: #ddd;
-  background-color: #f5f5f5;
 }
 
 .quiz-step {
