@@ -103,7 +103,7 @@
               >
             </div>
             <button
-              class="py-4 px-8 font-bold bg-sup2-white text-additional-black text-2xl font-roboto rounded-md hover:bg-opacity-90 transition-all shadow-lg"
+              class="py-4 px-8 font-bold bg-sup2-white text-additional-black text-2xl font-roboto rounded-md hover:bg-opacity-90 transition-all shadow-lg button-glow"
             >
               Получить подарок
             </button>
@@ -148,6 +148,21 @@
   color: transparent;
   text-shadow: 0 0 10px rgba(255, 74, 129, 0.4);
   display: inline-block;
+}
+
+/* Button glow effect */
+.button-glow {
+  box-shadow: 0 0px 24px rgba(147, 186, 115, 0.4),
+              0 0px 8px rgba(147, 186, 115, 0.6),
+              0 0 0 1px rgba(147, 186, 115, 0.8);
+  transition: all 0.3s ease;
+}
+
+.button-glow:hover {
+  box-shadow: 0 0px 28px rgba(147, 186, 115, 0.6),
+              0 0px 12px rgba(147, 186, 115, 0.8),
+              0 0 0 2px rgba(147, 186, 115, 1);
+  transform: translateY(-2px);
 }
 
 /* Background setup with rotated gradient */
