@@ -22,7 +22,7 @@
           и получите <span class="text-add2-sat">подарок</span>
         </h2>
 
-        <div class="mb-8 flex gap-16 w-full">
+        <div class="mb-8 flex gap-16 w-full h-full">
           <!-- Progress bar -->
           <div class="relative h-4 min-w-[555px] mt-3">
             <div class="absolute w-[555px] h-[18px] bg-[#454B57] rounded-lg" />
@@ -32,7 +32,7 @@
             />
           </div>
 
-          <div class="flex-grow w-full h-full">
+          <div class="flex flex-col flex-grow w-full h-full">
             <!-- Quiz content - changes based on current step -->
             <div class="flex-grow w-full">
               <!-- Step 1: Age question -->
@@ -372,22 +372,27 @@
             <!-- Navigation buttons -->
             <div
               v-if="currentStep < 5"
-              class="flex justify-center mt-6 space-x-4"
+              class="flex justify-start gap-16 mt-6 transform -translate-x-[208px]"
             >
-              <button
+              <div
                 v-if="currentStep > 1"
-                class="py-2 px-6 bg-gray-700 text-white rounded-md hover:bg-gray-800 transition-colors"
+                class="w-36 h-14 px-10 py-4 bg-gradient-to-b bg-zinc-600 rounded-tl rounded-tr rounded-bl-[20px] rounded-br-[20px] inline-flex justify-center items-center gap-2.5 overflow-hidden cursor-pointer"
                 @click="prevStep"
               >
-                Назад
-              </button>
-              <button
-                class="py-2 px-6 bg-gray-700 text-white rounded-md hover:bg-gray-800 transition-colors"
+                <div class="justify-start text-white text-2xl font-normal font-roboto">
+                  Назад
+                </div>
+              </div>
+              <div
+                class="w-36 h-14 px-10 py-4 bg-gradient-to-b bg-zinc-600 rounded-tl rounded-tr rounded-bl-[20px] rounded-br-[20px] inline-flex justify-center items-center gap-2.5 overflow-hidden cursor-pointer"
+                :class="{ 'opacity-50 cursor-not-allowed': !canProceed }"
                 :disabled="!canProceed"
                 @click="nextStep"
               >
-                Далее
-              </button>
+                <div class="justify-start text-white text-2xl font-normal font-roboto">
+                  Далее
+                </div>
+              </div>
             </div>
           </div>
         </div>
@@ -490,5 +495,6 @@ const submitQuiz = () => {
 
 .quiz-step {
   max-width: 700px;
+  height: 100%;
 }
 </style>

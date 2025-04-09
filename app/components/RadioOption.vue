@@ -4,16 +4,26 @@
 -->
 <template>
   <label class="flex items-center cursor-pointer">
-    <input
-      :value="value"
-      :checked="modelValue === value"
-      type="radio"
-      class="form-radio h-5 w-5 text-[#FF6B9C]"
-      :disabled="disabled"
-      @change="$emit('update:modelValue', value)"
-    >
+    <div class="relative">
+      <input
+        :value="value"
+        :checked="modelValue === value"
+        type="radio"
+        class="sr-only"
+        :disabled="disabled"
+        @change="$emit('update:modelValue', value)"
+      >
+      <div
+        class="w-5 h-5 p-[2px] bg-zinc-600 rounded-[55px] inline-flex justify-start items-center gap-2.5"
+      >
+        <div
+          v-if="modelValue === value"
+          class="w-4 h-4 relative bg-[#ADDB88] rounded-[55px] shadow-[0px_0px_17px_0px_rgba(173,219,136,1.00)]"
+        />
+      </div>
+    </div>
     <span
-      class="ml-4 text-lg"
+      class="ml-4 text-lg text-[#232A36] font-medium"
       :class="{ 'text-gray-400': disabled }"
     >
       <slot />
@@ -51,26 +61,3 @@ defineProps({
 
 defineEmits(["update:modelValue"]);
 </script>
-
-<style scoped>
-/* Custom styling for radio buttons */
-.form-radio {
-  appearance: none;
-  width: 18px;
-  height: 18px;
-  border: 2px solid #FF6B9C;
-  border-radius: 50%;
-  outline: none;
-  transition: all 0.2s ease;
-}
-
-.form-radio:checked {
-  background-color: #FF6B9C;
-  box-shadow: inset 0 0 0 3px white;
-}
-
-.form-radio:disabled {
-  border-color: #ddd;
-  background-color: #f5f5f5;
-}
-</style>
