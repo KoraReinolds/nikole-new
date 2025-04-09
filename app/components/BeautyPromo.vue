@@ -3,15 +3,15 @@
   Component for displaying a promotional section for beauty/hair removal services
 -->
 <template>
-  <div class="relative bg-white min-h-screen flex items-center">
+  <div class="relative bg-radial-gradient bg-linear-gradient min-h-screen flex items-center">
     <div class="container mx-auto px-4">
       <!-- Header section with logo and navigation -->
       <div class="w-full relative mb-16">
-        <div class="flex justify-between items-center">
+        <div class="flex justify-start items-center">
           <!-- Logo on the left -->
-          <div class="w-72">
+          <div class="w-72 mr-12">
             <img
-              src="/images/logo.svg"
+              src="/images/logo.png"
               alt="Николе профстудия"
               class="h-36"
             >
@@ -19,13 +19,13 @@
 
           <!-- Menu items on the right -->
           <div class="flex items-center gap-12">
-            <div class="text-main-gray text-3xl font-normal font-roboto">
+            <div class="text-main text-3xl font-normal font-roboto">
               Услуги
             </div>
             <div>
               <span class="text-main-white2 text-3xl font-normal font-roboto">Мурманск</span>
-              <span class="text-main-gray text-3xl font-normal font-roboto">, </span>
-              <span class="text-main-gray text-2xl font-normal font-roboto">ул Юбилейная 9-32</span>
+              <span class="text-main text-3xl font-normal font-roboto">, </span>
+              <span class="text-main text-2xl font-normal font-roboto">ул Юбилейная 9-32</span>
             </div>
             <div class="flex gap-4">
               <a
@@ -61,39 +61,34 @@
 
       <div class="flex flex-col lg:flex-row">
         <!-- Left Content Section -->
-        <div class="lg:w-1/2 py-10 z-10">
+        <div class="w-[870px] py-10 z-10">
           <!-- Main Headline -->
-          <h1 class="text-main-dark text-6xl font-bold font-raleway mb-10">
-            Гладкая кожа <span class="text-add2-sat font-medium">НАВСЕГДА</span> — <br>
+          <h1 class="text-main-white2 text-6xl font-bold font-raleway mb-10">
+            Гладкая кожа <span class="pink-text-gradient font-bold">НАВСЕГДА</span><br>
             без боли и лишних сеансов
           </h1>
 
-          <!-- Description Text -->
-          <p class="text-main-dark text-3xl font-normal font-roboto mb-10">
-            Профессиональная эпиляция с гарантированным результатом
-          </p>
-
           <!-- Bullet Points -->
-          <ul class="space-y-4 mb-8 text-main-gray text-2xl font-normal font-roboto">
+          <ul class="space-y-4 mb-8 text-main-white2 text-2xl font-normal font-roboto">
             <li class="flex items-start">
               <span class="mr-2">•</span>
-              <span>с <span class="text-add2-sat font-medium">выгодой до 20.000</span> рублей</span>
+              <span>с <span class="pink-text-gradient font-medium">выгодой до 20.000</span> рублей</span>
             </li>
             <li class="flex items-start">
               <span class="mr-2">•</span>
-              <span>от мастера с <span class="text-add2-sat font-medium">опытом 13+ лет</span></span>
+              <span>от мастера с <span class="pink-text-gradient font-medium">опытом 13+ лет</span></span>
             </li>
             <li class="flex items-start">
               <span class="mr-2">•</span>
-              <span>пройдите тест и получите <span class="text-add2-sat font-medium">подарок</span></span>
+              <span>пройдите тест и получите <span class="pink-text-gradient font-medium">подарок</span></span>
             </li>
             <li class="ml-8 flex items-start">
               <span class="mr-2">•</span>
-              <span class="text-add2-sat font-medium">бесплатный</span> пробный сеанс
+              <span class="pink-text-gradient font-medium">бесплатный</span> пробный сеанс
             </li>
             <li class="ml-8 flex items-start">
               <span class="mr-2">•</span>
-              <span class="text-add2-sat font-medium">персональные</span> рекомендации
+              <span class="pink-text-gradient font-medium">персональные</span> рекомендации
             </li>
           </ul>
 
@@ -107,16 +102,16 @@
           </div>
         </div>
 
-        <!-- Right Image Section -->
-        <div class="lg:w-1/2 hidden lg:block relative">
-          <!-- Decorative Image -->
+        <!-- Right Image Section with Radial Gradient -->
+        <div class="lg:w-1/2 hidden lg:block absolute">
+          <!-- <div class="absolute inset-0 bg-radial-gradient rounded-lg opacity-70" />
           <div class="absolute inset-0 flex items-center justify-center">
-            <img
-              src="/images/promo-flowers.svg"
-              alt="Декоративные цветы"
-              class="object-cover h-full"
-            >
-          </div>
+          </div> -->
+          <img
+            src="/images/promo-flowers.png"
+            alt="Декоративные цветы"
+            class="object-cover h-full z-10"
+          >
         </div>
       </div>
     </div>
@@ -124,7 +119,7 @@
     <!-- Butterfly Decoration -->
     <div class="absolute bottom-20 left-20 w-16 h-16 opacity-70">
       <img
-        src="/images/butterfly.svg"
+        src="/images/butterfly.png"
         alt="Декоративная бабочка"
         class="w-full h-full"
       >
@@ -147,5 +142,15 @@
 
 .font-roboto {
   font-family: 'Roboto', sans-serif;
+}
+
+/* Gradient text with glow effect */
+.pink-text-gradient {
+  background-image: linear-gradient(180deg, #FF4A81 0%, #E088A3 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 10px rgba(255, 74, 129, 0.4);
+  display: inline-block;
 }
 </style>
