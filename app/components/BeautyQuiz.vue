@@ -6,28 +6,29 @@
   <div class="quiz-container w-full h-full">
     <div class="container mx-auto px-4 max-w-[1080px] h-full relative z-10 flex">
       <!-- Left side with flower vase image -->
-      <div class="w-1/3 flex items-center justify-center relative">
+      <div class="bottom-14 absolute -left-[208px]">
         <img
           src="/images/promo-flowers-2.png"
           alt="Цветы в вазе"
-          class="h-[400px] object-contain relative z-10"
+          class="w-[425px] object-contain relative z-10"
         >
       </div>
 
       <!-- Right side with quiz content -->
-      <div class="w-2/3 pt-12 pb-16 flex flex-col">
+      <div class="pt-[120px] pb-16 flex flex-col">
         <!-- Quiz header -->
         <div class="mb-8">
-          <h2 class="text-[#333] text-4xl font-bold font-raleway">
+          <h2 class="text-add2-black text-6xl font-bold font-raleway">
             Ответьте на 5 вопросов<br>
-            и получите <span class="text-[#FF6B9C]">подарок</span>
+            и получите <span class="text-add2-sat">подарок</span>
           </h2>
 
           <!-- Progress bar -->
-          <div class="mt-4 w-[60%] h-[12px] bg-gray-300 rounded-full overflow-hidden">
+          <div class="relative w-[555px] h-4 mt-10">
+            <div class="absolute w-[555px] h-[18px] bg-[#454B57] rounded-lg" />
             <div
-              class="h-full bg-gradient-to-r from-[#8BC34A] to-[#CDDC39]"
-              :style="{ width: `${(currentStep / totalSteps) * 100}%` }"
+              class="absolute left-[2px] top-[2px] h-[14px] bg-sup2-white2 rounded-lg shadow-[0px_0px_0px_0px_rgba(173,219,136,1.00)]"
+              :style="{ width: `${(currentStep / totalSteps) * 555 - 4}px` }"
             />
           </div>
         </div>

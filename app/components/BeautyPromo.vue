@@ -118,7 +118,7 @@
         </div>
 
         <!-- Right Image Section -->
-        <div class="absolute -right-[200px] -bottom-[100px]">
+        <div class="absolute -right-[200px] -bottom-[70px]">
           <img
             src="/images/promo-flowers.png"
             alt="Декоративные цветы"
@@ -133,16 +133,13 @@
   <div
     id="quiz-section"
     ref="quizSection"
-    class="relative h-[720px] w-full quiz-background"
+    class="relative h-[1000px] w-full quiz-background"
   >
     <BeautyQuiz />
 
-    <!-- Table/desk representation with two divs -->
-    <div class="absolute bottom-0 left-0 w-full">
-      <!-- First desk strip -->
-      <div class="h-[15px] w-full bg-[#D77E7E]" />
-      <!-- Second desk strip -->
-      <div class="h-[20px] w-full bg-[#A05050]" />
+    <div class="absolute bottom-0 left-0 w-full bottom-14">
+      <div class="h-[38px] w-full bg-[#FFFAE4]" />
+      <div class="h-[16px] w-full bg-[#A78B75]" />
     </div>
   </div>
 </template>
@@ -328,7 +325,7 @@ const scrollToQuiz = () => {
 
 /* Quiz background */
 .quiz-background {
-  background-color: #FFDBDB;
+  background: linear-gradient(to bottom, #FFA79B 0%, #FEB5A2 37%, #FB9C7E 86%, #8F352A 100%);
   position: relative;
 }
 </style>
