@@ -102,11 +102,13 @@
                 class="w-full h-full"
               >
             </div>
-            <button
-              class="py-4 px-8 font-bold bg-sup2-white text-additional-black text-2xl font-roboto rounded-md hover:bg-opacity-90 transition-all shadow-lg button-glow"
-            >
-              Получить подарок
-            </button>
+            <div class="button-firefly-container">
+              <button
+                class="py-4 px-8 font-bold bg-sup2-white text-additional-black text-2xl font-roboto rounded-md hover:bg-opacity-90 transition-all shadow-lg button-glow button-pulse"
+              >
+                Получить подарок
+              </button>
+            </div>
           </div>
         </div>
       </div>
@@ -156,6 +158,8 @@
               0 0px 8px rgba(147, 186, 115, 0.6),
               0 0 0 1px rgba(147, 186, 115, 0.8);
   transition: all 0.3s ease;
+  position: relative;
+  z-index: 5;
 }
 
 .button-glow:hover {
@@ -163,6 +167,101 @@
               0 0px 12px rgba(147, 186, 115, 0.8),
               0 0 0 2px rgba(147, 186, 115, 1);
   transform: translateY(-2px);
+}
+
+/* Button pulse animation */
+.button-pulse {
+  animation: pulse 3s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0px 24px rgba(147, 186, 115, 0.4),
+                0 0px 8px rgba(147, 186, 115, 0.6),
+                0 0 0 1px rgba(147, 186, 115, 0.8);
+  }
+  50% {
+    box-shadow: 0 0px 32px rgba(147, 186, 115, 0.7),
+                0 0px 16px rgba(147, 186, 115, 0.8),
+                0 0 0 2px rgba(147, 186, 115, 1);
+  }
+  100% {
+    box-shadow: 0 0px 24px rgba(147, 186, 115, 0.4),
+                0 0px 8px rgba(147, 186, 115, 0.6),
+                0 0 0 1px rgba(147, 186, 115, 0.8);
+  }
+}
+
+/* Firefly container and animation */
+.button-firefly-container {
+  position: relative;
+  display: inline-block;
+}
+
+.button-firefly-container::before,
+.button-firefly-container::after,
+.button-firefly-container .button-glow::before,
+.button-firefly-container .button-glow::after {
+  content: "";
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: rgba(147, 186, 115, 0.9);
+  filter: blur(2px);
+  box-shadow: 0 0 10px 2px rgba(147, 186, 115, 0.8);
+  z-index: 4;
+  pointer-events: none;
+}
+
+.button-firefly-container::before {
+  animation: firefly1 7s linear infinite;
+}
+
+.button-firefly-container::after {
+  animation: firefly2 6s linear infinite;
+}
+
+.button-firefly-container .button-glow::before {
+  animation: firefly3 8s linear infinite;
+}
+
+.button-firefly-container .button-glow::after {
+  animation: firefly4 9s linear infinite;
+}
+
+@keyframes firefly1 {
+  0% { transform: translate(-30px, 20px); opacity: 0; }
+  20% { opacity: 1; }
+  40% { transform: translate(40px, -30px); opacity: 0.8; }
+  60% { transform: translate(80px, 20px); opacity: 1; }
+  80% { transform: translate(20px, 60px); opacity: 0.6; }
+  100% { transform: translate(-30px, 20px); opacity: 0; }
+}
+
+@keyframes firefly2 {
+  0% { transform: translate(50px, 40px); opacity: 0; }
+  20% { transform: translate(-20px, 20px); opacity: 0.8; }
+  40% { transform: translate(-40px, -30px); opacity: 1; }
+  60% { transform: translate(10px, -50px); opacity: 0.6; }
+  80% { transform: translate(40px, 0px); opacity: 0.8; }
+  100% { transform: translate(50px, 40px); opacity: 0; }
+}
+
+@keyframes firefly3 {
+  0% { transform: translate(0px, -40px); opacity: 0; }
+  30% { transform: translate(60px, 0px); opacity: 1; }
+  50% { transform: translate(30px, 40px); opacity: 0.8; }
+  70% { transform: translate(-20px, 30px); opacity: 1; }
+  100% { transform: translate(0px, -40px); opacity: 0; }
+}
+
+@keyframes firefly4 {
+  0% { transform: translate(-50px, -20px); opacity: 0; }
+  25% { transform: translate(0px, 40px); opacity: 0.8; }
+  50% { transform: translate(50px, 0px); opacity: 1; }
+  75% { transform: translate(30px, -40px); opacity: 0.6; }
+  100% { transform: translate(-50px, -20px); opacity: 0; }
 }
 
 /* Background setup with rotated gradient */
