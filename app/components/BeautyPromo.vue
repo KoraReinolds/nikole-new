@@ -142,6 +142,21 @@
       <div class="h-[16px] w-full bg-[#A78B75]" />
     </div>
   </div>
+
+  <!-- Services section -->
+  <BeautyServices />
+
+  <!-- Testimonials section -->
+  <BeautyTestimonials />
+
+  <!-- FAQ section -->
+  <BeautyFaq />
+
+  <!-- CTA section -->
+  <BeautyCta />
+
+  <!-- Footer section -->
+  <BeautyFooter />
 </template>
 
 <script setup>
@@ -151,6 +166,11 @@
  */
 import { ref } from "vue";
 import BeautyQuiz from "./BeautyQuiz.vue";
+import BeautyServices from "./BeautyServices.vue";
+import BeautyTestimonials from "./BeautyTestimonials.vue";
+import BeautyFaq from "./BeautyFaq.vue";
+import BeautyCta from "./BeautyCta.vue";
+import BeautyFooter from "./BeautyFooter.vue";
 
 const quizSection = ref(null);
 
