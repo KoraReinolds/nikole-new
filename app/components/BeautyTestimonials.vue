@@ -3,58 +3,22 @@
   Component for displaying client testimonials and reviews
 -->
 <template>
-  <div class="relative w-full py-20 bg-[#A78B75]">
-    <div class="container mx-auto px-4 max-w-[1080px]">
-      <!-- Section title -->
-      <h2 class="text-5xl font-bold font-raleway text-white mb-16 text-center">
-        Отзывы <span class="text-[#FFFAE4]">клиентов</span>
-      </h2>
-
+  <div
+    class="relative w-full py-20 max-w-[1080px] mx-auto"
+    style="background: radial-gradient(circle, #563C34 0%, #402E28 30%, #16080E 100%)"
+  >
+    <!-- Section title -->
+    <h2 class="text-5xl font-bold font-raleway text-white mb-16 text-end w-full px-4">
+      Отзывы <span class="text-[#FFFAE4]">клиентов</span>
+    </h2>
+    <div class="container mx-auto px-4 max-w-[1080px] flex justify-end relative">
+      <img
+        src="/images/testimonials.png"
+        alt="Николе профстудия"
+        class="absolute -bottom-[135px] -left-[100px] w-[400px]"
+      >
       <!-- Testimonials slider -->
-      <div class="relative">
-        <!-- Slider controls -->
-        <div class="absolute -left-12 top-1/2 transform -translate-y-1/2 z-10">
-          <button
-            class="w-10 h-10 rounded-full bg-white bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all"
-            @click="prevSlide"
-          >
-            <svg
-              class="w-6 h-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M15 19l-7-7 7-7"
-              />
-            </svg>
-          </button>
-        </div>
-
-        <div class="absolute -right-12 top-1/2 transform -translate-y-1/2 z-10">
-          <button
-            class="w-10 h-10 rounded-full bg-white bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all"
-            @click="nextSlide"
-          >
-            <svg
-              class="w-6 h-6"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M9 5l7 7-7 7"
-              />
-            </svg>
-          </button>
-        </div>
-
+      <div class="relative w-[800px]">
         <!-- Testimonial cards -->
         <div class="overflow-hidden">
           <div
@@ -64,17 +28,17 @@
             <div
               v-for="(testimonial, index) in testimonials"
               :key="index"
-              class="w-full flex-shrink-0 px-4"
+              class="w-full flex-shrink-0 pl-4"
             >
               <div class="bg-white rounded-lg shadow-lg p-8">
                 <div class="flex items-center mb-4">
-                  <div class="w-16 h-16 rounded-full overflow-hidden mr-4">
+                  <!-- <div class="w-16 h-16 rounded-full overflow-hidden mr-4">
                     <img
                       :src="testimonial.avatar"
                       :alt="testimonial.name"
                       class="w-full h-full object-cover"
                     >
-                  </div>
+                  </div> -->
                   <div>
                     <h3 class="text-xl font-bold font-raleway text-additional-black">
                       {{ testimonial.name }}
@@ -103,8 +67,29 @@
           </div>
         </div>
 
-        <!-- Slider dots -->
-        <div class="flex justify-center mt-8">
+        <!-- Slider navigation with dots and arrows in one row -->
+        <div class="flex justify-center items-center mt-8">
+          <!-- Left arrow button -->
+          <button
+            class="w-10 h-10 rounded-full bg-white bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all mx-4"
+            @click="prevSlide"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M15 19l-7-7 7-7"
+              />
+            </svg>
+          </button>
+
+          <!-- Dots -->
           <button
             v-for="(_, index) in testimonials"
             :key="index"
@@ -112,6 +97,26 @@
             :class="currentSlide === index ? 'bg-[#FFFAE4]' : 'bg-white bg-opacity-40'"
             @click="goToSlide(index)"
           />
+
+          <!-- Right arrow button -->
+          <button
+            class="w-10 h-10 rounded-full bg-white bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all mx-4"
+            @click="nextSlide"
+          >
+            <svg
+              class="w-6 h-6"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M9 5l7 7-7 7"
+              />
+            </svg>
+          </button>
         </div>
       </div>
     </div>
