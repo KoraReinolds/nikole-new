@@ -29,7 +29,7 @@
         { 'text-gray-400': disabled },
         { 'font-bold': textBold },
       ]"
-      :style="textColor ? { color: textColor } : {}"
+      :style="textColor ? { color: textColor } : { color: '#232A36' }"
     >
       <slot />
     </span>

@@ -18,7 +18,7 @@
         :value="value"
         :disabled="disabled"
         :flex-row-reverse="true"
-        text-color="#94475E"
+        text-color="#232A36"
         :text-bold="true"
         @update:model-value="$emit('update:modelValue', $event)"
       >

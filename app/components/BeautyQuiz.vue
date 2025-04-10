@@ -212,42 +212,42 @@
                 <!-- Savings calculator with interactive slider -->
                 <div class="mt-8">
                   <div class="flex items-center justify-between">
-                    <h3 class="text-md font-medium text-[#94475E]">
+                    <h3 class="text-md font-medium text-[#232A36]">
                       Калькулятор выгоды
                     </h3>
                     <!-- Zones selection summary -->
                     <div class="text-sm">
-                      <span class="text-[#94475E] mr-1">Зоны:</span>
+                      <span class="text-[#232A36] mr-1">Зоны:</span>
                       <span
                         v-if="userAnswers.zones.includes('legs')"
-                        class="inline-block mx-0.5 px-1.5 py-0.5 bg-[#678854] rounded-sm text-xs"
+                        class="inline-block mx-0.5 px-1.5 py-0.5 bg-[#678854] rounded-sm text-xs text-white"
                       >Ноги</span>
                       <span
                         v-if="userAnswers.zones.includes('bikini')"
-                        class="inline-block mx-0.5 px-1.5 py-0.5 bg-[#678854] rounded-sm text-xs"
+                        class="inline-block mx-0.5 px-1.5 py-0.5 bg-[#678854] rounded-sm text-xs text-white"
                       >Бикини</span>
                       <span
                         v-if="userAnswers.zones.includes('face')"
-                        class="inline-block mx-0.5 px-1.5 py-0.5 bg-[#678854] rounded-sm text-xs"
+                        class="inline-block mx-0.5 px-1.5 py-0.5 bg-[#678854] rounded-sm text-xs text-white"
                       >Лицо</span>
                       <span
                         v-if="userAnswers.zones.includes('arms')"
-                        class="inline-block mx-0.5 px-1.5 py-0.5 bg-[#678854] rounded-sm text-xs"
+                        class="inline-block mx-0.5 px-1.5 py-0.5 bg-[#678854] rounded-sm text-xs text-white"
                       >Руки</span>
                       <span
                         v-if="userAnswers.zones.includes('back')"
-                        class="inline-block mx-0.5 px-1.5 py-0.5 bg-[#678854] rounded-sm text-xs"
+                        class="inline-block mx-0.5 px-1.5 py-0.5 bg-[#678854] rounded-sm text-xs text-white"
                       >Спина</span>
                       <span
                         v-if="userAnswers.zones.includes('stomach')"
-                        class="inline-block mx-0.5 px-1.5 py-0.5 bg-[#678854] rounded-sm text-xs"
+                        class="inline-block mx-0.5 px-1.5 py-0.5 bg-[#678854] rounded-sm text-xs text-white"
                       >Живот</span>
                     </div>
                   </div>
 
                   <div class="bg-[#FFD0BE] p-3 rounded-lg shadow-sm border mt-2">
                     <div class="mb-2">
-                      <p class="text-gray-700 text-sm mb-2">
+                      <p class="text-[#232A36] text-sm mb-2">
                         Выберите период расчета:
                       </p>
                       <div class="flex space-x-1.5">
@@ -258,7 +258,7 @@
                           :class="[
                             timePeriod === year
                               ? 'bg-[#94475E] text-white font-medium'
-                              : 'bg-gray-200 text-gray-700 hover:bg-gray-300',
+                              : 'bg-gray-200 text-[#232A36] hover:bg-gray-300',
                           ]"
                           @click="timePeriod = year"
                         >
@@ -270,7 +270,7 @@
                     <div class="bg-[#FFD0BE] p-3 rounded-lg border border-[#678854]">
                       <div class="flex items-center mb-1">
                         <div class="flex-grow">
-                          <p class="text-sm text-[#94475E]">
+                          <p class="text-sm text-[#232A36]">
                             За {{ timePeriod }} {{ yearLabel }} вы сэкономите:
                           </p>
                         </div>
@@ -278,13 +278,13 @@
                           <p class="text-xl font-bold text-[#4CAF50]">
                             {{ formattedSavings }}
                           </p>
-                          <p class="text-xs text-gray-500">
+                          <p class="text-xs text-[#232A36]">
                             рублей
                           </p>
                         </div>
                       </div>
 
-                      <div class="text-xs text-gray-600">
+                      <div class="text-xs text-[#232A36]">
                         <div class="flex justify-between items-center">
                           <div>Метод: <span class="font-medium">{{ getMethodName }}</span></div>
                           <div>В год: <span class="font-medium">{{ getSavingsBaseAmount }} ₽</span></div>
