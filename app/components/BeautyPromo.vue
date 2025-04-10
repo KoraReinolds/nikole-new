@@ -21,9 +21,12 @@
 
             <!-- Menu items on the right -->
             <div class="flex items-center gap-12">
-              <div class="text-main text-3xl font-normal font-roboto">
+              <button
+                class="text-main text-3xl font-normal font-roboto hover:text-opacity-80 transition-all cursor-pointer"
+                @click="scrollToServices"
+              >
                 Услуги
-              </div>
+              </button>
               <div>
                 <span class="text-main-white2 text-3xl font-normal font-roboto">Мурманск</span>
                 <span class="text-main text-3xl font-normal font-roboto">, </span>
@@ -144,16 +147,13 @@
   </div>
 
   <!-- Services section -->
-  <BeautyServices />
+  <BeautyServices ref="servicesSection" />
 
   <!-- Testimonials section -->
   <BeautyTestimonials />
 
   <!-- FAQ section -->
   <BeautyFaq />
-
-  <!-- CTA section -->
-  <BeautyCta />
 
   <!-- Footer section -->
   <BeautyFooter />
@@ -169,16 +169,23 @@ import BeautyQuiz from "./BeautyQuiz.vue";
 import BeautyServices from "./BeautyServices.vue";
 import BeautyTestimonials from "./BeautyTestimonials.vue";
 import BeautyFaq from "./BeautyFaq.vue";
-import BeautyCta from "./BeautyCta.vue";
 import BeautyFooter from "./BeautyFooter.vue";
 
 const quizSection = ref(null);
+const servicesSection = ref(null);
 
 /**
  * Scrolls to the quiz section smoothly
  */
 const scrollToQuiz = () => {
   quizSection.value.scrollIntoView({ behavior: "smooth" });
+};
+
+/**
+ * Scrolls to the services section smoothly
+ */
+const scrollToServices = () => {
+  servicesSection.value.$el.scrollIntoView({ behavior: "smooth" });
 };
 </script>
 
