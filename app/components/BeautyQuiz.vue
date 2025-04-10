@@ -25,10 +25,15 @@
         <div class="mb-8 flex gap-16 w-full h-full">
           <!-- Progress bar -->
           <div class="relative h-4 min-w-[555px] mt-3">
-            <div class="absolute w-[555px] h-[18px] bg-[#454B57] rounded-lg" />
-            <div
-              class="absolute left-[2px] top-[2px] h-[14px] bg-sup2-white2 rounded-lg shadow-[0px_0px_0px_0px_rgba(173,219,136,1.00)]"
-              :style="{ width: `${(currentStep / totalSteps) * 555 - 4}px` }"
+            <ProgressBar
+              :model-value="currentStep"
+              :min="1"
+              :max="totalSteps"
+              width="555px"
+              :height="18"
+              bg-color="bg-[#454B57]"
+              progress-color="bg-sup2-white2"
+              :track-padding="2"
             />
           </div>
 
@@ -92,18 +97,30 @@
                     </div>
                     <div class="flex flex-1 justify-between">
                       <div class="w-[160px] px-3">
-                        <div class="h-[8px] w-full bg-gray-200 rounded-full overflow-hidden">
-                          <div
-                            class="h-full bg-gradient-to-r from-[#8BC34A] to-[#CDDC39]"
-                            style="width: 85%"
+                        <!-- Safety rating -->
+                        <div class="rating-bar w-full">
+                          <ProgressBar
+                            :model-value="85"
+                            :min="0"
+                            :max="100"
+                            :height="18"
+                            bg-color="bg-[#454B57]"
+                            progress-color="bg-sup2-white2"
+                            full-width
                           />
                         </div>
                       </div>
                       <div class="w-[160px] px-3">
-                        <div class="h-[8px] w-full bg-gray-200 rounded-full overflow-hidden">
-                          <div
-                            class="h-full bg-gradient-to-r from-[#8BC34A] to-[#CDDC39]"
-                            style="width: 95%"
+                        <!-- Effectiveness rating -->
+                        <div class="rating-bar w-full">
+                          <ProgressBar
+                            :model-value="95"
+                            :min="0"
+                            :max="100"
+                            :height="18"
+                            bg-color="bg-[#454B57]"
+                            progress-color="bg-sup2-white2"
+                            full-width
                           />
                         </div>
                       </div>
@@ -123,20 +140,26 @@
                     </div>
                     <div class="flex flex-1 justify-between">
                       <div class="w-[160px] px-3">
-                        <div class="h-[8px] w-full bg-gray-200 rounded-full overflow-hidden">
-                          <div
-                            class="h-full bg-gradient-to-r from-[#8BC34A] to-[#CDDC39]"
-                            style="width: 75%"
-                          />
-                        </div>
+                        <ProgressBar
+                          :model-value="75"
+                          :min="0"
+                          :max="100"
+                          :height="18"
+                          bg-color="bg-[#454B57]"
+                          progress-color="bg-sup2-white2"
+                          full-width
+                        />
                       </div>
                       <div class="w-[160px] px-3">
-                        <div class="h-[8px] w-full bg-gray-200 rounded-full overflow-hidden">
-                          <div
-                            class="h-full bg-gradient-to-r from-[#8BC34A] to-[#CDDC39]"
-                            style="width: 40%"
-                          />
-                        </div>
+                        <ProgressBar
+                          :model-value="40"
+                          :min="0"
+                          :max="100"
+                          :height="18"
+                          bg-color="bg-[#454B57]"
+                          progress-color="bg-sup2-white2"
+                          full-width
+                        />
                       </div>
                     </div>
                   </div>
@@ -155,20 +178,26 @@
                     </div>
                     <div class="flex flex-1 justify-between">
                       <div class="w-[160px] px-3">
-                        <div class="h-[8px] w-full bg-gray-200 rounded-full overflow-hidden">
-                          <div
-                            class="h-full bg-gradient-to-r from-[#8BC34A] to-[#CDDC39]"
-                            style="width: 50%"
-                          />
-                        </div>
+                        <ProgressBar
+                          :model-value="50"
+                          :min="0"
+                          :max="100"
+                          :height="18"
+                          bg-color="bg-[#454B57]"
+                          progress-color="bg-sup2-white2"
+                          full-width
+                        />
                       </div>
                       <div class="w-[160px] px-3">
-                        <div class="h-[8px] w-full bg-gray-200 rounded-full overflow-hidden">
-                          <div
-                            class="h-full bg-gradient-to-r from-[#8BC34A] to-[#CDDC39]"
-                            style="width: 75%"
-                          />
-                        </div>
+                        <ProgressBar
+                          :model-value="75"
+                          :min="0"
+                          :max="100"
+                          :height="18"
+                          bg-color="bg-[#454B57]"
+                          progress-color="bg-sup2-white2"
+                          full-width
+                        />
                       </div>
                     </div>
                   </div>
@@ -254,19 +283,28 @@
                   </div>
                 </div>
 
-                <!-- Savings calculation -->
+                <!-- Savings calculator with interactive slider -->
                 <div class="mt-8">
                   <div class="flex items-center mb-2">
-                    <span class="text-lg">За 2 года вы сэкономите от</span>
-                    <span class="ml-2 text-lg font-bold px-3 py-1 bg-[#4CAF50] text-white rounded-md">12000</span>
+                    <span class="text-lg">За {{ timePeriod }} {{ yearLabel }} вы сэкономите от</span>
+                    <span class="ml-2 text-lg font-bold px-3 py-1 bg-[#4CAF50] text-white rounded-md">{{ calculatedSavings }}</span>
                     <span class="ml-2 text-lg">рублей</span>
                   </div>
+
                   <div class="flex items-center">
-                    <span class="text-lg mr-2">Посчитайте выгоду →</span>
-                    <div class="w-[240px] h-[12px] bg-gray-200 rounded-full overflow-hidden">
-                      <div
-                        class="h-full bg-gradient-to-r from-[#8BC34A] to-[#CDDC39]"
-                        style="width: 65%"
+                    <span class="text-lg mr-4">Посчитайте выгоду →</span>
+                    <div class="flex-grow max-w-md">
+                      <ProgressBar
+                        v-model="timePeriod"
+                        :min="1"
+                        :max="5"
+                        :height="18"
+                        bg-color="bg-[#454B57]"
+                        progress-color="bg-sup2-white2"
+                        width="100%"
+                        :interactive="true"
+                        :show-labels="true"
+                        :labels="['1 год', '2 года', '3 года', '4 года', '5 лет']"
                       />
                     </div>
                   </div>
@@ -409,6 +447,11 @@
 import { ref, computed } from "vue";
 import RadioOption from "./RadioOption.vue";
 import QuizHeading from "./QuizHeading.vue";
+import ProgressBar from "./ProgressBar.vue";
+/**
+ * RatingBar and SavingsCalculator are kept for backward compatibility
+ * with existing code that might import them, but we're now using ProgressBar directly
+ */
 
 // Define quiz steps and state
 const currentStep = ref(1);
@@ -422,6 +465,39 @@ const userAnswers = ref({
   contactMethod: null,
   phone: null,
   reward: null,
+});
+
+// Time period for savings calculation
+const timePeriod = ref(2);
+
+/**
+ * Correct grammatical form of "year" in Russian based on number
+ */
+const yearLabel = computed(() => {
+  // Russian grammar rules for years
+  if (timePeriod.value === 1) {
+    return "год";
+  }
+  else if (timePeriod.value >= 2 && timePeriod.value <= 4) {
+    return "года";
+  }
+  else {
+    return "лет";
+  }
+});
+
+/**
+ * Calculate savings based on selected time period and method
+ */
+const calculatedSavings = computed(() => {
+  const baseAmount = getSavingsBaseAmount.value;
+  const yearlyMultiplier = 1.1;
+
+  let total = 0;
+  for (let i = 0; i < Math.round(timePeriod.value); i++) {
+    total += baseAmount * Math.pow(yearlyMultiplier, i);
+  }
+  return Math.round(total);
 });
 
 // Computed properties for quiz logic
@@ -443,6 +519,22 @@ const canProceed = computed(() => {
       return !!userAnswers.value.contactMethod && validatePhone();
     default:
       return true;
+  }
+});
+
+/**
+ * Get base amount for savings calculator based on selected method
+ */
+const getSavingsBaseAmount = computed(() => {
+  switch (userAnswers.value.method) {
+    case "electro":
+      return 6000;
+    case "sugaring":
+      return 12000;
+    case "laser":
+      return 8000;
+    default:
+      return 6000;
   }
 });
 
