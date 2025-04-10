@@ -111,9 +111,8 @@
                   Выберите способ
                 </QuizHeading>
 
-                <div class="mb-2 flex">
-                  <div class="w-[180px]" />
-                  <div class="flex flex-1 justify-between text-center">
+                <div class="my-12 flex">
+                  <div class="flex flex-1 justify-between text-start">
                     <div class="w-[160px] text-gray-600 font-medium">
                       безопасность
                     </div>
@@ -125,8 +124,8 @@
 
                 <div class="space-y-6">
                   <!-- Electro-epilation option -->
-                  <div class="flex items-center">
-                    <div class="w-[180px] flex items-center">
+                  <div class="flex items-center relative">
+                    <div class="w-[240px] flex items-center justify-end absolute left-[-304px]">
                       <span class="inline-flex items-center justify-center w-5 h-5 mr-2 rounded-full bg-gray-200 text-gray-600">?</span>
                       <RadioOption
                         v-model="userAnswers.method"
@@ -168,8 +167,8 @@
                   </div>
 
                   <!-- Sugaring option -->
-                  <div class="flex items-center">
-                    <div class="w-[180px] flex items-center">
+                  <div class="flex items-center relative">
+                    <div class="w-[240px] flex items-center justify-end absolute left-[-304px]">
                       <span class="inline-flex items-center justify-center w-5 h-5 mr-2 rounded-full bg-gray-200 text-gray-600">?</span>
                       <RadioOption
                         v-model="userAnswers.method"
@@ -205,8 +204,8 @@
                   </div>
 
                   <!-- Laser epilation option -->
-                  <div class="flex items-center">
-                    <div class="w-[180px] flex items-center">
+                  <div class="flex items-center relative">
+                    <div class="w-[240px] flex items-center justify-end absolute left-[-304px]">
                       <span class="inline-flex items-center justify-center w-5 h-5 mr-2 rounded-full bg-gray-200 text-gray-600">?</span>
                       <RadioOption
                         v-model="userAnswers.method"
