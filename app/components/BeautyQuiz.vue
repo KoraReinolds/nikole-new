@@ -62,12 +62,52 @@
                 </div>
               </div>
 
-              <!-- Step 2: Method selection with comparison table -->
+              <!-- Step 2: Problems selection -->
               <div
                 v-if="currentStep === 2"
                 class="quiz-step"
               >
-                <QuizHeading variant="dark">
+                <QuizHeading>Какие из проблем вам знакомы?</QuizHeading>
+                <div class="space-y-4 ml-4 mt-6 bg-[#FFBCAD] p-6 rounded-lg max-w-[500px]">
+                  <CheckboxOption
+                    v-model="userAnswers.problems"
+                    value="frequent_shaving"
+                  >
+                    Частое бритье
+                  </CheckboxOption>
+                  <CheckboxOption
+                    v-model="userAnswers.problems"
+                    value="embarrassment"
+                  >
+                    Стеснение
+                  </CheckboxOption>
+                  <CheckboxOption
+                    v-model="userAnswers.problems"
+                    value="pain"
+                  >
+                    Боль при эпиляции
+                  </CheckboxOption>
+                  <CheckboxOption
+                    v-model="userAnswers.problems"
+                    value="safety_concerns"
+                  >
+                    Сомневаюсь в безопасности
+                  </CheckboxOption>
+                  <CheckboxOption
+                    v-model="userAnswers.problems"
+                    value="no_problems"
+                  >
+                    Никаких проблем
+                  </CheckboxOption>
+                </div>
+              </div>
+
+              <!-- Step 3: Method selection with comparison table -->
+              <div
+                v-if="currentStep === 3"
+                class="quiz-step"
+              >
+                <QuizHeading>
                   Выберите способ
                 </QuizHeading>
 
@@ -204,12 +244,12 @@
                 </div>
               </div>
 
-              <!-- Step 3: Zone selection with prices -->
+              <!-- Step 4: Zone selection with prices -->
               <div
-                v-if="currentStep === 3"
+                v-if="currentStep === 4"
                 class="quiz-step"
               >
-                <QuizHeading variant="dark">
+                <QuizHeading>
                   Выберите зону
                 </QuizHeading>
 
@@ -313,10 +353,10 @@
 
               <!-- Final Steps - Contact Information -->
               <div
-                v-if="currentStep === 4"
+                v-if="currentStep === 5"
                 class="quiz-step"
               >
-                <QuizHeading variant="dark">
+                <QuizHeading>
                   Выберите канал для связи
                 </QuizHeading>
                 <div class="space-y-4 ml-4">
@@ -356,10 +396,10 @@
 
               <!-- Final Step - Reward & Submit -->
               <div
-                v-if="currentStep === 5"
+                v-if="currentStep === 6"
                 class="quiz-step"
               >
-                <QuizHeading variant="dark">
+                <QuizHeading>
                   Выберите подарок
                 </QuizHeading>
                 <p class="text-gray-600 mb-6">
@@ -409,7 +449,7 @@
 
             <!-- Navigation buttons -->
             <div
-              v-if="currentStep < 5"
+              v-if="currentStep < 6"
               class="flex justify-start gap-16 mt-6 transform -translate-x-[208px]"
             >
               <div
@@ -444,31 +484,90 @@
  * Beauty Quiz component for guiding users through a personalized hair removal quiz
  * Collects user preferences and subtly guides them toward electro-epilation
  */
-import { ref, computed } from "vue";
+import { ref, computed, watch, onMounted } from "vue";
 import RadioOption from "./RadioOption.vue";
+import CheckboxOption from "./CheckboxOption.vue";
 import QuizHeading from "./QuizHeading.vue";
 import ProgressBar from "./ProgressBar.vue";
-/**
- * RatingBar and SavingsCalculator are kept for backward compatibility
- * with existing code that might import them, but we're now using ProgressBar directly
- */
+
+// Quiz storage key for localStorage
+const STORAGE_KEY = "beauty_quiz_answers";
 
 // Define quiz steps and state
 const currentStep = ref(1);
-const totalSteps = 5;
+const totalSteps = 6;
 
-// User answers storage
-const userAnswers = ref({
+// Default user answers
+const defaultAnswers = {
   age: null,
+  problems: [],
   method: null,
   zone: null,
   contactMethod: null,
   phone: null,
   reward: null,
-});
+};
+
+// User answers storage
+const userAnswers = ref({ ...defaultAnswers });
 
 // Time period for savings calculation
 const timePeriod = ref(2);
+
+/**
+ * Load saved quiz data from localStorage
+ */
+const loadSavedQuizData = () => {
+  try {
+    const savedData = localStorage.getItem(STORAGE_KEY);
+    if (savedData) {
+      const parsedData = JSON.parse(savedData);
+
+      // Restore user answers
+      userAnswers.value = { ...defaultAnswers, ...parsedData.userAnswers };
+
+      // Restore other state
+      if (parsedData.currentStep) {
+        currentStep.value = parsedData.currentStep;
+      }
+
+      if (parsedData.timePeriod) {
+        timePeriod.value = parsedData.timePeriod;
+      }
+    }
+  }
+  catch (error) {
+    console.error("Error loading saved quiz data:", error);
+  }
+};
+
+/**
+ * Save current quiz state to localStorage
+ */
+const saveQuizData = () => {
+  try {
+    const dataToSave = {
+      userAnswers: userAnswers.value,
+      currentStep: currentStep.value,
+      timePeriod: timePeriod.value,
+    };
+
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(dataToSave));
+  }
+  catch (error) {
+    console.error("Error saving quiz data:", error);
+  }
+};
+
+// Watch for changes to save automatically
+watch([userAnswers, currentStep, timePeriod], () => {
+  saveQuizData();
+}, { deep: true });
+
+// Load saved data on component mount
+onMounted(() => {
+  loadSavedQuizData();
+});
 
 /**
  * Correct grammatical form of "year" in Russian based on number
@@ -512,10 +611,12 @@ const canProceed = computed(() => {
     case 1:
       return !!userAnswers.value.age;
     case 2:
-      return !!userAnswers.value.method;
+      return userAnswers.value.problems && userAnswers.value.problems.length > 0;
     case 3:
-      return !!userAnswers.value.zone;
+      return !!userAnswers.value.method;
     case 4:
+      return !!userAnswers.value.zone;
+    case 5:
       return !!userAnswers.value.contactMethod && validatePhone();
     default:
       return true;
@@ -554,6 +655,7 @@ const validatePhone = () => {
 const nextStep = () => {
   if (canProceed.value && currentStep.value < totalSteps) {
     currentStep.value++;
+    saveQuizData();
   }
 };
 
@@ -563,6 +665,7 @@ const nextStep = () => {
 const prevStep = () => {
   if (currentStep.value > 1) {
     currentStep.value--;
+    saveQuizData();
   }
 };
 
@@ -577,6 +680,9 @@ const submitQuiz = () => {
 
   // For now, just show alert
   alert("Спасибо за прохождение теста! Мы свяжемся с вами в ближайшее время.");
+
+  // After successful submission, you might want to clear the storage
+  // localStorage.removeItem(STORAGE_KEY);
 };
 </script>
 
