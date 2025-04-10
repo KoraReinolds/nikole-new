@@ -3,10 +3,7 @@
   Reusable component for checkbox inputs with consistent styling
 -->
 <template>
-  <label
-    class="flex items-center cursor-pointer"
-    :class="{ 'cursor-not-allowed': disabled }"
-  >
+  <label :class="['flex items-center cursor-pointer', { 'flex-row-reverse': flexRowReverse, 'cursor-not-allowed': disabled }]">
     <div class="relative">
       <input
         :value="value"
@@ -27,10 +24,13 @@
       </div>
     </div>
     <span
-      class="ml-4 text-lg text-[#232A36] font-medium"
-      :class="{
-        'text-gray-400': disabled,
-      }"
+      :class="[
+        flexRowReverse ? 'mr-4' : 'ml-4',
+        'text-lg font-medium',
+        { 'text-gray-400': disabled },
+        { 'font-bold': textBold },
+      ]"
+      :style="textColor ? { color: textColor } : {}"
     >
       <slot />
     </span>
@@ -62,6 +62,27 @@ const props = defineProps({
    * Whether the checkbox is disabled
    */
   disabled: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+   * Whether to reverse the flex direction (checkbox on the right)
+   */
+  flexRowReverse: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+   * Custom text color
+   */
+  textColor: {
+    type: String,
+    default: "",
+  },
+  /**
+   * Whether to make the text bold
+   */
+  textBold: {
     type: Boolean,
     default: false,
   },

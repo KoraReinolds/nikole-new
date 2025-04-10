@@ -102,14 +102,99 @@
                 </div>
               </div>
 
-              <!-- Step 3: Method selection with comparison table -->
+              <!-- Step 3: Zone selection with checkboxes -->
               <div
                 v-if="currentStep === 3"
                 class="quiz-step"
               >
                 <QuizHeading>
+                  Выберите зоны эпиляции
+                </QuizHeading>
+
+                <div class="space-y-4 mt-6 bg-[#FFBCAD] p-6 rounded-lg max-w-[500px]">
+                  <CheckboxOption
+                    v-model="userAnswers.zones"
+                    value="legs"
+                  >
+                    Ноги
+                  </CheckboxOption>
+
+                  <CheckboxOption
+                    v-model="userAnswers.zones"
+                    value="bikini"
+                  >
+                    Бикини
+                  </CheckboxOption>
+
+                  <CheckboxOption
+                    v-model="userAnswers.zones"
+                    value="face"
+                  >
+                    Лицо
+                  </CheckboxOption>
+
+                  <CheckboxOption
+                    v-model="userAnswers.zones"
+                    value="arms"
+                  >
+                    Руки
+                  </CheckboxOption>
+
+                  <CheckboxOption
+                    v-model="userAnswers.zones"
+                    value="back"
+                  >
+                    Спина
+                  </CheckboxOption>
+
+                  <CheckboxOption
+                    v-model="userAnswers.zones"
+                    value="stomach"
+                  >
+                    Живот
+                  </CheckboxOption>
+                </div>
+              </div>
+
+              <!-- Step 4: Method selection with comparison table and calculator -->
+              <div
+                v-if="currentStep === 4"
+                class="quiz-step"
+              >
+                <QuizHeading>
                   Выберите способ
                 </QuizHeading>
+
+                <!-- Zones selection summary -->
+                <div class="my-6">
+                  <div class="font-medium text-[#94475E]">
+                    Выбранные зоны:
+                    <span
+                      v-if="userAnswers.zones.includes('legs')"
+                      class="inline-block mx-1 px-2 py-1 bg-[#B2F48E] rounded text-sm"
+                    >Ноги</span>
+                    <span
+                      v-if="userAnswers.zones.includes('bikini')"
+                      class="inline-block mx-1 px-2 py-1 bg-[#B2F48E] rounded text-sm"
+                    >Бикини</span>
+                    <span
+                      v-if="userAnswers.zones.includes('face')"
+                      class="inline-block mx-1 px-2 py-1 bg-[#B2F48E] rounded text-sm"
+                    >Лицо</span>
+                    <span
+                      v-if="userAnswers.zones.includes('arms')"
+                      class="inline-block mx-1 px-2 py-1 bg-[#B2F48E] rounded text-sm"
+                    >Руки</span>
+                    <span
+                      v-if="userAnswers.zones.includes('back')"
+                      class="inline-block mx-1 px-2 py-1 bg-[#B2F48E] rounded text-sm"
+                    >Спина</span>
+                    <span
+                      v-if="userAnswers.zones.includes('stomach')"
+                      class="inline-block mx-1 px-2 py-1 bg-[#B2F48E] rounded text-sm"
+                    >Живот</span>
+                  </div>
+                </div>
 
                 <div class="my-12 flex">
                   <div class="flex flex-1 justify-between text-start">
@@ -124,236 +209,42 @@
 
                 <div class="space-y-6">
                   <!-- Electro-epilation option -->
-                  <div class="flex items-center relative h-11">
-                    <div class="w-[240px] flex items-center justify-end absolute left-[-304px]">
-                      <div class="tooltip-container relative mr-2">
-                        <span class="inline-flex items-center justify-center w-5 h-5 rounded-full cursor-help bg-add2-sat text-white font-bold">?</span>
-                        <div class="tooltip-text absolute left-7 top-0 bg-white p-3 rounded-lg shadow-lg z-10 w-[250px] hidden">
-                          <p class="text-sm text-gray-700">
-                            Электроэпиляция — это метод удаления волос, при котором используется электрический ток для разрушения волосяных фолликулов. Процедура обеспечивает долгосрочный результат и подходит для любого типа кожи и волос.
-                          </p>
-                        </div>
-                      </div>
-                      <RadioOption
-                        v-model="userAnswers.method"
-                        value="electro"
-                        :flex-row-reverse="true"
-                        text-color="#94475E"
-                        :text-bold="true"
-                      >
-                        Электроэпиляция
-                      </RadioOption>
-                    </div>
-                    <div class="flex flex-1 justify-between h-full items-center -translate-y-3">
-                      <div class="w-[160px]">
-                        <!-- Safety rating -->
-                        <div class="rating-bar w-full">
-                          <ProgressBar
-                            :model-value="85"
-                            :min="0"
-                            :max="100"
-                            :height="18"
-                            bg-color="bg-[#454B57]"
-                            progress-color="bg-sup2-white2"
-                            full-width
-                          />
-                        </div>
-                      </div>
-                      <div class="w-[160px]">
-                        <!-- Effectiveness rating -->
-                        <div class="rating-bar w-full">
-                          <ProgressBar
-                            :model-value="95"
-                            :min="0"
-                            :max="100"
-                            :height="18"
-                            bg-color="bg-[#454B57]"
-                            progress-color="bg-sup2-white2"
-                            full-width
-                          />
-                        </div>
-                      </div>
-                    </div>
-                  </div>
+                  <MethodOption
+                    v-model="userAnswers.method"
+                    value="electro"
+                    label="Электроэпиляция"
+                    tooltip-text="Электроэпиляция — это метод удаления волос, при котором используется электрический ток для разрушения волосяных фолликулов. Процедура обеспечивает долгосрочный результат и подходит для любого типа кожи и волос."
+                    :safety-value="85"
+                    :efficiency-value="95"
+                  />
 
                   <!-- Sugaring option -->
-                  <div class="flex items-center relative h-11">
-                    <div class="w-[240px] flex items-center justify-end absolute left-[-304px]">
-                      <div class="tooltip-container relative mr-2">
-                        <span class="inline-flex items-center justify-center w-5 h-5 rounded-full text-gray-600 cursor-help bg-add2-sat text-white font-bold">?</span>
-                        <div class="tooltip-text absolute left-7 top-0 bg-white p-3 rounded-lg shadow-lg z-10 w-[250px] hidden">
-                          <p class="text-sm text-gray-700">
-                            Шугаринг — метод удаления волос с помощью густой сахарной пасты. Удаляет волосы вместе с корнем, но они отрастают снова через несколько недель. Подходит для чувствительной кожи.
-                          </p>
-                        </div>
-                      </div>
-                      <RadioOption
-                        v-model="userAnswers.method"
-                        value="sugaring"
-                        :flex-row-reverse="true"
-                        text-color="#94475E"
-                        :text-bold="true"
-                      >
-                        Шугаринг
-                      </RadioOption>
-                    </div>
-                    <div class="flex flex-1 justify-between h-full items-center -translate-y-3">
-                      <div class="w-[160px]">
-                        <ProgressBar
-                          :model-value="75"
-                          :min="0"
-                          :max="100"
-                          :height="18"
-                          bg-color="bg-[#454B57]"
-                          progress-color="bg-sup2-white2"
-                          full-width
-                        />
-                      </div>
-                      <div class="w-[160px]">
-                        <ProgressBar
-                          :model-value="40"
-                          :min="0"
-                          :max="100"
-                          :height="18"
-                          bg-color="bg-[#454B57]"
-                          progress-color="bg-sup2-white2"
-                          full-width
-                        />
-                      </div>
-                    </div>
-                  </div>
+                  <MethodOption
+                    v-model="userAnswers.method"
+                    value="sugaring"
+                    label="Шугаринг"
+                    tooltip-text="Шугаринг — метод удаления волос с помощью густой сахарной пасты. Удаляет волосы вместе с корнем, но они отрастают снова через несколько недель. Подходит для чувствительной кожи."
+                    :safety-value="75"
+                    :efficiency-value="40"
+                  />
 
                   <!-- Laser epilation option -->
-                  <div class="flex items-center relative h-11">
-                    <div class="w-[240px] flex items-center justify-end absolute left-[-304px]">
-                      <div class="tooltip-container relative mr-2">
-                        <span class="inline-flex items-center justify-center w-5 h-5 rounded-full cursor-help bg-add2-sat text-white font-bold">?</span>
-                        <div class="tooltip-text absolute left-7 top-0 bg-white p-3 rounded-lg shadow-lg z-10 w-[250px] hidden">
-                          <p class="text-sm text-gray-700">
-                            Лазерная эпиляция — метод удаления волос с помощью лазерного луча, который воздействует на пигмент волоса. Эффективен для темных волос, но может быть менее эффективен для светлых или седых волос.
-                          </p>
-                        </div>
-                      </div>
-                      <RadioOption
-                        v-model="userAnswers.method"
-                        value="laser"
-                        :disabled="!allowLaser"
-                        :flex-row-reverse="true"
-                        text-color="#94475E"
-                        :text-bold="true"
-                      >
-                        Лазерная эпиляция
-                      </RadioOption>
-                    </div>
-                    <div class="flex flex-1 justify-between h-full items-center -translate-y-3">
-                      <div class="w-[160px]">
-                        <ProgressBar
-                          :model-value="50"
-                          :min="0"
-                          :max="100"
-                          :height="18"
-                          bg-color="bg-[#454B57]"
-                          progress-color="bg-sup2-white2"
-                          full-width
-                        />
-                      </div>
-                      <div class="w-[160px]">
-                        <ProgressBar
-                          :model-value="75"
-                          :min="0"
-                          :max="100"
-                          :height="18"
-                          bg-color="bg-[#454B57]"
-                          progress-color="bg-sup2-white2"
-                          full-width
-                        />
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Step 4: Zone selection with prices -->
-              <div
-                v-if="currentStep === 4"
-                class="quiz-step"
-              >
-                <QuizHeading>
-                  Выберите зону
-                </QuizHeading>
-
-                <div class="grid grid-cols-2 gap-x-12 gap-y-4 mb-6">
-                  <!-- Method prices -->
-                  <div class="col-span-1">
-                    <div
-                      v-if="userAnswers.method === 'electro'"
-                      class="flex items-center mb-2"
-                    >
-                      <span class="inline-flex items-center justify-center w-5 h-5 mr-2 rounded-full bg-gray-200 text-gray-600">?</span>
-                      <span class="text-lg">Электроэпиляция</span>
-                      <span class="ml-3 px-2 py-1 bg-[#B2F48E] rounded text-sm">1000 рублей</span>
-                    </div>
-                    <div
-                      v-if="userAnswers.method === 'sugaring'"
-                      class="flex items-center mb-2"
-                    >
-                      <span class="inline-flex items-center justify-center w-5 h-5 mr-2 rounded-full bg-gray-200 text-gray-600">?</span>
-                      <span class="text-lg">Шугаринг</span>
-                      <span class="ml-3 px-2 py-1 bg-[#B2F48E] rounded text-sm">5000 рублей</span>
-                    </div>
-                    <div
-                      v-if="userAnswers.method === 'laser'"
-                      class="flex items-center mb-2"
-                    >
-                      <span class="inline-flex items-center justify-center w-5 h-5 mr-2 rounded-full bg-gray-200 text-gray-600">?</span>
-                      <span class="text-lg">Лазерная эпиляция</span>
-                      <span class="ml-3 px-2 py-1 bg-[#B2F48E] rounded text-sm">3000 рублей</span>
-                    </div>
-                  </div>
-
-                  <!-- Zone selection -->
-                  <div class="col-span-1 grid grid-cols-2 gap-4">
-                    <RadioOption
-                      v-model="userAnswers.zone"
-                      value="legs"
-                    >
-                      Ноги
-                    </RadioOption>
-                    <RadioOption
-                      v-model="userAnswers.zone"
-                      value="bikini"
-                    >
-                      Бикини
-                    </RadioOption>
-                    <RadioOption
-                      v-model="userAnswers.zone"
-                      value="face"
-                    >
-                      Лицо
-                    </RadioOption>
-                    <RadioOption
-                      v-model="userAnswers.zone"
-                      value="arms"
-                    >
-                      Руки
-                    </RadioOption>
-                    <RadioOption
-                      v-model="userAnswers.zone"
-                      value="back"
-                    >
-                      Спина
-                    </RadioOption>
-                    <RadioOption
-                      v-model="userAnswers.zone"
-                      value="stomach"
-                    >
-                      Живот
-                    </RadioOption>
-                  </div>
+                  <MethodOption
+                    v-model="userAnswers.method"
+                    value="laser"
+                    label="Лазерная эпиляция"
+                    tooltip-text="Лазерная эпиляция — метод удаления волос с помощью лазерного луча, который воздействует на пигмент волоса. Эффективен для темных волос, но может быть менее эффективен для светлых или седых волос."
+                    :safety-value="50"
+                    :efficiency-value="75"
+                    :disabled="!allowLaser"
+                  />
                 </div>
 
                 <!-- Savings calculator with interactive slider -->
-                <div class="mt-8">
+                <div class="mt-12">
+                  <h3 class="text-xl font-medium text-[#94475E] mb-4">
+                    Калькулятор выгоды
+                  </h3>
                   <div class="flex items-center mb-2">
                     <span class="text-lg">За {{ timePeriod }} {{ yearLabel }} вы сэкономите от</span>
                     <span class="ml-2 text-lg font-bold px-3 py-1 bg-[#4CAF50] text-white rounded-md">{{ calculatedSavings }}</span>
@@ -518,6 +409,7 @@ import RadioOption from "./RadioOption.vue";
 import CheckboxOption from "./CheckboxOption.vue";
 import QuizHeading from "./QuizHeading.vue";
 import ProgressBar from "./ProgressBar.vue";
+import MethodOption from "./MethodOption.vue";
 
 // Quiz storage key for localStorage
 const STORAGE_KEY = "beauty_quiz_answers";
@@ -530,6 +422,7 @@ const totalSteps = 6;
 const defaultAnswers = {
   age: null,
   problems: [],
+  zones: [],
   method: null,
   zone: null,
   contactMethod: null,
@@ -642,9 +535,9 @@ const canProceed = computed(() => {
     case 2:
       return userAnswers.value.problems && userAnswers.value.problems.length > 0;
     case 3:
-      return !!userAnswers.value.method;
+      return !!userAnswers.value.zones && userAnswers.value.zones.length > 0;
     case 4:
-      return !!userAnswers.value.zone;
+      return !!userAnswers.value.method;
     case 5:
       return !!userAnswers.value.contactMethod && validatePhone();
     default:
