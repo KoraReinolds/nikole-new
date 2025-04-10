@@ -165,37 +165,6 @@
                   Выберите способ
                 </QuizHeading>
 
-                <!-- Zones selection summary -->
-                <div class="my-6">
-                  <div class="font-medium text-[#94475E]">
-                    Выбранные зоны:
-                    <span
-                      v-if="userAnswers.zones.includes('legs')"
-                      class="inline-block mx-1 px-2 py-1 bg-[#B2F48E] rounded text-sm"
-                    >Ноги</span>
-                    <span
-                      v-if="userAnswers.zones.includes('bikini')"
-                      class="inline-block mx-1 px-2 py-1 bg-[#B2F48E] rounded text-sm"
-                    >Бикини</span>
-                    <span
-                      v-if="userAnswers.zones.includes('face')"
-                      class="inline-block mx-1 px-2 py-1 bg-[#B2F48E] rounded text-sm"
-                    >Лицо</span>
-                    <span
-                      v-if="userAnswers.zones.includes('arms')"
-                      class="inline-block mx-1 px-2 py-1 bg-[#B2F48E] rounded text-sm"
-                    >Руки</span>
-                    <span
-                      v-if="userAnswers.zones.includes('back')"
-                      class="inline-block mx-1 px-2 py-1 bg-[#B2F48E] rounded text-sm"
-                    >Спина</span>
-                    <span
-                      v-if="userAnswers.zones.includes('stomach')"
-                      class="inline-block mx-1 px-2 py-1 bg-[#B2F48E] rounded text-sm"
-                    >Живот</span>
-                  </div>
-                </div>
-
                 <div class="my-12 flex">
                   <div class="flex flex-1 justify-between text-start">
                     <div class="w-[160px] text-gray-600 font-medium">
@@ -245,6 +214,36 @@
                   <h3 class="text-xl font-medium text-[#94475E] mb-4">
                     Калькулятор выгоды
                   </h3>
+                  <!-- Zones selection summary -->
+                  <div class="my-6">
+                    <div class="font-medium text-[#94475E]">
+                      Выбранные зоны:
+                      <span
+                        v-if="userAnswers.zones.includes('legs')"
+                        class="inline-block mx-1 px-2 py-1 bg-[#B2F48E] rounded text-sm"
+                      >Ноги</span>
+                      <span
+                        v-if="userAnswers.zones.includes('bikini')"
+                        class="inline-block mx-1 px-2 py-1 bg-[#B2F48E] rounded text-sm"
+                      >Бикини</span>
+                      <span
+                        v-if="userAnswers.zones.includes('face')"
+                        class="inline-block mx-1 px-2 py-1 bg-[#B2F48E] rounded text-sm"
+                      >Лицо</span>
+                      <span
+                        v-if="userAnswers.zones.includes('arms')"
+                        class="inline-block mx-1 px-2 py-1 bg-[#B2F48E] rounded text-sm"
+                      >Руки</span>
+                      <span
+                        v-if="userAnswers.zones.includes('back')"
+                        class="inline-block mx-1 px-2 py-1 bg-[#B2F48E] rounded text-sm"
+                      >Спина</span>
+                      <span
+                        v-if="userAnswers.zones.includes('stomach')"
+                        class="inline-block mx-1 px-2 py-1 bg-[#B2F48E] rounded text-sm"
+                      >Живот</span>
+                    </div>
+                  </div>
                   <div class="flex items-center mb-2">
                     <span class="text-lg">За {{ timePeriod }} {{ yearLabel }} вы сэкономите от</span>
                     <span class="ml-2 text-lg font-bold px-3 py-1 bg-[#4CAF50] text-white rounded-md">{{ calculatedSavings }}</span>

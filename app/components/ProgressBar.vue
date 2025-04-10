@@ -4,6 +4,7 @@
 -->
 <template>
   <div
+    ref="progressBarRef"
     class="relative"
     :class="[fullWidth ? 'w-full' : '', `h-[${height}px]`]"
     :style="{ minWidth: minWidth }"
@@ -182,6 +183,7 @@ const calculateProgressWidth = () => {
 
 // State for dragging functionality
 const isDragging = ref(false);
+const progressBarRef = ref(null);
 
 /**
  * Starts the drag operation
@@ -210,10 +212,9 @@ const startDrag = (event) => {
  * @param {MouseEvent} event - The mouse event
  */
 const updateValueFromMousePosition = (event) => {
-  if (!isDragging.value) return;
+  if (!isDragging.value || !progressBarRef.value) return;
 
-  const container = event.currentTarget.parentElement;
-  const rect = container.getBoundingClientRect();
+  const rect = progressBarRef.value.getBoundingClientRect();
   const offsetX = event.clientX - rect.left;
 
   // Calculate percentage position
@@ -222,6 +223,13 @@ const updateValueFromMousePosition = (event) => {
 
   // Convert percentage to value in the range
   const newValue = props.min + ((props.max - props.min) * percentage) / 100;
-  emit("update:modelValue", parseFloat(newValue.toFixed(1)));
+
+  // Для целочисленных значений (например шаги от 1 до 5), округляем до ближайшего целого
+  if (Number.isInteger(props.min) && Number.isInteger(props.max) && (props.max - props.min) <= 10) {
+    emit("update:modelValue", Math.round(newValue));
+  }
+  else {
+    emit("update:modelValue", parseFloat(newValue.toFixed(1)));
+  }
 };
 </script>
