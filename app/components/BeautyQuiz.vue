@@ -126,10 +126,20 @@
                   <!-- Electro-epilation option -->
                   <div class="flex items-center relative">
                     <div class="w-[240px] flex items-center justify-end absolute left-[-304px]">
-                      <span class="inline-flex items-center justify-center w-5 h-5 mr-2 rounded-full bg-gray-200 text-gray-600">?</span>
+                      <div class="tooltip-container relative mr-2">
+                        <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-gray-200 text-gray-600 cursor-help">?</span>
+                        <div class="tooltip-text absolute left-7 top-0 bg-white p-3 rounded-lg shadow-lg z-10 w-[250px] hidden">
+                          <p class="text-sm text-gray-700">
+                            Электроэпиляция — это метод удаления волос, при котором используется электрический ток для разрушения волосяных фолликулов. Процедура обеспечивает долгосрочный результат и подходит для любого типа кожи и волос.
+                          </p>
+                        </div>
+                      </div>
                       <RadioOption
                         v-model="userAnswers.method"
                         value="electro"
+                        :flex-row-reverse="true"
+                        text-color="#94475E"
+                        :text-bold="true"
                       >
                         Электроэпиляция
                       </RadioOption>
@@ -169,10 +179,20 @@
                   <!-- Sugaring option -->
                   <div class="flex items-center relative">
                     <div class="w-[240px] flex items-center justify-end absolute left-[-304px]">
-                      <span class="inline-flex items-center justify-center w-5 h-5 mr-2 rounded-full bg-gray-200 text-gray-600">?</span>
+                      <div class="tooltip-container relative mr-2">
+                        <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-gray-200 text-gray-600 cursor-help">?</span>
+                        <div class="tooltip-text absolute left-7 top-0 bg-white p-3 rounded-lg shadow-lg z-10 w-[250px] hidden">
+                          <p class="text-sm text-gray-700">
+                            Шугаринг — метод удаления волос с помощью густой сахарной пасты. Удаляет волосы вместе с корнем, но они отрастают снова через несколько недель. Подходит для чувствительной кожи.
+                          </p>
+                        </div>
+                      </div>
                       <RadioOption
                         v-model="userAnswers.method"
                         value="sugaring"
+                        :flex-row-reverse="true"
+                        text-color="#94475E"
+                        :text-bold="true"
                       >
                         Шугаринг
                       </RadioOption>
@@ -206,11 +226,21 @@
                   <!-- Laser epilation option -->
                   <div class="flex items-center relative">
                     <div class="w-[240px] flex items-center justify-end absolute left-[-304px]">
-                      <span class="inline-flex items-center justify-center w-5 h-5 mr-2 rounded-full bg-gray-200 text-gray-600">?</span>
+                      <div class="tooltip-container relative mr-2">
+                        <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-gray-200 text-gray-600 cursor-help">?</span>
+                        <div class="tooltip-text absolute left-7 top-0 bg-white p-3 rounded-lg shadow-lg z-10 w-[250px] hidden">
+                          <p class="text-sm text-gray-700">
+                            Лазерная эпиляция — метод удаления волос с помощью лазерного луча, который воздействует на пигмент волоса. Эффективен для темных волос, но может быть менее эффективен для светлых или седых волос.
+                          </p>
+                        </div>
+                      </div>
                       <RadioOption
                         v-model="userAnswers.method"
                         value="laser"
                         :disabled="!allowLaser"
+                        :flex-row-reverse="true"
+                        text-color="#94475E"
+                        :text-bold="true"
                       >
                         Лазерная эпиляция
                       </RadioOption>
@@ -693,5 +723,45 @@ const submitQuiz = () => {
 .quiz-step {
   max-width: 700px;
   height: 100%;
+}
+
+/* Tooltip styles */
+.tooltip-container {
+  position: relative;
+}
+
+.tooltip-container:hover .tooltip-text {
+  display: block;
+  animation: fadeIn 0.3s;
+}
+
+.tooltip-text {
+  position: absolute;
+  left: 30px;
+  top: -5px;
+  background: white;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  z-index: 10;
+  width: 250px;
+  display: none;
+}
+
+.tooltip-text::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  top: 10px;
+  width: 12px;
+  height: 12px;
+  background: white;
+  transform: rotate(45deg);
+  box-shadow: -2px 2px 3px rgba(0, 0, 0, 0.05);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
 }
 </style>

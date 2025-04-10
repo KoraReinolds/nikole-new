@@ -3,7 +3,7 @@
   Reusable component for radio button inputs with consistent styling
 -->
 <template>
-  <label class="flex items-center cursor-pointer">
+  <label :class="['flex items-center cursor-pointer', { 'flex-row-reverse': flexRowReverse }]">
     <div class="relative">
       <input
         :value="value"
@@ -23,8 +23,13 @@
       </div>
     </div>
     <span
-      class="ml-4 text-lg text-[#232A36] font-medium"
-      :class="{ 'text-gray-400': disabled }"
+      :class="[
+        flexRowReverse ? 'mr-4' : 'ml-4',
+        'text-lg font-medium',
+        { 'text-gray-400': disabled },
+        { 'font-bold': textBold },
+      ]"
+      :style="textColor ? { color: textColor } : {}"
     >
       <slot />
     </span>
@@ -54,6 +59,27 @@ defineProps({
    * Whether the radio button is disabled
    */
   disabled: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+   * Whether to reverse the flex direction (radio on the right)
+   */
+  flexRowReverse: {
+    type: Boolean,
+    default: false,
+  },
+  /**
+   * Custom text color
+   */
+  textColor: {
+    type: String,
+    default: "",
+  },
+  /**
+   * Whether to make the text bold
+   */
+  textBold: {
     type: Boolean,
     default: false,
   },
