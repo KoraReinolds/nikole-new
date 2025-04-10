@@ -124,10 +124,10 @@
 
                 <div class="space-y-6">
                   <!-- Electro-epilation option -->
-                  <div class="flex items-center relative">
+                  <div class="flex items-center relative h-11">
                     <div class="w-[240px] flex items-center justify-end absolute left-[-304px]">
                       <div class="tooltip-container relative mr-2">
-                        <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-gray-200 text-gray-600 cursor-help">?</span>
+                        <span class="inline-flex items-center justify-center w-5 h-5 rounded-full cursor-help bg-add2-sat text-white font-bold">?</span>
                         <div class="tooltip-text absolute left-7 top-0 bg-white p-3 rounded-lg shadow-lg z-10 w-[250px] hidden">
                           <p class="text-sm text-gray-700">
                             Электроэпиляция — это метод удаления волос, при котором используется электрический ток для разрушения волосяных фолликулов. Процедура обеспечивает долгосрочный результат и подходит для любого типа кожи и волос.
@@ -144,8 +144,8 @@
                         Электроэпиляция
                       </RadioOption>
                     </div>
-                    <div class="flex flex-1 justify-between">
-                      <div class="w-[160px] px-3">
+                    <div class="flex flex-1 justify-between h-full items-center -translate-y-3">
+                      <div class="w-[160px]">
                         <!-- Safety rating -->
                         <div class="rating-bar w-full">
                           <ProgressBar
@@ -159,7 +159,7 @@
                           />
                         </div>
                       </div>
-                      <div class="w-[160px] px-3">
+                      <div class="w-[160px]">
                         <!-- Effectiveness rating -->
                         <div class="rating-bar w-full">
                           <ProgressBar
@@ -177,10 +177,10 @@
                   </div>
 
                   <!-- Sugaring option -->
-                  <div class="flex items-center relative">
+                  <div class="flex items-center relative h-11">
                     <div class="w-[240px] flex items-center justify-end absolute left-[-304px]">
                       <div class="tooltip-container relative mr-2">
-                        <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-gray-200 text-gray-600 cursor-help">?</span>
+                        <span class="inline-flex items-center justify-center w-5 h-5 rounded-full text-gray-600 cursor-help bg-add2-sat text-white font-bold">?</span>
                         <div class="tooltip-text absolute left-7 top-0 bg-white p-3 rounded-lg shadow-lg z-10 w-[250px] hidden">
                           <p class="text-sm text-gray-700">
                             Шугаринг — метод удаления волос с помощью густой сахарной пасты. Удаляет волосы вместе с корнем, но они отрастают снова через несколько недель. Подходит для чувствительной кожи.
@@ -197,8 +197,8 @@
                         Шугаринг
                       </RadioOption>
                     </div>
-                    <div class="flex flex-1 justify-between">
-                      <div class="w-[160px] px-3">
+                    <div class="flex flex-1 justify-between h-full items-center -translate-y-3">
+                      <div class="w-[160px]">
                         <ProgressBar
                           :model-value="75"
                           :min="0"
@@ -209,7 +209,7 @@
                           full-width
                         />
                       </div>
-                      <div class="w-[160px] px-3">
+                      <div class="w-[160px]">
                         <ProgressBar
                           :model-value="40"
                           :min="0"
@@ -224,10 +224,10 @@
                   </div>
 
                   <!-- Laser epilation option -->
-                  <div class="flex items-center relative">
+                  <div class="flex items-center relative h-11">
                     <div class="w-[240px] flex items-center justify-end absolute left-[-304px]">
                       <div class="tooltip-container relative mr-2">
-                        <span class="inline-flex items-center justify-center w-5 h-5 rounded-full bg-gray-200 text-gray-600 cursor-help">?</span>
+                        <span class="inline-flex items-center justify-center w-5 h-5 rounded-full cursor-help bg-add2-sat text-white font-bold">?</span>
                         <div class="tooltip-text absolute left-7 top-0 bg-white p-3 rounded-lg shadow-lg z-10 w-[250px] hidden">
                           <p class="text-sm text-gray-700">
                             Лазерная эпиляция — метод удаления волос с помощью лазерного луча, который воздействует на пигмент волоса. Эффективен для темных волос, но может быть менее эффективен для светлых или седых волос.
@@ -245,8 +245,8 @@
                         Лазерная эпиляция
                       </RadioOption>
                     </div>
-                    <div class="flex flex-1 justify-between">
-                      <div class="w-[160px] px-3">
+                    <div class="flex flex-1 justify-between h-full items-center -translate-y-3">
+                      <div class="w-[160px]">
                         <ProgressBar
                           :model-value="50"
                           :min="0"
@@ -257,7 +257,7 @@
                           full-width
                         />
                       </div>
-                      <div class="w-[160px] px-3">
+                      <div class="w-[160px]">
                         <ProgressBar
                           :model-value="75"
                           :min="0"
