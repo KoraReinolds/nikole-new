@@ -165,18 +165,18 @@
                   Выберите способ
                 </QuizHeading>
 
-                <div class="my-12 flex">
+                <div class="my-8 flex">
                   <div class="flex flex-1 justify-between text-start">
-                    <div class="w-[160px] text-gray-600 font-medium">
+                    <div class="w-[160px] text-gray-600 font-medium text-sm">
                       безопасность
                     </div>
-                    <div class="w-[160px] text-gray-600 font-medium">
+                    <div class="w-[160px] text-gray-600 font-medium text-sm">
                       эффективность
                     </div>
                   </div>
                 </div>
 
-                <div class="space-y-6">
+                <div class="space-y-3">
                   <!-- Electro-epilation option -->
                   <MethodOption
                     v-model="userAnswers.method"
@@ -210,61 +210,86 @@
                 </div>
 
                 <!-- Savings calculator with interactive slider -->
-                <div class="mt-12">
-                  <h3 class="text-xl font-medium text-[#94475E] mb-4">
-                    Калькулятор выгоды
-                  </h3>
-                  <!-- Zones selection summary -->
-                  <div class="my-6">
-                    <div class="font-medium text-[#94475E]">
-                      Выбранные зоны:
+                <div class="mt-8">
+                  <div class="flex items-center justify-between">
+                    <h3 class="text-md font-medium text-[#94475E]">
+                      Калькулятор выгоды
+                    </h3>
+                    <!-- Zones selection summary -->
+                    <div class="text-sm">
+                      <span class="text-[#94475E] mr-1">Зоны:</span>
                       <span
                         v-if="userAnswers.zones.includes('legs')"
-                        class="inline-block mx-1 px-2 py-1 bg-[#B2F48E] rounded text-sm"
+                        class="inline-block mx-0.5 px-1.5 py-0.5 bg-[#678854] rounded-sm text-xs"
                       >Ноги</span>
                       <span
                         v-if="userAnswers.zones.includes('bikini')"
-                        class="inline-block mx-1 px-2 py-1 bg-[#B2F48E] rounded text-sm"
+                        class="inline-block mx-0.5 px-1.5 py-0.5 bg-[#678854] rounded-sm text-xs"
                       >Бикини</span>
                       <span
                         v-if="userAnswers.zones.includes('face')"
-                        class="inline-block mx-1 px-2 py-1 bg-[#B2F48E] rounded text-sm"
+                        class="inline-block mx-0.5 px-1.5 py-0.5 bg-[#678854] rounded-sm text-xs"
                       >Лицо</span>
                       <span
                         v-if="userAnswers.zones.includes('arms')"
-                        class="inline-block mx-1 px-2 py-1 bg-[#B2F48E] rounded text-sm"
+                        class="inline-block mx-0.5 px-1.5 py-0.5 bg-[#678854] rounded-sm text-xs"
                       >Руки</span>
                       <span
                         v-if="userAnswers.zones.includes('back')"
-                        class="inline-block mx-1 px-2 py-1 bg-[#B2F48E] rounded text-sm"
+                        class="inline-block mx-0.5 px-1.5 py-0.5 bg-[#678854] rounded-sm text-xs"
                       >Спина</span>
                       <span
                         v-if="userAnswers.zones.includes('stomach')"
-                        class="inline-block mx-1 px-2 py-1 bg-[#B2F48E] rounded text-sm"
+                        class="inline-block mx-0.5 px-1.5 py-0.5 bg-[#678854] rounded-sm text-xs"
                       >Живот</span>
                     </div>
                   </div>
-                  <div class="flex items-center mb-2">
-                    <span class="text-lg">За {{ timePeriod }} {{ yearLabel }} вы сэкономите от</span>
-                    <span class="ml-2 text-lg font-bold px-3 py-1 bg-[#4CAF50] text-white rounded-md">{{ calculatedSavings }}</span>
-                    <span class="ml-2 text-lg">рублей</span>
-                  </div>
 
-                  <div class="flex items-center">
-                    <span class="text-lg mr-4">Посчитайте выгоду →</span>
-                    <div class="flex-grow max-w-md">
-                      <ProgressBar
-                        v-model="timePeriod"
-                        :min="1"
-                        :max="5"
-                        :height="18"
-                        bg-color="bg-[#454B57]"
-                        progress-color="bg-sup2-white2"
-                        width="100%"
-                        :interactive="true"
-                        :show-labels="true"
-                        :labels="['1 год', '2 года', '3 года', '4 года', '5 лет']"
-                      />
+                  <div class="bg-[#FFD0BE] p-3 rounded-lg shadow-sm border mt-2">
+                    <div class="mb-2">
+                      <p class="text-gray-700 text-sm mb-2">
+                        Выберите период расчета:
+                      </p>
+                      <div class="flex space-x-1.5">
+                        <button
+                          v-for="year in 5"
+                          :key="year"
+                          class="py-1 px-2.5 text-sm rounded-md transition-all"
+                          :class="[
+                            timePeriod === year
+                              ? 'bg-[#94475E] text-white font-medium'
+                              : 'bg-gray-200 text-gray-700 hover:bg-gray-300',
+                          ]"
+                          @click="timePeriod = year"
+                        >
+                          {{ year }} {{ getYearLabel(year) }}
+                        </button>
+                      </div>
+                    </div>
+
+                    <div class="bg-[#FFD0BE] p-3 rounded-lg border border-[#678854]">
+                      <div class="flex items-center mb-1">
+                        <div class="flex-grow">
+                          <p class="text-sm text-[#94475E]">
+                            За {{ timePeriod }} {{ yearLabel }} вы сэкономите:
+                          </p>
+                        </div>
+                        <div class="text-right">
+                          <p class="text-xl font-bold text-[#4CAF50]">
+                            {{ formattedSavings }}
+                          </p>
+                          <p class="text-xs text-gray-500">
+                            рублей
+                          </p>
+                        </div>
+                      </div>
+
+                      <div class="text-xs text-gray-600">
+                        <div class="flex justify-between items-center">
+                          <div>Метод: <span class="font-medium">{{ getMethodName }}</span></div>
+                          <div>В год: <span class="font-medium">{{ getSavingsBaseAmount }} ₽</span></div>
+                        </div>
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -605,6 +630,47 @@ const submitQuiz = () => {
   // After successful submission, you might want to clear the storage
   // localStorage.removeItem(STORAGE_KEY);
 };
+
+/**
+ * Возвращает название метода на русском языке
+ */
+const getMethodName = computed(() => {
+  switch (userAnswers.value.method) {
+    case "electro":
+      return "Электроэпиляция";
+    case "sugaring":
+      return "Шугаринг";
+    case "laser":
+      return "Лазерная эпиляция";
+    default:
+      return "Не выбран";
+  }
+});
+
+/**
+ * Форматирует сумму экономии с разделителями тысяч
+ */
+const formattedSavings = computed(() => {
+  return new Intl.NumberFormat("ru-RU").format(calculatedSavings.value);
+});
+
+/**
+ * Возвращает правильное склонение слова "год" на русском языке для произвольного числа
+ * @param {number} num - Число
+ * @returns {string} Правильное склонение
+ */
+function getYearLabel(num) {
+  // Russian grammar rules for years
+  if (num % 10 === 1 && num % 100 !== 11) {
+    return "год";
+  }
+  else if ([2, 3, 4].includes(num % 10) && ![12, 13, 14].includes(num % 100)) {
+    return "года";
+  }
+  else {
+    return "лет";
+  }
+}
 </script>
 
 <style scoped>
