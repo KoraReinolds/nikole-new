@@ -295,63 +295,17 @@
                 </div>
               </div>
 
-              <!-- Final Steps - Contact Information -->
+              <!-- Final Step - Contact Information & Reward -->
               <div
                 v-if="currentStep === 5"
                 class="quiz-step"
               >
                 <QuizHeading>
-                  Выберите канал для связи
+                  Последний шаг
                 </QuizHeading>
-                <div class="space-y-4 ml-4">
-                  <RadioOption
-                    v-model="userAnswers.contactMethod"
-                    value="telegram"
-                  >
-                    Telegram
-                  </RadioOption>
-                  <RadioOption
-                    v-model="userAnswers.contactMethod"
-                    value="whatsapp"
-                  >
-                    WhatsApp
-                  </RadioOption>
-                  <RadioOption
-                    v-model="userAnswers.contactMethod"
-                    value="phone"
-                  >
-                    Телефон
-                  </RadioOption>
-                </div>
 
-                <div
-                  v-if="userAnswers.contactMethod"
-                  class="mt-8"
-                >
-                  <label class="block text-lg mb-2">Ваш номер телефона:</label>
-                  <input
-                    v-model="userAnswers.phone"
-                    type="tel"
-                    placeholder="+7 (___) ___-__-__"
-                    class="px-4 py-2 border border-gray-300 rounded-lg w-full max-w-md text-lg"
-                  >
-                </div>
-              </div>
-
-              <!-- Final Step - Reward & Submit -->
-              <div
-                v-if="currentStep === 6"
-                class="quiz-step"
-              >
-                <QuizHeading>
-                  Выберите подарок
-                </QuizHeading>
-                <p class="text-gray-600 mb-6">
-                  За прохождение теста мы дарим вам один из подарков на выбор:
-                </p>
-
-                <div class="grid grid-cols-2 gap-6 mb-8">
-                  <label class="border rounded-lg p-4 cursor-pointer hover:border-[#FF6B9C] transition-all flex flex-col">
+                <div class="grid grid-cols-2 gap-6 mb-8 mt-6">
+                  <!-- <label class="border rounded-lg p-4 cursor-pointer hover:border-[#FF6B9C] transition-all flex flex-col">
                     <input
                       v-model="userAnswers.reward"
                       type="radio"
@@ -379,21 +333,43 @@
                         Детальный разбор вашей ситуации от мастера с опытом 13+ лет
                       </p>
                     </div>
-                  </label>
+                  </label> -->
                 </div>
 
-                <button
-                  class="py-3 px-8 font-bold bg-[#FF6B9C] text-white text-xl font-roboto rounded-md hover:bg-opacity-90 transition-all shadow-lg"
-                  @click="submitQuiz"
-                >
-                  Получить подарок
-                </button>
+                <div class="space-y-4 mt-8">
+                  <p class="text-lg text-[#232A36]">
+                    Персональные рекомендации уже готовы! Оставьте свой номер телефона и забирайте их в нашем Telegram боте:
+                  </p>
+                  <div>
+                    <input
+                      v-model="userAnswers.phone"
+                      placeholder="Введите номер телефона"
+                      type="number"
+                      class="px-4 py-2 border bg-white text-[#232A36] placeholder:text-[#232A36] border-gray-300 rounded-lg w-full max-w-md text-lg"
+                    >
+                  </div>
+
+                  <button
+                    class="mt-6 py-3 px-8 font-bold bg-[#229ED9] text-white text-xl font-roboto rounded-md hover:bg-opacity-90 transition-all shadow-lg flex items-center"
+                    @click="submitQuiz"
+                  >
+                    <svg
+                      class="w-6 h-6 mr-2"
+                      fill="currentColor"
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                    >
+                      <path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z" />
+                    </svg>
+                    Забрать подарок
+                  </button>
+                </div>
               </div>
             </div>
 
             <!-- Navigation buttons -->
             <div
-              v-if="currentStep < 6"
+              v-if="currentStep < 5"
               class="flex justify-start gap-16 mt-6 transform -translate-x-[208px]"
             >
               <div
@@ -440,7 +416,7 @@ const STORAGE_KEY = "beauty_quiz_answers";
 
 // Define quiz steps and state
 const currentStep = ref(1);
-const totalSteps = 6;
+const totalSteps = 5;
 
 // Default user answers
 const defaultAnswers = {
@@ -563,7 +539,7 @@ const canProceed = computed(() => {
     case 4:
       return !!userAnswers.value.method;
     case 5:
-      return !!userAnswers.value.contactMethod && validatePhone();
+      return !!userAnswers.value.reward && validatePhone();
     default:
       return true;
   }
@@ -591,8 +567,10 @@ const getSavingsBaseAmount = computed(() => {
  */
 const validatePhone = () => {
   if (!userAnswers.value.phone) return false;
-  // Simple validation - can be enhanced
-  return userAnswers.value.phone.length >= 10;
+
+  // Проверяем, что номер содержит как минимум 10 цифр
+  const digitsOnly = userAnswers.value.phone.replace(/\D/g, "");
+  return digitsOnly.length >= 10;
 };
 
 /**
@@ -619,13 +597,16 @@ const prevStep = () => {
  * Submit the quiz results
  */
 const submitQuiz = () => {
-  if (!userAnswers.value.reward) return;
+  if (!userAnswers.value.reward || !validatePhone()) {
+    alert("Пожалуйста, выберите подарок и введите номер телефона");
+    return;
+  }
 
   // Here you would typically send the data to your backend
   console.log("Quiz submitted with answers:", userAnswers.value);
 
   // For now, just show alert
-  alert("Спасибо за прохождение теста! Мы свяжемся с вами в ближайшее время.");
+  alert("Спасибо за прохождение теста! Мы отправили вам ссылку на Telegram бота в SMS.");
 
   // After successful submission, you might want to clear the storage
   // localStorage.removeItem(STORAGE_KEY);
