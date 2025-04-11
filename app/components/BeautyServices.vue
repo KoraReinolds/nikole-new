@@ -58,8 +58,8 @@
       style="background: radial-gradient(circle, #563C34 0%, #402E28 30%, #16080E 100%)"
     >
       <!-- Section title -->
-      <h2 class="text-5xl font-bold font-raleway text-white mb-16 text-end w-full px-4">
-        Отзывы <span class="text-[#FFFAE4]">клиентов</span>
+      <h2 class="text-5xl font-bold font-raleway text-main-white2 mb-16 text-end w-full px-4">
+        Более <span class="pink-text-gradient">300</span> <br>довольных клиентов
       </h2>
       <div class="container mx-auto px-4 max-w-[1080px] flex justify-end relative">
         <img
@@ -114,7 +114,7 @@
           <div class="flex justify-center items-center mt-8">
             <!-- Left arrow button -->
             <button
-              class="w-10 h-10 rounded-full bg-white bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all mx-4"
+              class="w-10 h-10 rounded-full bg-main-gray bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all mx-4"
               @click="prevSlide"
             >
               <svg
@@ -136,14 +136,14 @@
             <button
               v-for="(_, index) in testimonials"
               :key="index"
-              class="w-3 h-3 rounded-full mx-1"
-              :class="currentSlide === index ? 'bg-[#FFFAE4]' : 'bg-white bg-opacity-40'"
+              class="w-3 h-3 rounded-full mx-1 bg-main-white"
+              :class="currentSlide === index ? 'bg-main-gray' : 'bg-main bg-opacity-40'"
               @click="goToSlide(index)"
             />
 
             <!-- Right arrow button -->
             <button
-              class="w-10 h-10 rounded-full bg-white bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all mx-4"
+              class="w-10 h-10 rounded-full bg-main-gray bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all mx-4"
               @click="nextSlide"
             >
               <svg
