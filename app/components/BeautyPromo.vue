@@ -149,9 +149,6 @@
   <!-- Services section -->
   <BeautyServices ref="servicesSection" />
 
-  <!-- Testimonials section -->
-  <BeautyTestimonials />
-
   <!-- FAQ section -->
   <BeautyFaq />
 
@@ -167,7 +164,6 @@
 import { ref } from "vue";
 import BeautyQuiz from "./BeautyQuiz.vue";
 import BeautyServices from "./BeautyServices.vue";
-import BeautyTestimonials from "./BeautyTestimonials.vue";
 import BeautyFaq from "./BeautyFaq.vue";
 import BeautyFooter from "./BeautyFooter.vue";
 
