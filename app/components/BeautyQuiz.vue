@@ -24,18 +24,29 @@
         </h2>
 
         <div class="mb-8 flex gap-16 w-full h-full">
-          <!-- Progress bar -->
-          <div class="relative h-4 min-w-[555px] mt-3">
-            <ProgressBar
-              :model-value="currentStep"
-              :min="1"
-              :max="totalSteps"
-              width="555px"
-              :height="18"
-              bg-color="bg-[#454B57]"
-              progress-color="bg-sup2-white2"
-              :track-padding="2"
-            />
+          <!-- Progress steps -->
+          <div class="relative flex items-start min-w-[555px] mt-3">
+            <div
+              v-for="step in totalSteps"
+              :key="step"
+              class="flex items-center"
+            >
+              <div
+                class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer transition-all"
+                :class="[
+                  step <= currentStep ? 'bg-[#94475E] text-white' : 'bg-[#454B57] text-gray-300',
+                  { 'ring-2 ring-[#94475E] ring-offset-2': step === currentStep },
+                ]"
+                @click="goToStep(step)"
+              >
+                {{ step }}
+              </div>
+              <div
+                v-if="step < totalSteps"
+                class="w-16 h-1"
+                :class="step < currentStep ? 'bg-[#94475E]' : 'bg-[#454B57]'"
+              />
+            </div>
           </div>
 
           <div class="flex flex-col flex-grow w-full h-full">
@@ -298,9 +309,16 @@
                 </QuizHeading>
 
                 <div class="space-y-4 mt-8">
-                  <p class="text-lg text-[#232A36]">
-                    Персональные рекомендации уже готовы! Оставьте свой номер телефона и забирайте их в нашем Telegram боте:
-                  </p>
+                  <div class="flex items-center gap-4">
+                    <img
+                      src="/images/gift.png"
+                      alt="Подарок"
+                      class="w-16 h-16"
+                    >
+                    <p class="text-lg text-[#232A36]">
+                      Персональные рекомендации уже готовы! Оставьте свой номер телефона и забирайте их в нашем Telegram боте:
+                    </p>
+                  </div>
                   <div>
                     <input
                       v-model="userAnswers.phone"
@@ -422,7 +440,6 @@ import { ref, computed, watch, onMounted } from "vue";
 import RadioOption from "./RadioOption.vue";
 import CheckboxOption from "./CheckboxOption.vue";
 import QuizHeading from "./QuizHeading.vue";
-import ProgressBar from "./ProgressBar.vue";
 import MethodOption from "./MethodOption.vue";
 
 // Quiz storage key for localStorage
@@ -532,6 +549,17 @@ watch([userAnswers, currentStep, timePeriod], () => {
 onMounted(() => {
   loadSavedQuizData();
 });
+
+/**
+ * Navigate to a specific step
+ * @param {number} step - The step number to navigate to
+ */
+const goToStep = (step) => {
+  if (step <= currentStep.value) {
+    currentStep.value = step;
+    saveQuizData();
+  }
+};
 
 // Computed properties for quiz logic
 const allowLaser = computed(() => {
