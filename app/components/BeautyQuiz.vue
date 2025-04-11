@@ -68,7 +68,7 @@
                 class="quiz-step"
               >
                 <QuizHeading>Какие из проблем вам знакомы?</QuizHeading>
-                <div class="space-y-4 ml-4 mt-6 bg-[#FFBCAD] p-6 rounded-lg max-w-[500px]">
+                <div class="space-y-4 mt-6 bg-[#FFBCAD] p-6 rounded-lg max-w-[500px]">
                   <CheckboxOption
                     v-model="userAnswers.problems"
                     value="frequent_shaving"
@@ -185,7 +185,16 @@
                     tooltip-text="Электроэпиляция — это метод удаления волос, при котором используется электрический ток для разрушения волосяных фолликулов. Процедура обеспечивает долгосрочный результат и подходит для любого типа кожи и волос."
                     :safety-value="85"
                     :efficiency-value="95"
-                  />
+                  >
+                    <template #price>
+                      <div class="text-sm text-gray-600">
+                        <div>Единоразово: {{ new Intl.NumberFormat('ru-RU').format(methodTotalCosts.electro) }} ₽</div>
+                        <div v-if="timePeriod > 1">
+                          За {{ timePeriod }} {{ yearLabel }}: {{ new Intl.NumberFormat('ru-RU').format(totalCostsByPeriod.electro) }} ₽
+                        </div>
+                      </div>
+                    </template>
+                  </MethodOption>
 
                   <!-- Sugaring option -->
                   <MethodOption
@@ -195,7 +204,16 @@
                     tooltip-text="Шугаринг — метод удаления волос с помощью густой сахарной пасты. Удаляет волосы вместе с корнем, но они отрастают снова через несколько недель. Подходит для чувствительной кожи."
                     :safety-value="75"
                     :efficiency-value="40"
-                  />
+                  >
+                    <template #price>
+                      <div class="text-sm text-gray-600">
+                        <div>В месяц: {{ new Intl.NumberFormat('ru-RU').format(methodTotalCosts.sugaring) }} ₽</div>
+                        <div v-if="timePeriod > 1">
+                          За {{ timePeriod }} {{ yearLabel }}: {{ new Intl.NumberFormat('ru-RU').format(totalCostsByPeriod.sugaring) }} ₽
+                        </div>
+                      </div>
+                    </template>
+                  </MethodOption>
 
                   <!-- Laser epilation option -->
                   <MethodOption
@@ -206,90 +224,41 @@
                     :safety-value="50"
                     :efficiency-value="75"
                     :disabled="!allowLaser"
-                  />
+                  >
+                    <template #price>
+                      <div class="text-sm text-gray-600">
+                        <div>2 сеанса в год: {{ new Intl.NumberFormat('ru-RU').format(methodTotalCosts.laser * 2) }} ₽</div>
+                        <div v-if="timePeriod > 1">
+                          За {{ timePeriod }} {{ yearLabel }}: {{ new Intl.NumberFormat('ru-RU').format(totalCostsByPeriod.laser) }} ₽
+                        </div>
+                      </div>
+                    </template>
+                  </MethodOption>
                 </div>
 
-                <!-- Savings calculator with interactive slider -->
-                <div class="mt-8">
-                  <div class="flex items-center justify-between">
-                    <h3 class="text-md font-medium text-[#232A36]">
-                      Калькулятор выгоды
-                    </h3>
-                    <!-- Zones selection summary -->
-                    <div class="text-sm">
-                      <span class="text-[#232A36] mr-1">Зоны:</span>
-                      <span
-                        v-if="userAnswers.zones.includes('legs')"
-                        class="inline-block mx-0.5 px-1.5 py-0.5 bg-[#678854] rounded-sm text-xs text-white"
-                      >Ноги</span>
-                      <span
-                        v-if="userAnswers.zones.includes('bikini')"
-                        class="inline-block mx-0.5 px-1.5 py-0.5 bg-[#678854] rounded-sm text-xs text-white"
-                      >Бикини</span>
-                      <span
-                        v-if="userAnswers.zones.includes('face')"
-                        class="inline-block mx-0.5 px-1.5 py-0.5 bg-[#678854] rounded-sm text-xs text-white"
-                      >Лицо</span>
-                      <span
-                        v-if="userAnswers.zones.includes('arms')"
-                        class="inline-block mx-0.5 px-1.5 py-0.5 bg-[#678854] rounded-sm text-xs text-white"
-                      >Руки</span>
-                      <span
-                        v-if="userAnswers.zones.includes('back')"
-                        class="inline-block mx-0.5 px-1.5 py-0.5 bg-[#678854] rounded-sm text-xs text-white"
-                      >Спина</span>
-                      <span
-                        v-if="userAnswers.zones.includes('stomach')"
-                        class="inline-block mx-0.5 px-1.5 py-0.5 bg-[#678854] rounded-sm text-xs text-white"
-                      >Живот</span>
-                    </div>
-                  </div>
-
-                  <div class="bg-[#FFD0BE] p-3 rounded-lg shadow-sm border mt-2">
-                    <div class="mb-2">
-                      <p class="text-[#232A36] text-sm mb-2">
-                        Выберите период расчета:
-                      </p>
-                      <div class="flex space-x-1.5">
-                        <button
-                          v-for="year in 5"
-                          :key="year"
-                          class="py-1 px-2.5 text-sm rounded-md transition-all"
-                          :class="[
-                            timePeriod === year
-                              ? 'bg-[#94475E] text-white font-medium'
-                              : 'bg-gray-200 text-[#232A36] hover:bg-gray-300',
-                          ]"
-                          @click="timePeriod = year"
-                        >
-                          {{ year }} {{ getYearLabel(year) }}
-                        </button>
-                      </div>
-                    </div>
-
-                    <div class="bg-[#FFD0BE] p-3 rounded-lg border border-[#678854]">
-                      <div class="flex items-center mb-1">
-                        <div class="flex-grow">
-                          <p class="text-sm text-[#232A36]">
-                            За {{ timePeriod }} {{ yearLabel }} вы сэкономите:
-                          </p>
-                        </div>
-                        <div class="text-right">
-                          <p class="text-xl font-bold text-[#4CAF50]">
-                            {{ formattedSavings }}
-                          </p>
-                          <p class="text-xs text-[#232A36]">
-                            рублей
-                          </p>
-                        </div>
-                      </div>
-
-                      <div class="text-xs text-[#232A36]">
-                        <div class="flex justify-between items-center">
-                          <div>Метод: <span class="font-medium">{{ getMethodName }}</span></div>
-                          <div>В год: <span class="font-medium">{{ getSavingsBaseAmount }} ₽</span></div>
-                        </div>
-                      </div>
+                <!-- Time period selector -->
+                <div
+                  v-if="showCalculator"
+                  class="mt-8"
+                >
+                  <div class="bg-white rounded-lg shadow-sm border p-3">
+                    <p class="text-sm text-[#232A36] mb-2">
+                      Период расчета:
+                    </p>
+                    <div class="flex space-x-1">
+                      <button
+                        v-for="year in 5"
+                        :key="year"
+                        class="py-1 px-2 text-sm rounded transition-all"
+                        :class="[
+                          timePeriod === year
+                            ? 'bg-[#94475E] text-white font-medium'
+                            : 'bg-gray-100 text-[#232A36] hover:bg-gray-200',
+                        ]"
+                        @click="timePeriod = year"
+                      >
+                        {{ year }} {{ year === 1 ? 'год' : year <= 4 ? 'года' : 'лет' }}
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -421,7 +390,7 @@ const totalSteps = 5;
 // Default user answers
 const defaultAnswers = {
   age: null,
-  problems: [],
+  problems: ["no_problems"],
   zones: [],
   method: null,
   zone: null,
@@ -435,6 +404,34 @@ const userAnswers = ref({ ...defaultAnswers });
 
 // Time period for savings calculation
 const timePeriod = ref(2);
+
+// Define base prices per zone for each method
+const zonePrices = {
+  electro: {
+    legs: 8000,
+    bikini: 6000,
+    face: 3000,
+    arms: 5000,
+    back: 7000,
+    stomach: 4000,
+  },
+  sugaring: {
+    legs: 2500,
+    bikini: 2000,
+    face: 800,
+    arms: 1500,
+    back: 2000,
+    stomach: 1200,
+  },
+  laser: {
+    legs: 5000,
+    bikini: 4000,
+    face: 2000,
+    arms: 3000,
+    back: 4500,
+    stomach: 2500,
+  },
+};
 
 /**
  * Load saved quiz data from localStorage
@@ -507,20 +504,6 @@ const yearLabel = computed(() => {
   }
 });
 
-/**
- * Calculate savings based on selected time period and method
- */
-const calculatedSavings = computed(() => {
-  const baseAmount = getSavingsBaseAmount.value;
-  const yearlyMultiplier = 1.1;
-
-  let total = 0;
-  for (let i = 0; i < Math.round(timePeriod.value); i++) {
-    total += baseAmount * Math.pow(yearlyMultiplier, i);
-  }
-  return Math.round(total);
-});
-
 // Computed properties for quiz logic
 const allowLaser = computed(() => {
   // Only allow laser if user is over 18
@@ -542,22 +525,6 @@ const canProceed = computed(() => {
       return !!userAnswers.value.reward && validatePhone();
     default:
       return true;
-  }
-});
-
-/**
- * Get base amount for savings calculator based on selected method
- */
-const getSavingsBaseAmount = computed(() => {
-  switch (userAnswers.value.method) {
-    case "electro":
-      return 6000;
-    case "sugaring":
-      return 12000;
-    case "laser":
-      return 8000;
-    default:
-      return 6000;
   }
 });
 
@@ -612,46 +579,49 @@ const submitQuiz = () => {
   // localStorage.removeItem(STORAGE_KEY);
 };
 
-/**
- * Возвращает название метода на русском языке
- */
-const getMethodName = computed(() => {
-  switch (userAnswers.value.method) {
-    case "electro":
-      return "Электроэпиляция";
-    case "sugaring":
-      return "Шугаринг";
-    case "laser":
-      return "Лазерная эпиляция";
-    default:
-      return "Не выбран";
-  }
+// Computed properties for calculator
+const showCalculator = computed(() => {
+  return userAnswers.value.zones.length > 0;
 });
 
-/**
- * Форматирует сумму экономии с разделителями тысяч
- */
-const formattedSavings = computed(() => {
-  return new Intl.NumberFormat("ru-RU").format(calculatedSavings.value);
+const methodTotalCosts = computed(() => {
+  const costs = {
+    electro: 0,
+    sugaring: 0,
+    laser: 0,
+  };
+
+  // Calculate initial costs for each method
+  for (const zone of userAnswers.value.zones) {
+    costs.electro += zonePrices.electro[zone];
+    costs.sugaring += zonePrices.sugaring[zone];
+    costs.laser += zonePrices.laser[zone];
+  }
+
+  return costs;
 });
 
-/**
- * Возвращает правильное склонение слова "год" на русском языке для произвольного числа
- * @param {number} num - Число
- * @returns {string} Правильное склонение
- */
-function getYearLabel(num) {
-  // Russian grammar rules for years
-  if (num % 10 === 1 && num % 100 !== 11) {
-    return "год";
+const totalCostsByPeriod = computed(() => {
+  const costs = {
+    electro: methodTotalCosts.value.electro,
+    sugaring: methodTotalCosts.value.sugaring * 12 * timePeriod.value,
+    laser: methodTotalCosts.value.laser * 2 * timePeriod.value,
+  };
+
+  // Calculate electro costs with 5% discount per year
+  if (timePeriod.value > 1) {
+    let electroCost = methodTotalCosts.value.electro;
+    for (let year = 1; year < timePeriod.value; year++) {
+      if (year === 1) {
+        electroCost += methodTotalCosts.value.electro * 0.95; // 5% discount
+      }
+      // After 2 years, no cost for electro
+    }
+    costs.electro = electroCost;
   }
-  else if ([2, 3, 4].includes(num % 10) && ![12, 13, 14].includes(num % 100)) {
-    return "года";
-  }
-  else {
-    return "лет";
-  }
-}
+
+  return costs;
+});
 </script>
 
 <style scoped>

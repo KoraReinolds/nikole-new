@@ -53,6 +53,9 @@
         </div>
       </div>
     </div>
+    <div class="absolute left-[240px] top-8 w-[240px]">
+      <slot name="price" />
+    </div>
   </div>
 </template>
 
@@ -118,3 +121,44 @@ const props = defineProps({
 
 defineEmits(["update:modelValue"]);
 </script>
+
+<style scoped>
+.tooltip-container {
+  position: relative;
+}
+
+.tooltip-container:hover .tooltip-text {
+  display: block;
+  animation: fadeIn 0.3s;
+}
+
+.tooltip-text {
+  position: absolute;
+  left: 30px;
+  top: -5px;
+  background: white;
+  padding: 12px;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
+  z-index: 10;
+  width: 250px;
+  display: none;
+}
+
+.tooltip-text::before {
+  content: '';
+  position: absolute;
+  left: -6px;
+  top: 10px;
+  width: 12px;
+  height: 12px;
+  background: white;
+  transform: rotate(45deg);
+  box-shadow: -2px 2px 3px rgba(0, 0, 0, 0.05);
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+</style>
