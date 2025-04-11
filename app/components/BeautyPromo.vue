@@ -136,13 +136,13 @@
                   class="w-full h-full"
                 >
               </div>
-              <div class="absolute -bottom-5 left-[240px] w-[140px] gift-pulse">
+              <!-- <div class="absolute -bottom-5 left-[240px] w-[140px] gift-pulse">
                 <img
                   src="/images/gift.png"
                   alt="Подарок"
                   class="w-full h-full"
                 >
-              </div>
+              </div> -->
               <div class="button-firefly-container">
                 <div class="button-with-reflection">
                   <button
@@ -302,15 +302,15 @@ const scrollToServices = () => {
 @keyframes giftPulse {
   0% {
     transform: scale(1);
-    filter: drop-shadow(0 0 8px rgba(147, 186, 115, 0.4));
+    filter: drop-shadow(0 0 8px rgba(148, 71, 94, 0.4));
   }
   50% {
     transform: scale(1.03);
-    filter: drop-shadow(0 0 12px rgba(147, 186, 115, 0.7));
+    filter: drop-shadow(0 0 12px rgba(148, 71, 94, 0.7));
   }
   100% {
     transform: scale(1);
-    filter: drop-shadow(0 0 8px rgba(147, 186, 115, 0.4));
+    filter: drop-shadow(0 0 8px rgba(148, 71, 94, 0.4));
   }
 }
 

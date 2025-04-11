@@ -17,25 +17,35 @@
       <!-- Right side with quiz content -->
       <div class="pt-[120px] pb-16 flex flex-col w-full">
         <!-- Quiz header -->
-        <h2 class="text-add2-black text-6xl font-bold font-raleway mb-10">
-          Ответьте<br>
-          на 5 вопросов<br>
-          и получите <span class="text-add2-sat">подарок</span>
-        </h2>
+        <div class="relative w-[600px]">
+          <h2 class="text-add2-black text-6xl font-bold font-raleway mb-10">
+            Ответьте<br>
+            на 5 вопросов<br>
+            и получите <span class="text-add2-sat">подарок</span>
+          </h2>
+          <div class="absolute bottom-[32px] -right-[140px] h-[140px] w-[140px] gift-pulse">
+            <img
+              src="/images/gift.png"
+              alt="Подарок"
+              class="w-full h-full"
+            >
+          </div>
+        </div>
 
         <div class="mb-8 flex gap-16 w-full h-full">
           <!-- Progress steps -->
-          <div class="relative flex items-start min-w-[555px] mt-3">
+          <div class="relative flex gap items-start min-w-[555px] mt-3">
             <div
               v-for="step in totalSteps"
               :key="step"
               class="flex items-center"
             >
               <div
-                class="w-8 h-8 rounded-full flex items-center justify-center cursor-pointer transition-all"
+                class="w-8 h-8 mx-1 rounded-full flex items-center justify-center cursor-pointer transition-all font-medium"
                 :class="[
-                  step <= currentStep ? 'bg-[#94475E] text-white' : 'bg-[#454B57] text-gray-300',
-                  { 'ring-2 ring-[#94475E] ring-offset-2': step === currentStep },
+                  step < currentStep ? 'bg-[#94475E] text-white'
+                  : step === currentStep ? 'bg-[#ADDB88] text-add2-black ring-2 ring-add2-black'
+                    : 'bg-[#454B57] text-gray-300',
                 ]"
                 @click="goToStep(step)"
               >
@@ -555,6 +565,7 @@ onMounted(() => {
  * @param {number} step - The step number to navigate to
  */
 const goToStep = (step) => {
+  // Allow navigation to any previous step
   if (step <= currentStep.value) {
     currentStep.value = step;
     saveQuizData();
