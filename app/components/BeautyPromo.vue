@@ -6,7 +6,7 @@
   <div class="relative flex flex-col items-start overflow-hidden">
     <!-- First promo section -->
     <div class="relative h-[1070px] w-full background-container">
-      <div class="container mx-auto px-24 max-w-[1180px] h-full relative z-10">
+      <div class="container mx-auto px-24 max-w-[1240px] h-full relative z-10">
         <!-- Header section with logo and navigation -->
         <div class="w-full relative mb-16 mt-12">
           <div class="flex justify-start items-center">
@@ -19,10 +19,10 @@
               >
             </div>
 
-            <div class="grow  " />
+            <div class="grow" />
 
-            <!-- Menu items on the right -->
-            <div class="flex items-center gap-12">
+            <!-- Desktop Menu -->
+            <div class="hidden md:flex items-center gap-12">
               <button
                 class="text-main text-3xl font-normal font-roboto hover:text-opacity-80 transition-all cursor-pointer"
                 @click="scrollToServices"
@@ -35,12 +35,67 @@
                 <span class="text-main text-2xl font-normal font-roboto">ул Юбилейная 9-32</span>
               </div>
             </div>
+
+            <!-- Mobile Hamburger Menu -->
+            <div class="md:hidden">
+              <button
+                class="text-main text-3xl"
+                @click="toggleMobileMenu"
+              >
+                <svg
+                  v-if="!isMobileMenuOpen"
+                  class="w-8 h-8"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M4 6h16M4 12h16M4 18h16"
+                  />
+                </svg>
+                <svg
+                  v-else
+                  class="w-8 h-8"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M6 18L18 6M6 6l12 12"
+                  />
+                </svg>
+              </button>
+            </div>
+          </div>
+
+          <!-- Mobile Menu Dropdown -->
+          <div
+            v-if="isMobileMenuOpen"
+            class="md:hidden absolute top-full left-0 right-0 bg-[#16080E] bg-opacity-95 backdrop-blur-sm z-50"
+          >
+            <div class="container mx-auto px-4 py-4">
+              <button
+                class="w-full text-left text-main text-2xl font-normal font-roboto py-2 hover:text-opacity-80 transition-all"
+                @click="scrollToServices"
+              >
+                Услуги
+              </button>
+              <div class="text-main-white2 text-2xl font-normal font-roboto py-2">
+                Мурманск, <span class="text-main text-xl">ул Юбилейная 9-32</span>
+              </div>
+            </div>
           </div>
         </div>
 
         <div class="flex flex-col lg:flex-row">
-          <!-- Left Content Section -->
-          <div class="w-[870px] py-10 z-10">
+          <!-- Left Content Section with Glass Effect -->
+          <div class="w-[920px] py-10 z-10 glass-container">
             <!-- Main Headline -->
             <h1 class="text-main-white2 text-6xl font-bold font-raleway mb-[106px]">
               Гладкая кожа <span class="pink-text-gradient font-bold">НАВСЕГДА</span><br>
@@ -71,23 +126,32 @@
               </li>
             </ul>
 
-            <!-- CTA Button -->
+            <!-- CTA Button with Reflection -->
             <div class="mt-[120px] relative">
               <!-- Butterfly Decoration -->
-              <div class="absolute bottom-20 left-20 w-[300px] -translate-x-[280px] translate-y-[200px] butterfly-pulse">
+              <div class="absolute butterfly-pulse w-[100px] -top-20 -left-20 gift-pulse">
                 <img
                   src="/images/butterfly.png"
                   alt="Декоративная бабочка"
                   class="w-full h-full"
                 >
               </div>
-              <div class="button-firefly-container">
-                <button
-                  class="py-4 px-8 font-bold bg-sup2-white text-additional-black text-2xl font-roboto rounded-md hover:bg-opacity-90 transition-all shadow-lg button-glow button-pulse"
-                  @click="scrollToQuiz"
+              <div class="absolute -bottom-5 left-[240px] w-[140px] gift-pulse">
+                <img
+                  src="/images/gift.png"
+                  alt="Подарок"
+                  class="w-full h-full"
                 >
-                  Получить подарок
-                </button>
+              </div>
+              <div class="button-firefly-container">
+                <div class="button-with-reflection">
+                  <button
+                    class="py-4 px-8 font-bold bg-sup2-white text-additional-black text-2xl font-roboto rounded-md hover:bg-opacity-90 transition-all shadow-lg button-glow button-pulse"
+                    @click="scrollToQuiz"
+                  >
+                    Получить подарок
+                  </button>
+                </div>
               </div>
             </div>
           </div>
@@ -97,7 +161,7 @@
           <img
             src="/images/main.png"
             alt="Женщина"
-            class="object-cover z-10 max-w-none h-full"
+            class="object-cover z-10 max-w-none h-full opacity-70"
           >
         </div>
       </div>
@@ -141,12 +205,21 @@ import BeautyFooter from "./BeautyFooter.vue";
 
 const quizSection = ref(null);
 const servicesSection = ref(null);
+const isMobileMenuOpen = ref(false);
+
+/**
+ * Toggles the mobile menu visibility
+ */
+const toggleMobileMenu = () => {
+  isMobileMenuOpen.value = !isMobileMenuOpen.value;
+};
 
 /**
  * Scrolls to the quiz section smoothly
  */
 const scrollToQuiz = () => {
   quizSection.value.scrollIntoView({ behavior: "smooth" });
+  isMobileMenuOpen.value = false;
 };
 
 /**
@@ -154,6 +227,7 @@ const scrollToQuiz = () => {
  */
 const scrollToServices = () => {
   servicesSection.value.$el.scrollIntoView({ behavior: "smooth" });
+  isMobileMenuOpen.value = false;
 };
 </script>
 
@@ -207,15 +281,35 @@ const scrollToServices = () => {
 
 @keyframes butterflyPulse {
   0% {
-    transform: translate(-280px, 200px) scale(1);
+    transform: scale(1);
     filter: drop-shadow(0 0 8px rgba(147, 186, 115, 0.4));
   }
   50% {
-    transform: translate(-280px, 200px) scale(1.03);
+    transform: scale(1.03);
     filter: drop-shadow(0 0 12px rgba(147, 186, 115, 0.7));
   }
   100% {
-    transform: translate(-280px, 200px) scale(1);
+    transform: scale(1);
+    filter: drop-shadow(0 0 8px rgba(147, 186, 115, 0.4));
+  }
+}
+/* Butterfly pulse animation */
+.gift-pulse {
+  animation: giftPulse 3s ease-in-out infinite;
+  filter: drop-shadow(0 0 8px rgba(147, 186, 115, 0.8));
+}
+
+@keyframes giftPulse {
+  0% {
+    transform: scale(1);
+    filter: drop-shadow(0 0 8px rgba(147, 186, 115, 0.4));
+  }
+  50% {
+    transform: scale(1.03);
+    filter: drop-shadow(0 0 12px rgba(147, 186, 115, 0.7));
+  }
+  100% {
+    transform: scale(1);
     filter: drop-shadow(0 0 8px rgba(147, 186, 115, 0.4));
   }
 }
@@ -343,5 +437,63 @@ const scrollToServices = () => {
 .quiz-background {
   background: linear-gradient(to bottom, #FFA79B 0%, #FEB5A2 37%, #FB9C7E 86%, #8F352A 100%);
   position: relative;
+}
+
+/* Glass effect container */
+.glass-container {
+  background: rgba(22, 8, 14, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border-radius: 16px;
+  padding: 48px;
+  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* Button with reflection */
+.button-with-reflection {
+  position: relative;
+  display: inline-block;
+}
+
+.button-with-reflection::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 0;
+  width: 100%;
+  height: 20px;
+  background: linear-gradient(180deg,
+    rgba(255, 255, 255, 0.2) 0%,
+    rgba(255, 255, 255, 0.1) 50%,
+    rgba(255, 255, 255, 0) 100%
+  );
+  transform: scaleY(0.5) translateY(100%);
+  filter: blur(4px);
+  pointer-events: none;
+}
+
+/* Mobile-specific adjustments */
+@media (max-width: 768px) {
+  .background-container::before {
+    transform: rotate(-15deg);
+  }
+
+  .glass-container {
+    padding: 16px;
+    margin: 0 -16px;
+    border-radius: 0;
+  }
+}
+
+/* Mobile menu animation */
+.mobile-menu-enter-active,
+.mobile-menu-leave-active {
+  transition: all 0.3s ease;
+}
+
+.mobile-menu-enter-from,
+.mobile-menu-leave-to {
+  opacity: 0;
+  transform: translateY(-10px);
 }
 </style>

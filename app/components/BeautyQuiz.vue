@@ -18,7 +18,8 @@
       <div class="pt-[120px] pb-16 flex flex-col w-full">
         <!-- Quiz header -->
         <h2 class="text-add2-black text-6xl font-bold font-raleway mb-10">
-          Ответьте на 5 вопросов<br>
+          Ответьте<br>
+          на 5 вопросов<br>
           и получите <span class="text-add2-sat">подарок</span>
         </h2>
 
