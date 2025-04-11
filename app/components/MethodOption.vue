@@ -3,7 +3,7 @@
   Компонент для отображения опции метода эпиляции с тултипом и рейтингами
 -->
 <template>
-  <div class="flex items-center relative h-9">
+  <div class="flex items-center relative h-12">
     <div class="w-[240px] flex items-center justify-end absolute left-[-304px]">
       <div class="tooltip-container relative mr-2">
         <span class="inline-flex items-center justify-center w-5 h-5 rounded-full cursor-help bg-add2-sat text-white font-bold text-xs">?</span>
@@ -24,6 +24,9 @@
       >
         {{ label }}
       </RadioOption>
+      <div class="absolute right-0 text-end top-8 w-[240px] mr-9">
+        <slot name="price" />
+      </div>
     </div>
     <div class="flex flex-1 justify-between h-full items-center -translate-y-2.5">
       <div class="w-[160px]">
@@ -52,9 +55,6 @@
           />
         </div>
       </div>
-    </div>
-    <div class="absolute left-[240px] top-8 w-[240px]">
-      <slot name="price" />
     </div>
   </div>
 </template>
