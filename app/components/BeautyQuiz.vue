@@ -256,7 +256,7 @@
                   v-if="showCalculator"
                   class="mt-8"
                 >
-                  <div class="bg-main-white2 rounded-lg shadow-sm p-3">
+                  <div class="bg-main-white2 rounded-lg shadow-sm p-3 shadow-lg">
                     <div class="flex space-x-1">
                       <button
                         v-for="period in [0, 1, 2, 3, 4, 5]"
@@ -264,8 +264,8 @@
                         class="py-1 px-2 text-sm rounded transition-all"
                         :class="[
                           timePeriod === period
-                            ? 'bg-[#94475E] text-white font-medium font-bold'
-                            : 'bg-main-white text-add2-black font-bold',
+                            ? 'bg-[#94475E] text-white font-medium shadow-lg'
+                            : 'bg-main-white2 hover:bg-main-white text-add2-black shadow-lg',
                         ]"
                         @click="timePeriod = period"
                       >
