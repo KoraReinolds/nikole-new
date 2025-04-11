@@ -318,20 +318,36 @@
                     >
                   </div>
 
-                  <button
-                    class="mt-6 py-3 px-8 font-bold bg-[#229ED9] text-white text-xl font-roboto rounded-md hover:bg-opacity-90 transition-all shadow-lg flex items-center"
-                    @click="submitQuiz"
-                  >
-                    <svg
-                      class="w-6 h-6 mr-2"
-                      fill="currentColor"
-                      xmlns="http://www.w3.org/2000/svg"
-                      viewBox="0 0 24 24"
+                  <div class="flex gap-4">
+                    <button
+                      class="mt-6 py-3 px-8 font-bold bg-gray-200 text-[#232A36] text-xl font-roboto rounded-md hover:bg-gray-300 transition-all shadow-lg flex items-center"
+                      @click="prevStep"
                     >
-                      <path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z" />
-                    </svg>
-                    Забрать подарок
-                  </button>
+                      <svg
+                        class="w-6 h-6 mr-2"
+                        fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+                      </svg>
+                      Назад
+                    </button>
+                    <button
+                      class="mt-6 py-3 px-8 font-bold bg-[#229ED9] text-white text-xl font-roboto rounded-md hover:bg-opacity-90 transition-all shadow-lg flex items-center"
+                      @click="submitQuiz"
+                    >
+                      <svg
+                        class="w-6 h-6 mr-2"
+                        fill="currentColor"
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 24 24"
+                      >
+                        <path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z" />
+                      </svg>
+                      Забрать подарок
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
