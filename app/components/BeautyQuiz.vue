@@ -188,9 +188,14 @@
                   >
                     <template #price>
                       <div class="text-sm text-gray-600">
-                        <div>Единоразово: {{ new Intl.NumberFormat('ru-RU').format(methodTotalCosts.electro) }} ₽</div>
-                        <div v-if="timePeriod > 1">
-                          За {{ timePeriod }} {{ yearLabel }}: {{ new Intl.NumberFormat('ru-RU').format(totalCostsByPeriod.electro) }} ₽
+                        <div v-if="timePeriod === 0">
+                          {{ new Intl.NumberFormat('ru-RU').format(methodTotalCosts.electro) }} ₽
+                        </div>
+                        <div v-else-if="timePeriod === 1">
+                          {{ new Intl.NumberFormat('ru-RU').format(methodTotalCosts.electro) }} ₽
+                        </div>
+                        <div v-else>
+                          {{ new Intl.NumberFormat('ru-RU').format(totalCostsByPeriod.electro) }} ₽
                         </div>
                       </div>
                     </template>
@@ -207,9 +212,14 @@
                   >
                     <template #price>
                       <div class="text-sm text-gray-600">
-                        <div>В месяц: {{ new Intl.NumberFormat('ru-RU').format(methodTotalCosts.sugaring) }} ₽</div>
-                        <div v-if="timePeriod > 1">
-                          За {{ timePeriod }} {{ yearLabel }}: {{ new Intl.NumberFormat('ru-RU').format(totalCostsByPeriod.sugaring) }} ₽
+                        <div v-if="timePeriod === 0">
+                          {{ new Intl.NumberFormat('ru-RU').format(methodTotalCosts.sugaring) }} ₽
+                        </div>
+                        <div v-else-if="timePeriod === 1">
+                          {{ new Intl.NumberFormat('ru-RU').format(methodTotalCosts.sugaring * 12) }} ₽
+                        </div>
+                        <div v-else>
+                          {{ new Intl.NumberFormat('ru-RU').format(totalCostsByPeriod.sugaring) }} ₽
                         </div>
                       </div>
                     </template>
@@ -227,9 +237,14 @@
                   >
                     <template #price>
                       <div class="text-sm text-gray-600">
-                        <div>2 сеанса в год: {{ new Intl.NumberFormat('ru-RU').format(methodTotalCosts.laser * 2) }} ₽</div>
-                        <div v-if="timePeriod > 1">
-                          За {{ timePeriod }} {{ yearLabel }}: {{ new Intl.NumberFormat('ru-RU').format(totalCostsByPeriod.laser) }} ₽
+                        <div v-if="timePeriod === 0">
+                          {{ new Intl.NumberFormat('ru-RU').format(methodTotalCosts.laser) }} ₽
+                        </div>
+                        <div v-else-if="timePeriod === 1">
+                          {{ new Intl.NumberFormat('ru-RU').format(methodTotalCosts.laser * 2) }} ₽
+                        </div>
+                        <div v-else>
+                          {{ new Intl.NumberFormat('ru-RU').format(totalCostsByPeriod.laser) }} ₽
                         </div>
                       </div>
                     </template>
@@ -241,24 +256,32 @@
                   v-if="showCalculator"
                   class="mt-8"
                 >
-                  <div class="bg-white rounded-lg shadow-sm border p-3">
-                    <p class="text-sm text-[#232A36] mb-2">
-                      Период расчета:
-                    </p>
+                  <div class="bg-main-white2 rounded-lg shadow-sm p-3">
                     <div class="flex space-x-1">
                       <button
-                        v-for="year in 5"
-                        :key="year"
+                        v-for="period in [0, 1, 2, 3, 4, 5]"
+                        :key="period"
                         class="py-1 px-2 text-sm rounded transition-all"
                         :class="[
-                          timePeriod === year
-                            ? 'bg-[#94475E] text-white font-medium'
-                            : 'bg-gray-100 text-[#232A36] hover:bg-gray-200',
+                          timePeriod === period
+                            ? 'bg-[#94475E] text-white font-medium font-bold'
+                            : 'bg-main-white text-add2-black font-bold',
                         ]"
-                        @click="timePeriod = year"
+                        @click="timePeriod = period"
                       >
-                        {{ year }} {{ year === 1 ? 'год' : year <= 4 ? 'года' : 'лет' }}
+                        {{ period === 0 ? '1 сеанс' : period === 1 ? '1 год' : period + ' ' + (period <= 4 ? 'года' : 'лет') }}
                       </button>
+                    </div>
+                    <div class="mt-4 text-sm">
+                      <p
+                        v-if="mostEconomicalMethod"
+                        class="font-medium text-add2-black"
+                      >
+                        Самый выгодный вариант: <b class="text-[#94475E]">{{ mostEconomicalMethod.label }}</b>
+                      </p>
+                      <p class="text-add2-black mt-1">
+                        {{ mostEconomicalExplanation }}
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -504,22 +527,6 @@ onMounted(() => {
   loadSavedQuizData();
 });
 
-/**
- * Correct grammatical form of "year" in Russian based on number
- */
-const yearLabel = computed(() => {
-  // Russian grammar rules for years
-  if (timePeriod.value === 1) {
-    return "год";
-  }
-  else if (timePeriod.value >= 2 && timePeriod.value <= 4) {
-    return "года";
-  }
-  else {
-    return "лет";
-  }
-});
-
 // Computed properties for quiz logic
 const allowLaser = computed(() => {
   // Only allow laser if user is over 18
@@ -637,6 +644,33 @@ const totalCostsByPeriod = computed(() => {
   }
 
   return costs;
+});
+
+const mostEconomicalMethod = computed(() => {
+  const methods = [
+    { id: "electro", label: "Электроэпиляция", cost: totalCostsByPeriod.value.electro },
+    { id: "sugaring", label: "Шугаринг", cost: totalCostsByPeriod.value.sugaring },
+    { id: "laser", label: "Лазерная эпиляция", cost: totalCostsByPeriod.value.laser },
+  ];
+
+  return methods.reduce((min, current) =>
+    current.cost < min.cost ? current : min,
+  );
+});
+
+const mostEconomicalExplanation = computed(() => {
+  if (timePeriod.value === 0) {
+    return "Шугаринг является самым доступным вариантом для разовой процедуры";
+  }
+  else if (timePeriod.value === 1) {
+    return "Электроэпиляция требует меньше сеансов в год по сравнению с другими методами";
+  }
+  else if (timePeriod.value <= 3) {
+    return "Электроэпиляция становится выгоднее с каждым годом благодаря меньшему количеству поддерживающих процедур";
+  }
+  else {
+    return "После 3 лет электроэпиляция требует минимальных поддерживающих процедур, что делает её самым экономичным вариантом в долгосрочной перспективе";
+  }
 });
 </script>
 
