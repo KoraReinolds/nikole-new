@@ -296,38 +296,6 @@
                   Последний шаг
                 </QuizHeading>
 
-                <div class="grid grid-cols-2 gap-6 mb-8 mt-6">
-                  <!-- <label class="border rounded-lg p-4 cursor-pointer hover:border-[#FF6B9C] transition-all flex flex-col">
-                    <input
-                      v-model="userAnswers.reward"
-                      type="radio"
-                      value="free_session"
-                      class="form-radio h-5 w-5 text-[#FF6B9C] self-start"
-                    >
-                    <div class="mt-3">
-                      <h4 class="text-lg font-medium">Бесплатный пробный сеанс</h4>
-                      <p class="text-gray-600 text-sm mt-1">
-                        Попробуйте любую процедуру бесплатно
-                      </p>
-                    </div>
-                  </label>
-
-                  <label class="border rounded-lg p-4 cursor-pointer hover:border-[#FF6B9C] transition-all flex flex-col">
-                    <input
-                      v-model="userAnswers.reward"
-                      type="radio"
-                      value="consultation"
-                      class="form-radio h-5 w-5 text-[#FF6B9C] self-start"
-                    >
-                    <div class="mt-3">
-                      <h4 class="text-lg font-medium">Персональная консультация</h4>
-                      <p class="text-gray-600 text-sm mt-1">
-                        Детальный разбор вашей ситуации от мастера с опытом 13+ лет
-                      </p>
-                    </div>
-                  </label> -->
-                </div>
-
                 <div class="space-y-4 mt-8">
                   <p class="text-lg text-[#232A36]">
                     Персональные рекомендации уже готовы! Оставьте свой номер телефона и забирайте их в нашем Telegram боте:
@@ -340,6 +308,43 @@
                       class="px-4 py-2 border bg-white text-[#232A36] placeholder:text-[#232A36] border-gray-300 rounded-lg w-full max-w-md text-lg"
                     >
                   </div>
+
+                  <template v-if="userAnswers.method === 'laser'">
+                    <p class="text-lg text-[#232A36] mt-4">
+                      К сожалению, лазерная эпиляция временно не оказывается. Мы сообщим вам, когда услуга станет доступна.
+                    </p>
+                    <p class="text-lg text-[#232A36]">
+                      Подпишитесь на наши соцсети, чтобы следить за новостями и акциями:
+                    </p>
+                    <div class="flex gap-4">
+                      <a
+                        href="#"
+                        class="w-10 h-10 flex items-center justify-center rounded-full bg-[#229ED9] hover:bg-opacity-90 transition-all"
+                      >
+                        <span class="sr-only">Telegram</span>
+                        <svg
+                          class="w-6 h-6 fill-white"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM16.64 8.8C16.49 10.38 15.84 14.22 15.51 15.99C15.37 16.74 15.1 16.99 14.84 17.02C14.25 17.07 13.81 16.64 13.25 16.27C12.37 15.69 11.87 15.33 11.02 14.77C10.03 14.12 10.67 13.76 11.24 13.18C11.39 13.03 13.95 10.7 14 10.49C14.0069 10.4476 14.0031 10.4043 13.989 10.364C13.9748 10.3238 13.9507 10.2877 13.92 10.26C13.84 10.19 13.73 10.21 13.64 10.23C13.52 10.26 12.25 11.09 9.82 12.72C9.47 12.96 9.15 13.07 8.86 13.07C8.54 13.07 7.93 12.89 7.47 12.73C6.91 12.54 6.47 12.44 6.5 12.13C6.52 11.97 6.74 11.8 7.16 11.64C9.74 10.49 11.47 9.73 12.35 9.38C14.91 8.3 15.45 8.1 15.82 8.1C15.9 8.1 16.09 8.12 16.21 8.23C16.31 8.32 16.34 8.44 16.35 8.52C16.35 8.59 16.36 8.75 16.64 8.8Z" />
+                        </svg>
+                      </a>
+                      <a
+                        href="#"
+                        class="w-10 h-10 flex items-center justify-center rounded-full bg-[#4C75A3] hover:bg-opacity-90 transition-all"
+                      >
+                        <span class="sr-only">VK</span>
+                        <svg
+                          class="w-6 h-6 fill-white"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M15.07 2H8.93C3.33 2 2 3.33 2 8.93V15.07C2 20.67 3.33 22 8.93 22H15.07C20.67 22 22 20.67 22 15.07V8.93C22 3.33 20.67 2 15.07 2ZM18.15 16.27H16.69C16.14 16.27 15.97 15.82 14.86 14.72C13.86 13.77 13.49 13.67 13.27 13.67C12.95 13.67 12.87 13.76 12.87 14.18V15.77C12.87 16.1 12.75 16.27 11.82 16.27C10.28 16.27 8.57 15.35 7.35 13.72C5.49 11.27 5 9.36 5 8.99C5 8.78 5.08 8.59 5.5 8.59H6.96C7.3 8.59 7.44 8.76 7.58 9.17C8.38 11.39 9.74 13.23 10.32 13.23C10.5 13.23 10.58 13.14 10.58 12.67V10.59C10.53 9.79 10.08 9.73 10.08 9.4C10.08 9.25 10.21 9.1 10.41 9.1H12.66C12.94 9.1 13.05 9.25 13.05 9.61V12.14C13.05 12.41 13.19 12.53 13.28 12.53C13.46 12.53 13.61 12.41 13.93 12.09C14.94 10.94 15.69 9.11 15.69 9.11C15.79 8.89 15.96 8.69 16.32 8.69H17.78C18.2 8.69 18.3 8.9 18.2 9.17C18.02 9.84 16.27 12.46 16.27 12.46C16.12 12.69 16.07 12.78 16.27 13.04C16.42 13.25 16.97 13.73 17.32 14.13C18.17 15.06 18.79 15.77 18.92 16.13C19.06 16.5 18.86 16.28 18.15 16.28V16.27Z" />
+                        </svg>
+                      </a>
+                    </div>
+                  </template>
 
                   <div class="flex gap-4">
                     <button
@@ -368,7 +373,7 @@
                       >
                         <path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z" />
                       </svg>
-                      Забрать подарок
+                      {{ userAnswers.method === 'laser' ? 'Отправить' : 'Забрать подарок' }}
                     </button>
                   </div>
                 </div>
