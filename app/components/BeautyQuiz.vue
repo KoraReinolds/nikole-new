@@ -34,7 +34,7 @@
 
         <div class="flex flex-col w-full h-full">
           <!-- Progress and heading container -->
-          <div class="flex items-center justify-between gap-4 md:gap-16 my-4 md:my-8 flex-wrap">
+          <div class="flex items-start justify-between gap-4 md:gap-16 my-4 md:my-8 flex-wrap">
             <!-- Progress steps -->
             <div class="relative flex items-center min-w-[200px] md:min-w-[300px]">
               <div
@@ -61,35 +61,12 @@
               </div>
             </div>
 
-            <!-- Step heading -->
+            <!-- Step content container -->
             <div class="flex-grow">
-              <QuizHeading v-if="currentStep === 1">
-                Сколько Вам лет?
-              </QuizHeading>
-              <QuizHeading v-if="currentStep === 2">
-                Какие из проблем вам знакомы?
-              </QuizHeading>
-              <QuizHeading v-if="currentStep === 3">
-                Выберите зоны эпиляции
-              </QuizHeading>
-              <QuizHeading v-if="currentStep === 4">
-                Выберите метод эпиляции
-              </QuizHeading>
-              <QuizHeading v-if="currentStep === 5">
-                Последний шаг
-              </QuizHeading>
-            </div>
-          </div>
-
-          <div class="flex flex-col flex-grow w-full h-full items-end">
-            <!-- Quiz content - changes based on current step -->
-            <div class="flex-grow w-full md:w-[200px]">
               <!-- Step 1: Age question -->
-              <div
-                v-if="currentStep === 1"
-                class="quiz-step"
-              >
-                <div class="space-y-4 ml-4">
+              <div v-if="currentStep === 1">
+                <QuizHeading>Сколько Вам лет?</QuizHeading>
+                <div class="space-y-4 ml-4 mt-4">
                   <RadioOption
                     v-model="userAnswers.age"
                     value="under18"
@@ -106,11 +83,9 @@
               </div>
 
               <!-- Step 2: Problems selection -->
-              <div
-                v-if="currentStep === 2"
-                class="quiz-step"
-              >
-                <div class="space-y-4 mt-6 bg-[#FFBCAD] p-4 md:p-6 rounded-lg max-w-full md:max-w-[500px]">
+              <div v-if="currentStep === 2">
+                <QuizHeading>Какие из проблем вам знакомы?</QuizHeading>
+                <div class="space-y-4 mt-4 bg-[#FFBCAD] p-4 md:p-6 rounded-lg max-w-full md:max-w-[500px]">
                   <CheckboxOption
                     v-model="userAnswers.problems"
                     value="frequent_shaving"
@@ -145,11 +120,9 @@
               </div>
 
               <!-- Step 3: Zone selection with checkboxes -->
-              <div
-                v-if="currentStep === 3"
-                class="quiz-step"
-              >
-                <div class="space-y-4 mt-6 bg-[#FFBCAD] p-4 md:p-6 rounded-lg max-w-full md:max-w-[500px]">
+              <div v-if="currentStep === 3">
+                <QuizHeading>Выберите зоны эпиляции</QuizHeading>
+                <div class="space-y-4 mt-4 bg-[#FFBCAD] p-4 md:p-6 rounded-lg max-w-full md:max-w-[500px]">
                   <CheckboxOption
                     v-model="userAnswers.zones"
                     value="legs"
@@ -195,11 +168,9 @@
               </div>
 
               <!-- Step 4: Method selection -->
-              <div
-                v-if="currentStep === 4"
-                class="quiz-step"
-              >
-                <div class="space-y-4 mt-6">
+              <div v-if="currentStep === 4">
+                <QuizHeading>Выберите метод эпиляции</QuizHeading>
+                <div class="space-y-4 mt-4">
                   <!-- Electro epilation option -->
                   <MethodOption
                     v-model="userAnswers.method"
@@ -234,11 +205,9 @@
               </div>
 
               <!-- Final Step - Contact Information & Reward -->
-              <div
-                v-if="currentStep === 5"
-                class="quiz-step"
-              >
-                <div class="space-y-4 mt-8">
+              <div v-if="currentStep === 5">
+                <QuizHeading>Последний шаг</QuizHeading>
+                <div class="space-y-4 mt-4">
                   <div class="flex items-center gap-4">
                     <img
                       src="/images/gift.png"
@@ -328,30 +297,30 @@
                 </div>
               </div>
             </div>
+          </div>
 
-            <!-- Navigation buttons -->
+          <!-- Navigation buttons -->
+          <div
+            v-if="currentStep < 5"
+            class="flex justify-center md:justify-start gap-16 mt-6 transform md:-translate-x-[208px]"
+          >
             <div
-              v-if="currentStep < 5"
-              class="flex justify-center md:justify-start gap-16 mt-6 transform md:-translate-x-[208px]"
+              v-if="currentStep > 1"
+              class="w-36 h-14 px-10 py-4 bg-gradient-to-b bg-zinc-600 rounded-tl rounded-tr rounded-bl-[20px] rounded-br-[20px] inline-flex justify-center items-center gap-2.5 overflow-hidden cursor-pointer"
+              @click="prevStep"
             >
-              <div
-                v-if="currentStep > 1"
-                class="w-36 h-14 px-10 py-4 bg-gradient-to-b bg-zinc-600 rounded-tl rounded-tr rounded-bl-[20px] rounded-br-[20px] inline-flex justify-center items-center gap-2.5 overflow-hidden cursor-pointer"
-                @click="prevStep"
-              >
-                <div class="justify-start text-white text-2xl font-normal font-roboto">
-                  Назад
-                </div>
+              <div class="justify-start text-white text-2xl font-normal font-roboto">
+                Назад
               </div>
-              <div
-                class="w-36 h-14 px-10 py-4 bg-gradient-to-b bg-zinc-600 rounded-tl rounded-tr rounded-bl-[20px] rounded-br-[20px] inline-flex justify-center items-center gap-2.5 overflow-hidden cursor-pointer"
-                :class="{ 'opacity-50 cursor-not-allowed': !canProceed }"
-                :disabled="!canProceed"
-                @click="nextStep"
-              >
-                <div class="justify-start text-white text-2xl font-normal font-roboto">
-                  Далее
-                </div>
+            </div>
+            <div
+              class="w-36 h-14 px-10 py-4 bg-gradient-to-b bg-zinc-600 rounded-tl rounded-tr rounded-bl-[20px] rounded-br-[20px] inline-flex justify-center items-center gap-2.5 overflow-hidden cursor-pointer"
+              :class="{ 'opacity-50 cursor-not-allowed': !canProceed }"
+              :disabled="!canProceed"
+              @click="nextStep"
+            >
+              <div class="justify-start text-white text-2xl font-normal font-roboto">
+                Далее
               </div>
             </div>
           </div>
