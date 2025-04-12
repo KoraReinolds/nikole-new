@@ -10,20 +10,20 @@
         <img
           src="/images/promo-flowers-2.png"
           alt="Цветы в вазе"
-          class="w-[425px] object-contain relative z-10"
+          class="w-[425px] object-contain relative z-10 hidden"
         >
       </div>
 
       <!-- Right side with quiz content -->
       <div class="pt-[120px] pb-16 flex flex-col w-full">
         <!-- Quiz header -->
-        <div class="relative w-[600px]">
-          <h2 class="text-add2-black text-6xl font-bold font-raleway mb-10">
+        <div class="relative w-full md:w-[600px]">
+          <h2 class="text-add2-black text-4xl md:text-6xl font-bold font-raleway mb-6 md:mb-10">
             Ответьте<br>
             на 5 вопросов<br>
             и получите <span class="text-add2-sat">подарок</span>
           </h2>
-          <div class="absolute bottom-[32px] -right-[140px] h-[140px] w-[140px] gift-pulse">
+          <div class="absolute bottom-[32px] -right-[140px] h-[140px] w-[140px] gift-pulse hidden md:block">
             <img
               src="/images/gift.png"
               alt="Подарок"
@@ -32,16 +32,16 @@
           </div>
         </div>
 
-        <div class="mb-8 flex gap-16 w-full h-full">
+        <div class="mb-8 flex flex-col md:flex-row gap-8 md:gap-16 w-full h-full">
           <!-- Progress steps -->
-          <div class="relative flex gap items-start min-w-[555px] mt-3">
+          <div class="relative flex items-center justify-center md:justify-start min-w-full md:min-w-[555px] mt-3">
             <div
               v-for="step in totalSteps"
               :key="step"
               class="flex items-center"
             >
               <div
-                class="w-8 h-8 mx-1 rounded-full flex items-center justify-center cursor-pointer transition-all font-medium"
+                class="w-6 h-6 md:w-8 md:h-8 mx-1 rounded-full flex items-center justify-center cursor-pointer transition-all font-medium text-sm md:text-base"
                 :class="[
                   step < currentStep ? 'bg-[#94475E] text-white'
                   : step === currentStep ? 'bg-[#ADDB88] text-add2-black ring-2 ring-add2-black'
@@ -53,7 +53,7 @@
               </div>
               <div
                 v-if="step < totalSteps"
-                class="w-16 h-1"
+                class="w-8 md:w-16 h-1"
                 :class="step < currentStep ? 'bg-[#94475E]' : 'bg-[#454B57]'"
               />
             </div>
@@ -90,7 +90,7 @@
                 class="quiz-step"
               >
                 <QuizHeading>Какие из проблем вам знакомы?</QuizHeading>
-                <div class="space-y-4 mt-6 bg-[#FFBCAD] p-6 rounded-lg max-w-[500px]">
+                <div class="space-y-4 mt-6 bg-[#FFBCAD] p-4 md:p-6 rounded-lg max-w-full md:max-w-[500px]">
                   <CheckboxOption
                     v-model="userAnswers.problems"
                     value="frequent_shaving"
@@ -133,7 +133,7 @@
                   Выберите зоны эпиляции
                 </QuizHeading>
 
-                <div class="space-y-4 mt-6 bg-[#FFBCAD] p-6 rounded-lg max-w-[500px]">
+                <div class="space-y-4 mt-6 bg-[#FFBCAD] p-4 md:p-6 rounded-lg max-w-full md:max-w-[500px]">
                   <CheckboxOption
                     v-model="userAnswers.zones"
                     value="legs"
@@ -189,10 +189,10 @@
 
                 <div class="my-8 flex">
                   <div class="flex flex-1 justify-between text-start">
-                    <div class="w-[160px] text-gray-600 font-medium text-sm">
+                    <div class="w-[120px] md:w-[160px] text-gray-600 font-medium text-sm">
                       безопасность
                     </div>
-                    <div class="w-[160px] text-gray-600 font-medium text-sm">
+                    <div class="w-[120px] md:w-[160px] text-gray-600 font-medium text-sm">
                       эффективность
                     </div>
                   </div>
@@ -279,7 +279,7 @@
                   class="mt-8"
                 >
                   <div class="bg-main-white2 rounded-lg shadow-sm p-3 shadow-lg">
-                    <div class="flex space-x-1">
+                    <div class="flex flex-wrap gap-1">
                       <button
                         v-for="period in [0, 1, 2, 3, 4, 5]"
                         :key="period"
@@ -323,7 +323,7 @@
                     <img
                       src="/images/gift.png"
                       alt="Подарок"
-                      class="w-16 h-16"
+                      class="w-12 h-12 md:w-16 md:h-16"
                     >
                     <p class="text-lg text-[#232A36]">
                       Персональные рекомендации уже готовы! Оставьте свой номер телефона и забирайте их в нашем Telegram боте:
@@ -375,9 +375,9 @@
                     </div>
                   </template>
 
-                  <div class="flex gap-4">
+                  <div class="flex flex-col md:flex-row gap-4">
                     <button
-                      class="mt-6 py-3 px-8 font-bold bg-gray-200 text-[#232A36] text-xl font-roboto rounded-md hover:bg-gray-300 transition-all shadow-lg flex items-center"
+                      class="mt-6 py-3 px-8 font-bold bg-gray-200 text-[#232A36] text-xl font-roboto rounded-md hover:bg-gray-300 transition-all shadow-lg flex items-center justify-center"
                       @click="prevStep"
                     >
                       <svg
@@ -391,7 +391,7 @@
                       Назад
                     </button>
                     <button
-                      class="mt-6 py-3 px-8 font-bold bg-[#229ED9] text-white text-xl font-roboto rounded-md hover:bg-opacity-90 transition-all shadow-lg flex items-center"
+                      class="mt-6 py-3 px-8 font-bold bg-[#229ED9] text-white text-xl font-roboto rounded-md hover:bg-opacity-90 transition-all shadow-lg flex items-center justify-center"
                       @click="submitQuiz"
                     >
                       <svg
@@ -412,7 +412,7 @@
             <!-- Navigation buttons -->
             <div
               v-if="currentStep < 5"
-              class="flex justify-start gap-16 mt-6 transform -translate-x-[208px]"
+              class="flex justify-center md:justify-start gap-16 mt-6 transform md:-translate-x-[208px]"
             >
               <div
                 v-if="currentStep > 1"
@@ -767,5 +767,20 @@ const mostEconomicalExplanation = computed(() => {
 @keyframes fadeIn {
   from { opacity: 0; }
   to { opacity: 1; }
+}
+
+/* Mobile-specific styles */
+@media (max-width: 768px) {
+  .quiz-container {
+    padding: 0 1rem;
+  }
+
+  .gift-pulse {
+    display: none;
+  }
+
+  .quiz-step {
+    max-width: 100%;
+  }
 }
 </style>

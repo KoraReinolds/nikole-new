@@ -5,17 +5,17 @@
 <template>
   <div class="relative flex flex-col items-start overflow-hidden">
     <!-- First promo section -->
-    <div class="relative h-[1070px] w-full background-container">
-      <div class="container mx-auto px-24 max-w-[1240px] h-full relative z-10">
+    <div class="relative h-[1070px] md:h-[1070px] h-screen w-full background-container">
+      <div class="container mx-auto px-4 md:px-24 max-w-[1240px] h-full relative z-10 flex flex-col">
         <!-- Header section with logo and navigation -->
-        <div class="w-full relative mb-16 mt-12">
+        <div class="w-full relative mb-4 md:mb-8 mt-4 md:mt-12">
           <div class="flex justify-start items-center">
             <!-- Logo on the left -->
-            <div class="min-w-[288px] mr-12">
+            <div class="md:min-w-[288px] mr-12">
               <img
                 src="/images/logo.png"
                 alt="Николе профстудия"
-                class="h-36"
+                class="h-20 md:h-36"
               >
             </div>
 
@@ -95,58 +95,53 @@
 
         <div class="flex flex-col lg:flex-row">
           <!-- Left Content Section with Glass Effect -->
-          <div class="w-[920px] py-10 z-10 glass-container">
+          <div class="w-full lg:w-[920px] z-10 glass-container flex flex-col justify-center">
             <!-- Main Headline -->
-            <h1 class="text-main-white2 text-6xl font-bold font-raleway mb-[106px]">
+            <h1 class="text-main-white2 text-xl md:text-6xl font-bold font-raleway mb-8 md:mb-[106px]">
               Гладкая кожа <span class="pink-text-gradient font-bold">НАВСЕГДА</span><br>
-              без боли и лишних сеансов
+              <span class="text-sm md:text-6xl">без боли и лишних сеансов</span>
             </h1>
 
             <!-- Bullet Points -->
-            <ul class="space-y-4 mb-8 text-main-white2 text-2xl font-normal font-montserrat">
+            <ul class="space-y-2 md:space-y-4 ml-2 mb-4 md:mb-8 text-main-white2 text-sm md:text-2xl font-normal">
               <li class="flex items-start">
-                <span class="mr-2">•</span>
+                <span class="mr-2 hidden md:inline">•</span>
                 <span>с <span class="pink-text-gradient font-medium">выгодой до 20.000</span> рублей за покупку абонемента</span>
               </li>
               <li class="flex items-start">
-                <span class="mr-2">•</span>
+                <span class="mr-2 hidden md:inline">•</span>
                 <span>от мастера с <span class="pink-text-gradient font-medium">опытом 13+ лет</span> в центре Мурманска</span>
               </li>
               <li class="flex items-start">
-                <span class="mr-2">•</span>
-                <span>пройдите тест и получите <span class="pink-text-gradient font-medium">подарок</span></span>
+                <span class="mr-2 hidden md:inline">•</span>
+                <span>пройдите опрос и получите <span class="pink-text-gradient font-medium">подарок</span></span>
               </li>
-              <li class="ml-8 flex items-start">
-                <span class="mr-2">•</span>
-                <span class="pink-text-gradient font-medium mr-2">бесплатный</span> пробный сеанс
-              </li>
-              <li class="ml-8 flex items-start">
-                <span class="mr-2">•</span>
-                <span class="pink-text-gradient font-medium mr-2">персональные</span> рекомендации по уходу за кожей
-              </li>
+              <ul class="space-y-1 md:space-y-2 ml-2 mb-8 text-main-white2 text-sm md:text-2xl font-normal">
+                <li class="md:ml-8 md:ml-8 flex items-start">
+                  <span class="mr-1 md:mr-2">•</span>
+                  <span><span class="pink-text-gradient font-medium">бесплатный</span> пробный сеанс</span>
+                </li>
+                <li class="md:ml-8 md:ml-8 flex items-start">
+                  <span class="mr-1 md:mr-2">•</span>
+                  <span><span class="pink-text-gradient font-medium">персональные</span> рекомендации по уходу за кожей</span>
+                </li>
+              </ul>
             </ul>
 
             <!-- CTA Button with Reflection -->
-            <div class="mt-[120px] relative">
-              <!-- Butterfly Decoration -->
-              <div class="absolute butterfly-pulse w-[100px] -top-20 -left-20 gift-pulse">
-                <img
-                  src="/images/butterfly.png"
-                  alt="Декоративная бабочка"
-                  class="w-full h-full"
-                >
-              </div>
-              <!-- <div class="absolute -bottom-5 left-[240px] w-[140px] gift-pulse">
-                <img
-                  src="/images/gift.png"
-                  alt="Подарок"
-                  class="w-full h-full"
-                >
-              </div> -->
+            <div class="mt-4 md:mt-8 md:mt-[120px] relative scale-75 md:scale-100">
               <div class="button-firefly-container">
                 <div class="button-with-reflection">
+                  <!-- Butterfly Decoration -->
+                  <div class="absolute butterfly-pulse w-[50px] md:w-[100px] -top-[50px] -left-[50px] gift-pulse hidden">
+                    <img
+                      src="/images/butterfly.png"
+                      alt="Декоративная бабочка"
+                      class="w-full h-full"
+                    >
+                  </div>
                   <button
-                    class="py-4 px-8 font-bold bg-sup2-white text-additional-black text-2xl font-roboto rounded-md hover:bg-opacity-90 transition-all shadow-lg button-glow button-pulse"
+                    class="py-2 px-4 md:py-4 md:px-8 font-bold bg-sup2-white text-additional-black text-xl md:text-2xl font-roboto rounded-md hover:bg-opacity-90 transition-all shadow-lg button-glow button-pulse"
                     @click="scrollToQuiz"
                   >
                     Получить подарок
@@ -172,7 +167,7 @@
   <div
     id="quiz-section"
     ref="quizSection"
-    class="relative h-[1000px] w-full quiz-background"
+    class="relative h-[1000px] md:h-[1000px] h-screen w-full quiz-background"
   >
     <BeautyQuiz />
 
@@ -182,14 +177,11 @@
     </div>
   </div>
 
-  <!-- Services section -->
-  <BeautyServices ref="servicesSection" />
+  <!-- <BeautyServices ref="servicesSection" />
 
-  <!-- FAQ section -->
   <BeautyFaq />
 
-  <!-- Footer section -->
-  <BeautyFooter />
+  <BeautyFooter /> -->
 </template>
 
 <script setup>
@@ -479,9 +471,19 @@ const scrollToServices = () => {
   }
 
   .glass-container {
-    padding: 16px;
-    margin: 0 -16px;
+    padding: 32px 16px;
+    margin: 0;
     border-radius: 0;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+
+  .container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
   }
 }
 
