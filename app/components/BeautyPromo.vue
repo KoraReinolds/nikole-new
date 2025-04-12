@@ -6,16 +6,20 @@
   <div class="relative flex flex-col items-start overflow-hidden">
     <!-- First promo section -->
     <div class="relative h-[1070px] md:h-[1070px] h-screen w-full background-container">
-      <div class="container mx-auto px-4 md:px-24 max-w-[1240px] h-full relative z-10 flex flex-col">
+      <div
+        class="container mx-auto px-4 md:px-24 max-w-[1240px] h-full relative z-10 flex flex-col"
+      >
         <!-- Header section with logo and navigation -->
-        <div class="w-full relative mb-4 md:mb-8 mt-4 md:mt-12">
-          <div class="flex justify-start items-center">
+        <div
+          class="w-full relative md:mb-8 md:mt-12 h-[18vh] md:h-auto"
+        >
+          <div class="flex justify-start items-center h-full">
             <!-- Logo on the left -->
             <div class="md:min-w-[288px] mr-12">
               <img
                 src="/images/logo.png"
                 alt="Николе профстудия"
-                class="h-20 md:h-36"
+                class="h-[10vh] md:h-36"
               >
             </div>
 
@@ -97,9 +101,9 @@
           <!-- Left Content Section with Glass Effect -->
           <div class="w-full lg:w-[920px] z-10 glass-container flex flex-col justify-center">
             <!-- Main Headline -->
-            <h1 class="text-main-white2 text-xl md:text-6xl font-bold font-raleway mb-8 md:mb-[106px]">
+            <h1 class="text-main-white2 text-[clamp(1.25rem,6vw,2.5rem)] md:text-6xl font-bold font-raleway mb-8 md:mb-[106px]">
               Гладкая кожа <span class="pink-text-gradient font-bold">НАВСЕГДА</span><br>
-              <span class="text-sm md:text-6xl">без боли и лишних сеансов</span>
+              <span class="text-[clamp(1rem,5vw,2.5rem)] md:text-6xl">без боли и лишних сеансов</span>
             </h1>
 
             <!-- Bullet Points -->
@@ -151,8 +155,17 @@
             </div>
           </div>
         </div>
+
         <!-- Right Image Section -->
         <div class="absolute -right-[750px] bottom-0">
+          <!-- <div
+            class="absolute top-0 left-0 z-10"
+            :style="{
+              width: '100%',
+              height: '100%',
+              background: 'linear-gradient(to bottom, rgba(22, 8, 14, 1.0) 0%, rgba(148, 119, 12, 0.0) 20%)',
+            }"
+          /> -->
           <img
             src="/images/main.png"
             alt="Женщина"
