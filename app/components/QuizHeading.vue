@@ -3,10 +3,10 @@
   Reusable component for quiz section headings with consistent styling
 -->
 <template>
-  <div class="flex items-center gap-2">
+  <div class="flex items-start gap-2">
     <button
       v-if="showBackButton"
-      class="w-8 h-full flex items-start justify-center hover:bg-opacity-90 transition-all"
+      class="mt-1 w-8 h-full flex items-start justify-center hover:bg-opacity-90 transition-all"
       @click="$emit('back')"
     >
       <svg

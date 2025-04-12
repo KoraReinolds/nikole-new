@@ -10,15 +10,15 @@
         <img
           src="/images/quiz.png"
           alt="Цветы в вазе"
-          class="w-[300px] md:w-[425px] object-contain"
+          class="w-[50vh] md:w-[425px] object-contain"
         >
       </div>
 
       <!-- Right side with quiz content -->
-      <div class="pt-8 md:pt-[120px] pb-8 md:pb-16 flex flex-col w-full h-full relative z-10">
+      <div class="pt-[5vh] md:pt-[120px] pb-8 md:pb-16 flex flex-col w-full h-full relative z-10">
         <!-- Quiz header -->
-        <div class="relative w-full md:w-[600px] px-4">
-          <h2 class="text-add2-black text-xl md:text-3xl font-bold font-raleway mb-4 md:mb-10">
+        <div class="relative w-full md:w-[630px] px-4">
+          <h2 class="text-add2-black text-[clamp(1.25rem,6.5vw,2.5rem)] md:text-6xl font-bold font-raleway mb-4 md:mb-10">
             Ответьте<br class="hidden md:block">
             на 5 вопросов<br>
             и получите <span class="text-add2-sat">подарок</span>
@@ -240,13 +240,26 @@
                         Персональные рекомендации уже готовы! Оставьте свой номер телефона и забирайте их в нашем Telegram боте:
                       </p>
                     </div>
-                    <div>
+                    <div class="flex items-center gap-2">
                       <input
                         v-model="userAnswers.phone"
                         placeholder="Введите номер телефона"
                         type="number"
                         class="px-3 py-2 md:px-4 md:py-2 border bg-white text-[#232A36] placeholder:text-[#232A36] border-gray-300 rounded-lg w-full max-w-md text-base text-sm md:text-lg"
                       >
+                      <a
+                        href="#"
+                        class="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-[#229ED9] hover:bg-opacity-90 transition-all"
+                      >
+                        <span class="sr-only">Telegram</span>
+                        <svg
+                          class="w-5 h-5 md:w-6 md:h-6 fill-white"
+                          viewBox="0 0 24 24"
+                          xmlns="http://www.w3.org/2000/svg"
+                        >
+                          <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM16.64 8.8C16.49 10.38 15.84 14.22 15.51 15.99C15.37 16.74 15.1 16.99 14.84 17.02C14.25 17.07 13.81 16.64 13.25 16.27C12.37 15.69 11.87 15.33 11.02 14.77C10.03 14.12 10.67 13.76 11.24 13.18C11.39 13.03 13.95 10.7 14 10.49C14.0069 10.4476 14.0031 10.4043 13.989 10.364C13.9748 10.3238 13.9507 10.2877 13.92 10.26C13.84 10.19 13.73 10.21 13.64 10.23C13.52 10.26 12.25 11.09 9.82 12.72C9.47 12.96 9.15 13.07 8.86 13.07C8.54 13.07 7.93 12.89 7.47 12.73C6.91 12.54 6.47 12.44 6.5 12.13C6.52 11.97 6.74 11.8 7.16 11.64C9.74 10.49 11.47 9.73 12.35 9.38C14.91 8.3 15.45 8.1 15.82 8.1C15.9 8.1 16.09 8.12 16.21 8.23C16.31 8.32 16.34 8.44 16.35 8.52C16.35 8.59 16.36 8.75 16.64 8.8Z" />
+                        </svg>
+                      </a>
                     </div>
 
                     <template v-if="userAnswers.method === 'laser'">
@@ -523,7 +536,7 @@ const submitQuiz = () => {
 
 /* Glass effect styles */
 .glass-container {
-  background: rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.4);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
