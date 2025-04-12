@@ -3,22 +3,22 @@
   Component for displaying a multi-step quiz about beauty and hair removal services
 -->
 <template>
-  <div class="quiz-container w-full h-full">
+  <div class="quiz-container w-full h-screen md:h-full">
     <div class="container mx-auto px-4 max-w-[1080px] h-full relative z-10 flex">
       <!-- Left side with flower vase image -->
       <div class="bottom-14 absolute -left-[208px]">
         <img
-          src="/images/promo-flowers-2.png"
+          src="/images/quiz.png"
           alt="Цветы в вазе"
           class="w-[425px] object-contain relative z-10"
         >
       </div>
 
       <!-- Right side with quiz content -->
-      <div class="pt-[120px] pb-16 flex flex-col w-full">
+      <div class="pt-8 md:pt-[120px] pb-8 md:pb-16 flex flex-col w-full h-full">
         <!-- Quiz header -->
         <div class="relative w-full md:w-[600px]">
-          <h2 class="text-add2-black text-4xl md:text-6xl font-bold font-raleway mb-6 md:mb-10">
+          <h2 class="text-add2-black text-3xl md:text-6xl font-bold font-raleway mb-4 md:mb-10">
             Ответьте<br>
             на 5 вопросов<br>
             и получите <span class="text-add2-sat">подарок</span>
@@ -32,42 +32,63 @@
           </div>
         </div>
 
-        <div class="mb-8 flex flex-col md:flex-row gap-8 md:gap-16 w-full h-full">
-          <!-- Progress steps -->
-          <div class="relative flex items-start justify-center md:justify-start min-w-full md:min-w-[555px] mt-3">
-            <div
-              v-for="step in totalSteps"
-              :key="step"
-              class="flex items-center"
-            >
+        <div class="flex flex-col w-full h-full">
+          <!-- Progress and heading container -->
+          <div class="flex items-center justify-between gap-4 md:gap-16 my-4 md:my-8 flex-wrap">
+            <!-- Progress steps -->
+            <div class="relative flex items-center min-w-[200px] md:min-w-[300px]">
               <div
-                class="w-6 h-6 md:w-8 md:h-8 mx-1 rounded-full flex items-center justify-center cursor-pointer transition-all font-medium text-sm md:text-base"
-                :class="[
-                  step < currentStep ? 'bg-[#94475E] text-white'
-                  : step === currentStep ? 'bg-[#ADDB88] text-add2-black ring-2 ring-add2-black'
-                    : 'bg-[#454B57] text-gray-300',
-                ]"
-                @click="goToStep(step)"
+                v-for="step in totalSteps"
+                :key="step"
+                class="flex items-center"
               >
-                {{ step }}
+                <div
+                  class="w-6 h-6 md:w-8 md:h-8 mx-1 rounded-full flex items-center justify-center cursor-pointer transition-all font-medium text-sm md:text-base"
+                  :class="[
+                    step < currentStep ? 'bg-[#94475E] text-white'
+                    : step === currentStep ? 'bg-[#ADDB88] text-add2-black ring-2 ring-add2-black'
+                      : 'bg-[#454B57] text-gray-300',
+                  ]"
+                  @click="goToStep(step)"
+                >
+                  {{ step }}
+                </div>
+                <div
+                  v-if="step < totalSteps"
+                  class="w-8 md:w-16 h-1"
+                  :class="step < currentStep ? 'bg-[#94475E]' : 'bg-[#454B57]'"
+                />
               </div>
-              <div
-                v-if="step < totalSteps"
-                class="w-8 md:w-16 h-1"
-                :class="step < currentStep ? 'bg-[#94475E]' : 'bg-[#454B57]'"
-              />
+            </div>
+
+            <!-- Step heading -->
+            <div class="flex-grow">
+              <QuizHeading v-if="currentStep === 1">
+                Сколько Вам лет?
+              </QuizHeading>
+              <QuizHeading v-if="currentStep === 2">
+                Какие из проблем вам знакомы?
+              </QuizHeading>
+              <QuizHeading v-if="currentStep === 3">
+                Выберите зоны эпиляции
+              </QuizHeading>
+              <QuizHeading v-if="currentStep === 4">
+                Выберите метод эпиляции
+              </QuizHeading>
+              <QuizHeading v-if="currentStep === 5">
+                Последний шаг
+              </QuizHeading>
             </div>
           </div>
 
-          <div class="flex flex-col flex-grow w-full h-full">
+          <div class="flex flex-col flex-grow w-full h-full items-end">
             <!-- Quiz content - changes based on current step -->
-            <div class="flex-grow w-full">
+            <div class="flex-grow w-full md:w-[200px]">
               <!-- Step 1: Age question -->
               <div
                 v-if="currentStep === 1"
                 class="quiz-step"
               >
-                <QuizHeading>Сколько Вам лет?</QuizHeading>
                 <div class="space-y-4 ml-4">
                   <RadioOption
                     v-model="userAnswers.age"
@@ -89,7 +110,6 @@
                 v-if="currentStep === 2"
                 class="quiz-step"
               >
-                <QuizHeading>Какие из проблем вам знакомы?</QuizHeading>
                 <div class="space-y-4 mt-6 bg-[#FFBCAD] p-4 md:p-6 rounded-lg max-w-full md:max-w-[500px]">
                   <CheckboxOption
                     v-model="userAnswers.problems"
@@ -129,10 +149,6 @@
                 v-if="currentStep === 3"
                 class="quiz-step"
               >
-                <QuizHeading>
-                  Выберите зоны эпиляции
-                </QuizHeading>
-
                 <div class="space-y-4 mt-6 bg-[#FFBCAD] p-4 md:p-6 rounded-lg max-w-full md:max-w-[500px]">
                   <CheckboxOption
                     v-model="userAnswers.zones"
@@ -183,10 +199,6 @@
                 v-if="currentStep === 4"
                 class="quiz-step"
               >
-                <QuizHeading>
-                  Выберите метод эпиляции
-                </QuizHeading>
-
                 <div class="space-y-4 mt-6">
                   <!-- Electro epilation option -->
                   <MethodOption
@@ -226,10 +238,6 @@
                 v-if="currentStep === 5"
                 class="quiz-step"
               >
-                <QuizHeading>
-                  Последний шаг
-                </QuizHeading>
-
                 <div class="space-y-4 mt-8">
                   <div class="flex items-center gap-4">
                     <img

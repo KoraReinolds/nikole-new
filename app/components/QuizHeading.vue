@@ -6,7 +6,7 @@
   <h3
     :class="[
       textColorClass,
-      'text-3xl font-bold mb-10 font-montserrat',
+      'text-3xl font-bold font-montserrat h-full',
     ]"
   >
     <slot />

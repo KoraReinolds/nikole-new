@@ -197,14 +197,13 @@
     </div>
   </div>
 
-  <BeautyServices ref="servicesSection" />
+  <!-- <BeautyServices ref="servicesSection" />
 
   <BeautyFaq />
 
-  <!-- Contacts section -->
   <BeautyContacts ref="contactsSection" />
 
-  <BeautyFooter />
+  <BeautyFooter /> -->
 </template>
 
 <script setup>
