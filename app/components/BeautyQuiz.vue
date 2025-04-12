@@ -34,9 +34,9 @@
 
         <div class="flex flex-col w-full h-full">
           <!-- Progress and heading container -->
-          <div class="flex flex-grow items-start justify-between gap-4 md:gap-16 my-4 md:my-8 flex-wrap md:flex-nowrap">
+          <div class="flex flex-grow items-start justify-between gap-4 md:gap-16 md:my-4 md:my-8 flex-wrap md:flex-nowrap">
             <!-- Progress steps -->
-            <div class="relative flex items-center min-w-[200px] md:min-w-[300px]">
+            <div class="relative flex items-center md:min-w-[300px]">
               <div
                 v-for="step in totalSteps"
                 :key="step"
@@ -55,7 +55,7 @@
                 </div>
                 <div
                   v-if="step < totalSteps"
-                  class="w-8 md:w-16 h-1"
+                  class="w-6 md:w-16 h-1"
                   :class="step < currentStep ? 'bg-[#94475E]' : 'bg-[#454B57]'"
                 />
               </div>
@@ -63,249 +63,12 @@
 
             <!-- Step content container -->
             <div class="flex-grow">
-              <!-- Mobile glass container -->
-              <div class="md:hidden glass-container p-4 rounded-lg">
+              <!-- Single content block with conditional glass effect -->
+              <div class="glass-container md:glass-container-none">
                 <!-- Step 1: Age question -->
                 <div v-if="currentStep === 1">
                   <QuizHeading>Сколько Вам лет?</QuizHeading>
-                  <div class="space-y-4 ml-4 mt-4">
-                    <RadioOption
-                      v-model="userAnswers.age"
-                      value="under18"
-                    >
-                      До 18
-                    </RadioOption>
-                    <RadioOption
-                      v-model="userAnswers.age"
-                      value="over18"
-                    >
-                      Больше 18
-                    </RadioOption>
-                  </div>
-                </div>
-
-                <!-- Step 2: Problems selection -->
-                <div v-if="currentStep === 2">
-                  <QuizHeading>Какие из проблем вам знакомы?</QuizHeading>
-                  <div class="md:space-y-4 mt-4 p-4 md:p-6 rounded-lg max-w-full md:max-w-[500px]">
-                    <CheckboxOption
-                      v-model="userAnswers.problems"
-                      value="frequent_shaving"
-                    >
-                      Частое бритье
-                    </CheckboxOption>
-                    <CheckboxOption
-                      v-model="userAnswers.problems"
-                      value="embarrassment"
-                    >
-                      Стеснение
-                    </CheckboxOption>
-                    <CheckboxOption
-                      v-model="userAnswers.problems"
-                      value="pain"
-                    >
-                      Боль при эпиляции
-                    </CheckboxOption>
-                    <CheckboxOption
-                      v-model="userAnswers.problems"
-                      value="safety_concerns"
-                    >
-                      Сомневаюсь в безопасности
-                    </CheckboxOption>
-                    <CheckboxOption
-                      v-model="userAnswers.problems"
-                      value="no_problems"
-                    >
-                      Никаких проблем
-                    </CheckboxOption>
-                  </div>
-                </div>
-
-                <!-- Step 3: Zone selection with checkboxes -->
-                <div v-if="currentStep === 3">
-                  <QuizHeading>Выберите зоны эпиляции</QuizHeading>
                   <div class="space-y-4 mt-4 p-4 md:p-6 rounded-lg max-w-full md:max-w-[500px]">
-                    <CheckboxOption
-                      v-model="userAnswers.zones"
-                      value="legs"
-                    >
-                      Ноги
-                    </CheckboxOption>
-
-                    <CheckboxOption
-                      v-model="userAnswers.zones"
-                      value="bikini"
-                    >
-                      Бикини
-                    </CheckboxOption>
-
-                    <CheckboxOption
-                      v-model="userAnswers.zones"
-                      value="face"
-                    >
-                      Лицо
-                    </CheckboxOption>
-
-                    <CheckboxOption
-                      v-model="userAnswers.zones"
-                      value="arms"
-                    >
-                      Руки
-                    </CheckboxOption>
-
-                    <CheckboxOption
-                      v-model="userAnswers.zones"
-                      value="back"
-                    >
-                      Спина
-                    </CheckboxOption>
-
-                    <CheckboxOption
-                      v-model="userAnswers.zones"
-                      value="stomach"
-                    >
-                      Живот
-                    </CheckboxOption>
-                  </div>
-                </div>
-
-                <!-- Step 4: Method selection -->
-                <div v-if="currentStep === 4">
-                  <QuizHeading>Выберите метод эпиляции</QuizHeading>
-                  <div class="space-y-4 mt-4">
-                    <!-- Electro epilation option -->
-                    <MethodOption
-                      v-model="userAnswers.method"
-                      value="electro"
-                      label="Электроэпиляция"
-                      tooltip-text="Электроэпиляция — метод удаления волос с помощью электрического тока, который воздействует на волосяной фолликул. Это единственный метод, который обеспечивает перманентное удаление волос."
-                      :safety-value="90"
-                      :efficiency-value="95"
-                    />
-
-                    <!-- Sugaring option -->
-                    <MethodOption
-                      v-model="userAnswers.method"
-                      value="sugaring"
-                      label="Шугаринг"
-                      tooltip-text="Шугаринг — метод удаления волос с помощью густой сахарной пасты. Удаляет волосы вместе с корнем, но они отрастают снова через несколько недель. Подходит для чувствительной кожи."
-                      :safety-value="75"
-                      :efficiency-value="40"
-                    />
-
-                    <!-- Laser epilation option -->
-                    <MethodOption
-                      v-model="userAnswers.method"
-                      value="laser"
-                      label="Лазерная эпиляция"
-                      tooltip-text="Лазерная эпиляция — метод удаления волос с помощью лазерного луча, который воздействует на пигмент волоса. Эффективен для темных волос, но может быть менее эффективен для светлых или седых волос."
-                      :safety-value="50"
-                      :efficiency-value="75"
-                      :disabled="!allowLaser"
-                    />
-                  </div>
-                </div>
-
-                <!-- Final Step - Contact Information & Reward -->
-                <div v-if="currentStep === 5">
-                  <QuizHeading>Последний шаг</QuizHeading>
-                  <div class="space-y-4 mt-4">
-                    <div class="flex items-center gap-4">
-                      <img
-                        src="/images/gift.png"
-                        alt="Подарок"
-                        class="w-12 h-12 md:w-16 md:h-16"
-                      >
-                      <p class="text-lg text-[#232A36]">
-                        Персональные рекомендации уже готовы! Оставьте свой номер телефона и забирайте их в нашем Telegram боте:
-                      </p>
-                    </div>
-                    <div>
-                      <input
-                        v-model="userAnswers.phone"
-                        placeholder="Введите номер телефона"
-                        type="number"
-                        class="px-4 py-2 border bg-white text-[#232A36] placeholder:text-[#232A36] border-gray-300 rounded-lg w-full max-w-md text-lg"
-                      >
-                    </div>
-
-                    <template v-if="userAnswers.method === 'laser'">
-                      <p class="text-lg text-[#232A36] mt-4">
-                        К сожалению, лазерная эпиляция временно не оказывается. Мы сообщим вам, когда услуга станет доступна.
-                      </p>
-                      <p class="text-lg text-[#232A36]">
-                        Подпишитесь на наши соцсети, чтобы следить за новостями и акциями:
-                      </p>
-                      <div class="flex gap-4">
-                        <a
-                          href="#"
-                          class="w-10 h-10 flex items-center justify-center rounded-full bg-[#229ED9] hover:bg-opacity-90 transition-all"
-                        >
-                          <span class="sr-only">Telegram</span>
-                          <svg
-                            class="w-6 h-6 fill-white"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM16.64 8.8C16.49 10.38 15.84 14.22 15.51 15.99C15.37 16.74 15.1 16.99 14.84 17.02C14.25 17.07 13.81 16.64 13.25 16.27C12.37 15.69 11.87 15.33 11.02 14.77C10.03 14.12 10.67 13.76 11.24 13.18C11.39 13.03 13.95 10.7 14 10.49C14.0069 10.4476 14.0031 10.4043 13.989 10.364C13.9748 10.3238 13.9507 10.2877 13.92 10.26C13.84 10.19 13.73 10.21 13.64 10.23C13.52 10.26 12.25 11.09 9.82 12.72C9.47 12.96 9.15 13.07 8.86 13.07C8.54 13.07 7.93 12.89 7.47 12.73C6.91 12.54 6.47 12.44 6.5 12.13C6.52 11.97 6.74 11.8 7.16 11.64C9.74 10.49 11.47 9.73 12.35 9.38C14.91 8.3 15.45 8.1 15.82 8.1C15.9 8.1 16.09 8.12 16.21 8.23C16.31 8.32 16.34 8.44 16.35 8.52C16.35 8.59 16.36 8.75 16.64 8.8Z" />
-                          </svg>
-                        </a>
-                        <a
-                          href="#"
-                          class="w-10 h-10 flex items-center justify-center rounded-full bg-[#4C75A3] hover:bg-opacity-90 transition-all"
-                        >
-                          <span class="sr-only">VK</span>
-                          <svg
-                            class="w-6 h-6 fill-white"
-                            viewBox="0 0 24 24"
-                            xmlns="http://www.w3.org/2000/svg"
-                          >
-                            <path d="M15.07 2H8.93C3.33 2 2 3.33 2 8.93V15.07C2 20.67 3.33 22 8.93 22H15.07C20.67 22 22 20.67 22 15.07V8.93C22 3.33 20.67 2 15.07 2ZM18.15 16.27H16.69C16.14 16.27 15.97 15.82 14.86 14.72C13.86 13.77 13.49 13.67 13.27 13.67C12.95 13.67 12.87 13.76 12.87 14.18V15.77C12.87 16.1 12.75 16.27 11.82 16.27C10.28 16.27 8.57 15.35 7.35 13.72C5.49 11.27 5 9.36 5 8.99C5 8.78 5.08 8.59 5.5 8.59H6.96C7.3 8.59 7.44 8.76 7.58 9.17C8.38 11.39 9.74 13.23 10.32 13.23C10.5 13.23 10.58 13.14 10.58 12.67V10.59C10.53 9.79 10.08 9.73 10.08 9.4C10.08 9.25 10.21 9.1 10.41 9.1H12.66C12.94 9.1 13.05 9.25 13.05 9.61V12.14C13.05 12.41 13.19 12.53 13.28 12.53C13.46 12.53 13.61 12.41 13.93 12.09C14.94 10.94 15.69 9.11 15.69 9.11C15.79 8.89 15.96 8.69 16.32 8.69H17.78C18.2 8.69 18.3 8.9 18.2 9.17C18.02 9.84 16.27 12.46 16.27 12.46C16.12 12.69 16.07 12.78 16.27 13.04C16.42 13.25 16.97 13.73 17.32 14.13C18.17 15.06 18.79 15.77 18.92 16.13C19.06 16.5 18.86 16.28 18.15 16.28V16.27Z" />
-                          </svg>
-                        </a>
-                      </div>
-                    </template>
-
-                    <div class="flex flex-col md:flex-row gap-4">
-                      <button
-                        class="mt-6 py-3 px-8 font-bold bg-gray-200 text-[#232A36] text-xl font-roboto rounded-md hover:bg-gray-300 transition-all shadow-lg flex items-center justify-center"
-                        @click="prevStep"
-                      >
-                        <svg
-                          class="w-6 h-6 mr-2"
-                          fill="currentColor"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
-                        </svg>
-                        Назад
-                      </button>
-                      <button
-                        class="mt-6 py-3 px-8 font-bold bg-[#229ED9] text-white text-xl font-roboto rounded-md hover:bg-opacity-90 transition-all shadow-lg flex items-center justify-center"
-                        @click="submitQuiz"
-                      >
-                        <svg
-                          class="w-6 h-6 mr-2"
-                          fill="currentColor"
-                          xmlns="http://www.w3.org/2000/svg"
-                          viewBox="0 0 24 24"
-                        >
-                          <path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z" />
-                        </svg>
-                        {{ userAnswers.method === 'laser' ? 'Отправить' : 'Забрать подарок' }}
-                      </button>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              <!-- Desktop content (without glass effect) -->
-              <div class="hidden md:block">
-                <!-- Step 1: Age question -->
-                <div v-if="currentStep === 1">
-                  <QuizHeading>Сколько Вам лет?</QuizHeading>
-                  <div class="space-y-4 ml-4 mt-4">
                     <RadioOption
                       v-model="userAnswers.age"
                       value="under18"
@@ -447,13 +210,13 @@
                 <div v-if="currentStep === 5">
                   <QuizHeading>Последний шаг</QuizHeading>
                   <div class="space-y-4 mt-4">
-                    <div class="flex items-center gap-4">
+                    <div class="flex items-center gap-2 md:gap-4">
                       <img
                         src="/images/gift.png"
                         alt="Подарок"
-                        class="w-12 h-12 md:w-16 md:h-16"
+                        class="w-10 h-10 md:w-16 md:h-16 hidden md:block"
                       >
-                      <p class="text-lg text-[#232A36]">
+                      <p class="text-sm md:text-lg text-[#232A36] leading-tight">
                         Персональные рекомендации уже готовы! Оставьте свой номер телефона и забирайте их в нашем Telegram боте:
                       </p>
                     </div>
@@ -462,25 +225,25 @@
                         v-model="userAnswers.phone"
                         placeholder="Введите номер телефона"
                         type="number"
-                        class="px-4 py-2 border bg-white text-[#232A36] placeholder:text-[#232A36] border-gray-300 rounded-lg w-full max-w-md text-lg"
+                        class="px-3 py-2 md:px-4 md:py-2 border bg-white text-[#232A36] placeholder:text-[#232A36] border-gray-300 rounded-lg w-full max-w-md text-base text-sm md:text-lg"
                       >
                     </div>
 
                     <template v-if="userAnswers.method === 'laser'">
-                      <p class="text-lg text-[#232A36] mt-4">
+                      <p class="text-sm md:text-lg text-[#232A36] mt-2 md:mt-4 leading-tight">
                         К сожалению, лазерная эпиляция временно не оказывается. Мы сообщим вам, когда услуга станет доступна.
                       </p>
-                      <p class="text-lg text-[#232A36]">
+                      <p class="text-sm md:text-lg text-[#232A36] leading-tight">
                         Подпишитесь на наши соцсети, чтобы следить за новостями и акциями:
                       </p>
-                      <div class="flex gap-4">
+                      <div class="flex gap-2 md:gap-4">
                         <a
                           href="#"
-                          class="w-10 h-10 flex items-center justify-center rounded-full bg-[#229ED9] hover:bg-opacity-90 transition-all"
+                          class="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-full bg-[#229ED9] hover:bg-opacity-90 transition-all"
                         >
                           <span class="sr-only">Telegram</span>
                           <svg
-                            class="w-6 h-6 fill-white"
+                            class="w-4 h-4 md:w-6 md:h-6 fill-white"
                             viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg"
                           >
@@ -489,11 +252,11 @@
                         </a>
                         <a
                           href="#"
-                          class="w-10 h-10 flex items-center justify-center rounded-full bg-[#4C75A3] hover:bg-opacity-90 transition-all"
+                          class="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-full bg-[#4C75A3] hover:bg-opacity-90 transition-all"
                         >
                           <span class="sr-only">VK</span>
                           <svg
-                            class="w-6 h-6 fill-white"
+                            class="w-4 h-4 md:w-6 md:h-6 fill-white"
                             viewBox="0 0 24 24"
                             xmlns="http://www.w3.org/2000/svg"
                           >
@@ -503,13 +266,13 @@
                       </div>
                     </template>
 
-                    <div class="flex flex-col md:flex-row gap-4">
+                    <div class="flex flex-col md:flex-row gap-2 md:gap-4">
                       <button
-                        class="mt-6 py-3 px-8 font-bold bg-gray-200 text-[#232A36] text-xl font-roboto rounded-md hover:bg-gray-300 transition-all shadow-lg flex items-center justify-center"
+                        class="mt-4 md:mt-6 py-2 md:py-3 px-4 md:px-8 font-bold bg-gray-200 text-[#232A36] text-base md:text-xl font-roboto rounded-md hover:bg-gray-300 transition-all shadow-lg flex items-center justify-center"
                         @click="prevStep"
                       >
                         <svg
-                          class="w-6 h-6 mr-2"
+                          class="w-4 h-4 md:w-6 md:h-6 mr-2"
                           fill="currentColor"
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
@@ -519,11 +282,11 @@
                         Назад
                       </button>
                       <button
-                        class="mt-6 py-3 px-8 font-bold bg-[#229ED9] text-white text-xl font-roboto rounded-md hover:bg-opacity-90 transition-all shadow-lg flex items-center justify-center"
+                        class="mt-4 md:mt-6 py-2 md:py-3 px-4 md:px-8 font-bold bg-[#229ED9] text-white text-base md:text-xl font-roboto rounded-md hover:bg-opacity-90 transition-all shadow-lg flex items-center justify-center"
                         @click="submitQuiz"
                       >
                         <svg
-                          class="w-6 h-6 mr-2"
+                          class="w-4 h-4 md:w-6 md:h-6 mr-2"
                           fill="currentColor"
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
@@ -553,7 +316,7 @@
                 alt="Кнопка назад"
                 class="w-36 h-14 object-cover"
               >
-              <span class="absolute right-4 top-0 opacity-90 bottom-0 w-1/2 flex items-center justify-center text-white text-xl font-normal font-roboto">
+              <span class="absolute right-4 top-0 opacity-90 bottom-0 w-1/2 flex items-center justify-center text-white text-sm md:text-xl font-normal font-roboto">
                 Назад
               </span>
             </div>
@@ -566,7 +329,7 @@
                 alt="Кнопка далее"
                 class="w-36 h-14 object-cover"
               >
-              <span class="absolute right-4 top-0 opacity-90 bottom-0 w-1/2 flex items-center justify-center text-white text-xl font-normal font-roboto">
+              <span class="absolute right-4 top-0 opacity-90 bottom-0 w-1/2 flex items-center justify-center text-white text-sm md:text-xl font-normal font-roboto">
                 Далее
               </span>
             </div>
@@ -740,12 +503,24 @@ const submitQuiz = () => {
 
 /* Glass effect styles */
 .glass-container {
-  background: rgba(255, 255, 255, 0.1);
+  background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: relative;
   z-index: 1;
+  padding: 1rem;
+  border-radius: 0.5rem;
+}
+
+.md\:glass-container-none {
+  @media (min-width: 768px) {
+    background: none;
+    backdrop-filter: none;
+    -webkit-backdrop-filter: none;
+    box-shadow: none;
+    padding: 0;
+  }
 }
 
 /* Tooltip styles */

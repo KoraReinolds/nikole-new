@@ -25,7 +25,7 @@
     <span
       :class="[
         flexRowReverse ? 'mr-4' : 'ml-4',
-        'text-lg font-medium',
+        'text-sm md:text-lg font-medium',
         { 'text-gray-400': disabled },
         { 'font-bold': textBold },
       ]"
