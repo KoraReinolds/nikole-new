@@ -15,7 +15,7 @@
         >
           <div class="flex justify-start items-center h-full">
             <!-- Logo on the left -->
-            <div class="md:min-w-[288px] mr-12">
+            <div class="md:min-w-[288px] mr-12 md:-ml-4">
               <img
                 src="/images/logo.png"
                 alt="Николе профстудия"
@@ -106,9 +106,9 @@
 
         <div class="flex flex-col lg:flex-row">
           <!-- Left Content Section with Glass Effect -->
-          <div class="w-full lg:w-[920px] z-10 glass-container flex flex-col justify-center">
+          <div :class="['w-full lg:w-[920px] z-10 flex flex-col justify-center', { 'glass-container': isMobile }]">
             <!-- Main Headline -->
-            <h1 class="text-main-white2 text-[clamp(1.25rem,6vw,2.5rem)] md:text-6xl font-bold font-raleway mb-8 md:mb-[106px]">
+            <h1 class="text-main-white2 text-[clamp(1.25rem,6vw,2.5rem)] md:text-7xl font-bold font-raleway mt-16 mb-8 md:mb-[106px]">
               Гладкая кожа <span class="pink-text-gradient font-bold">НАВСЕГДА</span><br>
               <span class="text-[clamp(1rem,5vw,2.5rem)] md:text-6xl">без боли и лишних сеансов</span>
             </h1>
@@ -211,7 +211,7 @@
  * Beauty promotion component for hair removal services
  * Displays main offer, benefits, and call-to-action with quiz section
  */
-import { ref } from "vue";
+import { ref, onMounted, onUnmounted } from "vue";
 import BeautyQuiz from "./BeautyQuiz.vue";
 import BeautyContacts from "./BeautyContacts.vue";
 
@@ -219,6 +219,22 @@ const quizSection = ref(null);
 const servicesSection = ref(null);
 const contactsSection = ref(null);
 const isMobileMenuOpen = ref(false);
+const isMobile = ref(window.innerWidth <= 768);
+
+/**
+ * Updates mobile state based on window width
+ */
+const updateMobileState = () => {
+  isMobile.value = window.innerWidth <= 768;
+};
+
+onMounted(() => {
+  window.addEventListener("resize", updateMobileState);
+});
+
+onUnmounted(() => {
+  window.removeEventListener("resize", updateMobileState);
+});
 
 /**
  * Toggles the mobile menu visibility
@@ -466,8 +482,13 @@ const scrollToContacts = () => {
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   border-radius: 16px;
-  padding: 48px;
+  padding: 32px 16px;
+  margin: 0;
   box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 }
 
 /* Button with reflection */
@@ -497,16 +518,6 @@ const scrollToContacts = () => {
 @media (max-width: 768px) {
   .background-container::before {
     transform: rotate(-15deg);
-  }
-
-  .glass-container {
-    padding: 32px 16px;
-    margin: 0;
-    border-radius: 0;
-    height: 100%;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
   }
 
   .container {

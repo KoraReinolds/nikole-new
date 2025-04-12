@@ -3,14 +3,14 @@
   Reusable component for quiz section headings with consistent styling
 -->
 <template>
-  <div class="flex items-start gap-2">
+  <div class="flex items-start gap-2 md:gap-4">
     <button
       v-if="showBackButton"
-      class="mt-1 w-8 h-full flex items-start justify-center hover:bg-opacity-90 transition-all"
+      class="mt-1 min-w-8 min-h-8 flex items-center justify-center rounded-full bg-add2-sat hover:bg-opacity-90 transition-all"
       @click="$emit('back')"
     >
       <svg
-        class="w-4 h-4 md:w-6 md:h-6 fill-add2-sat"
+        class="w-4 h-4 md:w-6 md:h-6 fill-white"
         xmlns="http://www.w3.org/2000/svg"
         viewBox="0 0 24 24"
       >
@@ -20,11 +20,24 @@
     <h3
       :class="[
         textColorClass,
-        'text-md md:text-3xl font-bold font-montserrat',
+        'text-md md:text-3xl font-bold font-montserrat text-center md:text-left',
       ]"
     >
       <slot />
     </h3>
+    <button
+      v-if="showNextButton"
+      class="mt-1 min-w-8 min-h-8 flex items-center justify-center rounded-full bg-add2-sat hover:bg-opacity-90 transition-all rotate-180"
+      @click="$emit('next')"
+    >
+      <svg
+        class="w-4 h-4 md:w-6 md:h-6 fill-white"
+        xmlns="http://www.w3.org/2000/svg"
+        viewBox="0 0 24 24"
+      >
+        <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
+      </svg>
+    </button>
   </div>
 </template>
 
@@ -48,7 +61,14 @@ const props = defineProps({
    */
   showBackButton: {
     type: Boolean,
-    default: false,
+    default: true,
+  },
+  /**
+   * Whether to show the next button
+   */
+  showNextButton: {
+    type: Boolean,
+    default: true,
   },
 });
 
@@ -60,5 +80,5 @@ const textColorClass = computed(() => {
   }[props.variant];
 });
 
-defineEmits(["back"]);
+defineEmits(["back", "next"]);
 </script>

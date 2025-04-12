@@ -3,19 +3,22 @@
   Component for displaying a multi-step quiz about beauty and hair removal services
 -->
 <template>
-  <div class="quiz-container w-full h-screen md:h-full">
+  <div class="quiz-container w-full h-screen md:h-full overflow-hidden">
     <div class="container mx-auto max-w-[1080px] h-full relative z-10 flex">
       <!-- Left side with flower vase image (moved to background) -->
-      <div class="bottom-14 absolute -left-[208px] z-0">
+      <div class="bottom-10 absolute -right-[161px] z-0">
+        <!-- <span class="absolute left-[22%] opacity-90 bottom-[6%] text-white text-sm md:text-xl font-normal font-roboto">
+          ----▶
+        </span> -->
         <img
           src="/images/quiz.png"
           alt="Цветы в вазе"
-          class="w-[50vh] md:w-[425px] object-contain"
+          class="w-[50vh] md:w-[625px] object-contain"
         >
       </div>
 
       <!-- Right side with quiz content -->
-      <div class="pt-[5vh] md:pt-[120px] pb-8 md:pb-16 flex flex-col w-full h-full relative z-10">
+      <div class="pt-[7vh] md:pt-[120px] pb-8 md:pb-16 flex flex-col w-full h-full relative z-10">
         <!-- Quiz header -->
         <div class="relative w-full md:w-[630px] px-4">
           <h2 class="text-add2-black text-[clamp(1.25rem,6.5vw,2.5rem)] md:text-6xl font-bold font-raleway mb-[5vh] md:mb-10">
@@ -35,16 +38,16 @@
         <div class="flex flex-col w-full h-full">
           <!-- Progress and heading container -->
           <div class="flex flex-grow items-start">
-            <div class="flex items-start justify-between gap-4 md:gap-16 md:my-4 md:my-8 flex-wrap md:flex-nowrap">
+            <div class="flex flex-col items-start justify-between md:gap-16 md:my-4 md:my-8">
               <!-- Progress steps -->
-              <div class="relative flex items-center md:min-w-[300px] px-4">
+              <div class="relative flex items-center md:min-w-[300px] px-4 mb-[5vh] md:mb-0">
                 <div
                   v-for="step in totalSteps"
                   :key="step"
                   class="flex items-center"
                 >
                   <div
-                    class="w-[4vh] h-[4vh] md:w-8 md:h-8 mx-1 rounded-full flex items-center justify-center cursor-pointer transition-all font-medium text-sm md:text-base"
+                    class="w-[4vh] h-[4vh] md:w-8 md:h-8 rounded-full flex items-center justify-center cursor-pointer transition-all font-medium text-sm md:text-base"
                     :class="[
                       step < currentStep ? 'bg-[#94475E] text-white'
                       : step === currentStep ? 'bg-[#ADDB88] text-add2-black ring-2 ring-add2-black'
@@ -63,13 +66,18 @@
               </div>
 
               <!-- Step content container -->
-              <div class="flex-grow">
+              <div class="flex-grow px-4">
                 <!-- Single content block with conditional glass effect -->
                 <div class="glass-container md:glass-container-none">
                   <!-- Step 1: Age question -->
                   <div v-if="currentStep === 1">
-                    <QuizHeading>Сколько Вам лет?</QuizHeading>
-                    <div class="space-y-2 md:space-y-4 mt-4 md:p-6 rounded-lg max-w-full md:max-w-[500px]">
+                    <QuizHeading
+                      :show-back-button="false"
+                      @next="nextStep"
+                    >
+                      Сколько Вам лет?
+                    </QuizHeading>
+                    <div class="space-y-2 md:space-y-4 mt-4 rounded-lg max-w-full md:max-w-[500px] md:pl-12 md:pt-10">
                       <RadioOption
                         v-model="userAnswers.age"
                         value="under18"
@@ -88,12 +96,12 @@
                   <!-- Step 2: Problems selection -->
                   <div v-if="currentStep === 2">
                     <QuizHeading
-                      :show-back-button="true"
                       @back="prevStep"
+                      @next="nextStep"
                     >
                       Какие из проблем вам знакомы?
                     </QuizHeading>
-                    <div class="space-y-2 md:space-y-4 mt-4 md:p-6 rounded-lg max-w-full md:max-w-[500px]">
+                    <div class="space-y-2 md:space-y-4 mt-4 rounded-lg max-w-full md:max-w-[500px] md:pl-12 md:pt-10">
                       <CheckboxOption
                         v-model="userAnswers.problems"
                         value="frequent_shaving"
@@ -132,10 +140,11 @@
                     <QuizHeading
                       :show-back-button="true"
                       @back="prevStep"
+                      @next="nextStep"
                     >
                       Выберите зоны эпиляции
                     </QuizHeading>
-                    <div class="space-y-2 md:space-y-4 mt-4 md:p-6 rounded-lg max-w-full md:max-w-[500px]">
+                    <div class="space-y-2 md:space-y-4 mt-4 rounded-lg max-w-full md:max-w-[500px] md:pl-12 md:pt-10">
                       <CheckboxOption
                         v-model="userAnswers.zones"
                         value="legs"
@@ -183,12 +192,12 @@
                   <!-- Step 4: Method selection -->
                   <div v-if="currentStep === 4">
                     <QuizHeading
-                      :show-back-button="true"
                       @back="prevStep"
+                      @next="nextStep"
                     >
                       Выберите метод эпиляции
                     </QuizHeading>
-                    <div class="space-y-2 md:space-y-4 mt-4 md:p-6 rounded-lg max-w-full md:max-w-[500px]">
+                    <div class="space-y-2 md:space-y-4 mt-4 rounded-lg max-w-full md:max-w-[500px] md:pl-12 md:pt-10">
                       <!-- Electro epilation option -->
                       <MethodOption
                         v-model="userAnswers.method"
@@ -225,12 +234,12 @@
                   <!-- Final Step - Contact Information & Reward -->
                   <div v-if="currentStep === 5">
                     <QuizHeading
-                      :show-back-button="true"
+                      :show-next-button="false"
                       @back="prevStep"
                     >
                       Последний шаг
                     </QuizHeading>
-                    <div class="space-y-2 md:space-y-4 mt-4 md:p-6 rounded-lg max-w-full md:max-w-[500px]">
+                    <div class="space-y-2 md:space-y-4 mt-4 rounded-lg max-w-full md:max-w-[500px] md:pl-12 md:pt-10">
                       <div class="flex items-center gap-2 md:gap-4">
                         <img
                           src="/images/gift.png"
@@ -299,74 +308,10 @@
                           </a>
                         </div>
                       </template>
-
-                      <div class="flex flex-col md:flex-row gap-2 md:gap-4">
-                        <button
-                          class="mt-4 md:mt-6 py-2 md:py-3 px-4 md:px-8 font-bold bg-gray-200 text-[#232A36] text-base md:text-xl font-roboto rounded-md hover:bg-gray-300 transition-all shadow-lg flex items-center justify-center"
-                          @click="prevStep"
-                        >
-                          <svg
-                            class="w-4 h-4 md:w-6 md:h-6 mr-2"
-                            fill="currentColor"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                          >
-                            <path d="M20 11H7.83l5.59-5.59L12 4l-8 8 8 8 1.41-1.41L7.83 13H20v-2z" />
-                          </svg>
-                          Назад
-                        </button>
-                        <button
-                          class="mt-4 md:mt-6 py-2 md:py-3 px-4 md:px-8 font-bold bg-[#229ED9] text-white text-base md:text-xl font-roboto rounded-md hover:bg-opacity-90 transition-all shadow-lg flex items-center justify-center"
-                          @click="submitQuiz"
-                        >
-                          <svg
-                            class="w-4 h-4 md:w-6 md:h-6 mr-2"
-                            fill="currentColor"
-                            xmlns="http://www.w3.org/2000/svg"
-                            viewBox="0 0 24 24"
-                          >
-                            <path d="M9.78 18.65l.28-4.23 7.68-6.92c.34-.31-.07-.46-.52-.19L7.74 13.3 3.64 12c-.88-.25-.89-.86.2-1.3l15.97-6.16c.73-.33 1.43.18 1.15 1.3l-2.72 12.81c-.19.91-.74 1.13-1.5.71L12.6 16.3l-1.99 1.93c-.23.23-.42.42-.83.42z" />
-                          </svg>
-                          {{ userAnswers.method === 'laser' ? 'Отправить' : 'Забрать подарок' }}
-                        </button>
-                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          </div>
-
-          <!-- Navigation buttons -->
-          <div
-            v-if="currentStep < 5"
-            class="flex justify-end w-full mt-6 transform md:translate-x-[10px] mb-[45px] md:mb-4 scale-75 md:scale-100"
-          >
-            <!-- <div
-              class="relative cursor-pointer"
-              @click="prevStep"
-            >
-              <img
-                src="/images/quiz_btn.png"
-                alt="Кнопка назад"
-                class="w-36 h-14 object-cover"
-              >
-              <span class="absolute right-4 top-0 opacity-90 bottom-0 w-1/2 flex items-center justify-center text-white text-sm md:text-xl font-normal font-roboto">
-                Назад
-              </span>
-            </div> -->
-            <div
-              class="relative cursor-pointer hidden md:block"
-              @click="nextStep"
-            >
-              <img
-                src="/images/quiz_btn.png"
-                alt="Кнопка далее"
-                class="w-36 h-14 object-cover"
-              >
-              <span class="absolute right-4 top-0 opacity-90 bottom-0 w-1/2 flex items-center justify-center text-white text-sm md:text-xl font-normal font-roboto">
-                ----▶
-              </span>
             </div>
           </div>
         </div>
