@@ -4,7 +4,7 @@
 -->
 <template>
   <div class="quiz-container w-full h-screen md:h-full">
-    <div class="container mx-auto px-4 max-w-[1080px] h-full relative z-10 flex">
+    <div class="container mx-auto max-w-[1080px] h-full relative z-10 flex">
       <!-- Left side with flower vase image (moved to background) -->
       <div class="bottom-14 absolute -left-[208px] z-0">
         <img
@@ -17,7 +17,7 @@
       <!-- Right side with quiz content -->
       <div class="pt-8 md:pt-[120px] pb-8 md:pb-16 flex flex-col w-full h-full relative z-10">
         <!-- Quiz header -->
-        <div class="relative w-full md:w-[600px]">
+        <div class="relative w-full md:w-[600px] px-4">
           <h2 class="text-add2-black text-xl md:text-3xl font-bold font-raleway mb-4 md:mb-10">
             Ответьте<br class="hidden md:block">
             на 5 вопросов<br>
@@ -36,7 +36,7 @@
           <!-- Progress and heading container -->
           <div class="flex flex-grow items-start justify-between gap-4 md:gap-16 md:my-4 md:my-8 flex-wrap md:flex-nowrap">
             <!-- Progress steps -->
-            <div class="relative flex items-center md:min-w-[300px]">
+            <div class="relative flex items-center md:min-w-[300px] px-4">
               <div
                 v-for="step in totalSteps"
                 :key="step"
@@ -68,7 +68,7 @@
                 <!-- Step 1: Age question -->
                 <div v-if="currentStep === 1">
                   <QuizHeading>Сколько Вам лет?</QuizHeading>
-                  <div class="space-y-4 mt-4 p-4 md:p-6 rounded-lg max-w-full md:max-w-[500px]">
+                  <div class="space-y-2 md:space-y-4 mt-4 md:p-6 rounded-lg max-w-full md:max-w-[500px]">
                     <RadioOption
                       v-model="userAnswers.age"
                       value="under18"
@@ -86,8 +86,13 @@
 
                 <!-- Step 2: Problems selection -->
                 <div v-if="currentStep === 2">
-                  <QuizHeading>Какие из проблем вам знакомы?</QuizHeading>
-                  <div class="space-y-4 mt-4 p-4 md:p-6 rounded-lg max-w-full md:max-w-[500px]">
+                  <QuizHeading
+                    :show-back-button="true"
+                    @back="prevStep"
+                  >
+                    Какие из проблем вам знакомы?
+                  </QuizHeading>
+                  <div class="space-y-2 md:space-y-4 mt-4 md:p-6 rounded-lg max-w-full md:max-w-[500px]">
                     <CheckboxOption
                       v-model="userAnswers.problems"
                       value="frequent_shaving"
@@ -123,8 +128,13 @@
 
                 <!-- Step 3: Zone selection with checkboxes -->
                 <div v-if="currentStep === 3">
-                  <QuizHeading>Выберите зоны эпиляции</QuizHeading>
-                  <div class="space-y-4 mt-4 p-4 md:p-6 rounded-lg max-w-full md:max-w-[500px]">
+                  <QuizHeading
+                    :show-back-button="true"
+                    @back="prevStep"
+                  >
+                    Выберите зоны эпиляции
+                  </QuizHeading>
+                  <div class="space-y-2 md:space-y-4 mt-4 md:p-6 rounded-lg max-w-full md:max-w-[500px]">
                     <CheckboxOption
                       v-model="userAnswers.zones"
                       value="legs"
@@ -171,8 +181,13 @@
 
                 <!-- Step 4: Method selection -->
                 <div v-if="currentStep === 4">
-                  <QuizHeading>Выберите метод эпиляции</QuizHeading>
-                  <div class="space-y-4 mt-4">
+                  <QuizHeading
+                    :show-back-button="true"
+                    @back="prevStep"
+                  >
+                    Выберите метод эпиляции
+                  </QuizHeading>
+                  <div class="space-y-2 md:space-y-4 mt-4 md:p-6 rounded-lg max-w-full md:max-w-[500px]">
                     <!-- Electro epilation option -->
                     <MethodOption
                       v-model="userAnswers.method"
@@ -208,8 +223,13 @@
 
                 <!-- Final Step - Contact Information & Reward -->
                 <div v-if="currentStep === 5">
-                  <QuizHeading>Последний шаг</QuizHeading>
-                  <div class="space-y-4 mt-4">
+                  <QuizHeading
+                    :show-back-button="true"
+                    @back="prevStep"
+                  >
+                    Последний шаг
+                  </QuizHeading>
+                  <div class="space-y-2 md:space-y-4 mt-4 md:p-6 rounded-lg max-w-full md:max-w-[500px]">
                     <div class="flex items-center gap-2 md:gap-4">
                       <img
                         src="/images/gift.png"
@@ -307,7 +327,7 @@
             v-if="currentStep < 5"
             class="flex justify-end w-full mt-6 transform md:translate-x-[10px] mb-[45px] md:mb-4 scale-75 md:scale-100"
           >
-            <div
+            <!-- <div
               class="relative cursor-pointer"
               @click="prevStep"
             >
@@ -319,7 +339,7 @@
               <span class="absolute right-4 top-0 opacity-90 bottom-0 w-1/2 flex items-center justify-center text-white text-sm md:text-xl font-normal font-roboto">
                 Назад
               </span>
-            </div>
+            </div> -->
             <div
               class="relative cursor-pointer"
               @click="nextStep"
@@ -330,7 +350,7 @@
                 class="w-36 h-14 object-cover"
               >
               <span class="absolute right-4 top-0 opacity-90 bottom-0 w-1/2 flex items-center justify-center text-white text-sm md:text-xl font-normal font-roboto">
-                Далее
+                ----▶
               </span>
             </div>
           </div>
