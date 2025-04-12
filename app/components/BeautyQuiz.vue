@@ -10,7 +10,7 @@
         <img
           src="/images/promo-flowers-2.png"
           alt="Цветы в вазе"
-          class="w-[425px] object-contain relative z-10 hidden"
+          class="w-[425px] object-contain relative z-10"
         >
       </div>
 
@@ -34,7 +34,7 @@
 
         <div class="mb-8 flex flex-col md:flex-row gap-8 md:gap-16 w-full h-full">
           <!-- Progress steps -->
-          <div class="relative flex items-center justify-center md:justify-start min-w-full md:min-w-[555px] mt-3">
+          <div class="relative flex items-start justify-center md:justify-start min-w-full md:min-w-[555px] mt-3">
             <div
               v-for="step in totalSteps"
               :key="step"
@@ -178,50 +178,25 @@
                 </div>
               </div>
 
-              <!-- Step 4: Method selection with comparison table and calculator -->
+              <!-- Step 4: Method selection -->
               <div
                 v-if="currentStep === 4"
                 class="quiz-step"
               >
                 <QuizHeading>
-                  Выберите способ
+                  Выберите метод эпиляции
                 </QuizHeading>
 
-                <div class="my-8 flex">
-                  <div class="flex flex-1 justify-between text-start">
-                    <div class="w-[120px] md:w-[160px] text-gray-600 font-medium text-sm">
-                      безопасность
-                    </div>
-                    <div class="w-[120px] md:w-[160px] text-gray-600 font-medium text-sm">
-                      эффективность
-                    </div>
-                  </div>
-                </div>
-
-                <div class="space-y-3">
-                  <!-- Electro-epilation option -->
+                <div class="space-y-4 mt-6">
+                  <!-- Electro epilation option -->
                   <MethodOption
                     v-model="userAnswers.method"
                     value="electro"
                     label="Электроэпиляция"
-                    tooltip-text="Электроэпиляция — это метод удаления волос, при котором используется электрический ток для разрушения волосяных фолликулов. Процедура обеспечивает долгосрочный результат и подходит для любого типа кожи и волос."
-                    :safety-value="85"
+                    tooltip-text="Электроэпиляция — метод удаления волос с помощью электрического тока, который воздействует на волосяной фолликул. Это единственный метод, который обеспечивает перманентное удаление волос."
+                    :safety-value="90"
                     :efficiency-value="95"
-                  >
-                    <template #price>
-                      <div class="text-sm text-gray-600">
-                        <div v-if="timePeriod === 0">
-                          {{ new Intl.NumberFormat('ru-RU').format(methodTotalCosts.electro) }} ₽
-                        </div>
-                        <div v-else-if="timePeriod === 1">
-                          {{ new Intl.NumberFormat('ru-RU').format(methodTotalCosts.electro) }} ₽
-                        </div>
-                        <div v-else>
-                          {{ new Intl.NumberFormat('ru-RU').format(totalCostsByPeriod.electro) }} ₽
-                        </div>
-                      </div>
-                    </template>
-                  </MethodOption>
+                  />
 
                   <!-- Sugaring option -->
                   <MethodOption
@@ -231,21 +206,7 @@
                     tooltip-text="Шугаринг — метод удаления волос с помощью густой сахарной пасты. Удаляет волосы вместе с корнем, но они отрастают снова через несколько недель. Подходит для чувствительной кожи."
                     :safety-value="75"
                     :efficiency-value="40"
-                  >
-                    <template #price>
-                      <div class="text-sm text-gray-600">
-                        <div v-if="timePeriod === 0">
-                          {{ new Intl.NumberFormat('ru-RU').format(methodTotalCosts.sugaring) }} ₽
-                        </div>
-                        <div v-else-if="timePeriod === 1">
-                          {{ new Intl.NumberFormat('ru-RU').format(methodTotalCosts.sugaring * 12) }} ₽
-                        </div>
-                        <div v-else>
-                          {{ new Intl.NumberFormat('ru-RU').format(totalCostsByPeriod.sugaring) }} ₽
-                        </div>
-                      </div>
-                    </template>
-                  </MethodOption>
+                  />
 
                   <!-- Laser epilation option -->
                   <MethodOption
@@ -256,56 +217,7 @@
                     :safety-value="50"
                     :efficiency-value="75"
                     :disabled="!allowLaser"
-                  >
-                    <template #price>
-                      <div class="text-sm text-gray-600">
-                        <div v-if="timePeriod === 0">
-                          {{ new Intl.NumberFormat('ru-RU').format(methodTotalCosts.laser) }} ₽
-                        </div>
-                        <div v-else-if="timePeriod === 1">
-                          {{ new Intl.NumberFormat('ru-RU').format(methodTotalCosts.laser * 2) }} ₽
-                        </div>
-                        <div v-else>
-                          {{ new Intl.NumberFormat('ru-RU').format(totalCostsByPeriod.laser) }} ₽
-                        </div>
-                      </div>
-                    </template>
-                  </MethodOption>
-                </div>
-
-                <!-- Time period selector -->
-                <div
-                  v-if="showCalculator"
-                  class="mt-8"
-                >
-                  <div class="bg-main-white2 rounded-lg shadow-sm p-3 shadow-lg">
-                    <div class="flex flex-wrap gap-1">
-                      <button
-                        v-for="period in [0, 1, 2, 3, 4, 5]"
-                        :key="period"
-                        class="py-1 px-2 text-sm rounded transition-all"
-                        :class="[
-                          timePeriod === period
-                            ? 'bg-[#94475E] text-white font-medium shadow-lg'
-                            : 'bg-main-white2 hover:bg-main-white text-add2-black shadow-lg',
-                        ]"
-                        @click="timePeriod = period"
-                      >
-                        {{ period === 0 ? '1 сеанс' : period === 1 ? '1 год' : period + ' ' + (period <= 4 ? 'года' : 'лет') }}
-                      </button>
-                    </div>
-                    <div class="mt-4 text-sm">
-                      <p
-                        v-if="mostEconomicalMethod"
-                        class="font-medium text-add2-black"
-                      >
-                        Самый выгодный вариант: <b class="text-[#94475E]">{{ mostEconomicalMethod.label }}</b>
-                      </p>
-                      <p class="text-add2-black mt-1">
-                        {{ mostEconomicalExplanation }}
-                      </p>
-                    </div>
-                  </div>
+                  />
                 </div>
               </div>
 
@@ -474,56 +386,15 @@ const defaultAnswers = {
 // User answers storage
 const userAnswers = ref({ ...defaultAnswers });
 
-// Time period for savings calculation
-const timePeriod = ref(2);
-
-// Define base prices per zone for each method
-const zonePrices = {
-  electro: {
-    legs: 8000,
-    bikini: 6000,
-    face: 3000,
-    arms: 5000,
-    back: 7000,
-    stomach: 4000,
-  },
-  sugaring: {
-    legs: 2500,
-    bikini: 2000,
-    face: 800,
-    arms: 1500,
-    back: 2000,
-    stomach: 1200,
-  },
-  laser: {
-    legs: 5000,
-    bikini: 4000,
-    face: 2000,
-    arms: 3000,
-    back: 4500,
-    stomach: 2500,
-  },
-};
-
-/**
- * Load saved quiz data from localStorage
- */
+// Load saved quiz data from localStorage
 const loadSavedQuizData = () => {
   try {
     const savedData = localStorage.getItem(STORAGE_KEY);
     if (savedData) {
       const parsedData = JSON.parse(savedData);
-
-      // Restore user answers
       userAnswers.value = { ...defaultAnswers, ...parsedData.userAnswers };
-
-      // Restore other state
       if (parsedData.currentStep) {
         currentStep.value = parsedData.currentStep;
-      }
-
-      if (parsedData.timePeriod) {
-        timePeriod.value = parsedData.timePeriod;
       }
     }
   }
@@ -532,17 +403,13 @@ const loadSavedQuizData = () => {
   }
 };
 
-/**
- * Save current quiz state to localStorage
- */
+// Save current quiz state to localStorage
 const saveQuizData = () => {
   try {
     const dataToSave = {
       userAnswers: userAnswers.value,
       currentStep: currentStep.value,
-      timePeriod: timePeriod.value,
     };
-
     localStorage.setItem(STORAGE_KEY, JSON.stringify(dataToSave));
   }
   catch (error) {
@@ -551,7 +418,7 @@ const saveQuizData = () => {
 };
 
 // Watch for changes to save automatically
-watch([userAnswers, currentStep, timePeriod], () => {
+watch([userAnswers, currentStep], () => {
   saveQuizData();
 }, { deep: true });
 
@@ -565,7 +432,6 @@ onMounted(() => {
  * @param {number} step - The step number to navigate to
  */
 const goToStep = (step) => {
-  // Allow navigation to any previous step
   if (step <= currentStep.value) {
     currentStep.value = step;
     saveQuizData();
@@ -574,12 +440,10 @@ const goToStep = (step) => {
 
 // Computed properties for quiz logic
 const allowLaser = computed(() => {
-  // Only allow laser if user is over 18
   return userAnswers.value.age === "over18";
 });
 
 const canProceed = computed(() => {
-  // Check if current step has required answers
   switch (currentStep.value) {
     case 1:
       return !!userAnswers.value.age;
@@ -602,8 +466,6 @@ const canProceed = computed(() => {
  */
 const validatePhone = () => {
   if (!userAnswers.value.phone) return false;
-
-  // Проверяем, что номер содержит как минимум 10 цифр
   const digitsOnly = userAnswers.value.phone.replace(/\D/g, "");
   return digitsOnly.length >= 10;
 };
@@ -637,86 +499,9 @@ const submitQuiz = () => {
     return;
   }
 
-  // Here you would typically send the data to your backend
   console.log("Quiz submitted with answers:", userAnswers.value);
-
-  // For now, just show alert
   alert("Спасибо за прохождение теста! Мы отправили вам ссылку на Telegram бота в SMS.");
-
-  // After successful submission, you might want to clear the storage
-  // localStorage.removeItem(STORAGE_KEY);
 };
-
-// Computed properties for calculator
-const showCalculator = computed(() => {
-  return userAnswers.value.zones.length > 0;
-});
-
-const methodTotalCosts = computed(() => {
-  const costs = {
-    electro: 0,
-    sugaring: 0,
-    laser: 0,
-  };
-
-  // Calculate initial costs for each method
-  for (const zone of userAnswers.value.zones) {
-    costs.electro += zonePrices.electro[zone];
-    costs.sugaring += zonePrices.sugaring[zone];
-    costs.laser += zonePrices.laser[zone];
-  }
-
-  return costs;
-});
-
-const totalCostsByPeriod = computed(() => {
-  const costs = {
-    electro: methodTotalCosts.value.electro,
-    sugaring: methodTotalCosts.value.sugaring * 12 * timePeriod.value,
-    laser: methodTotalCosts.value.laser * 2 * timePeriod.value,
-  };
-
-  // Calculate electro costs with 5% discount per year
-  if (timePeriod.value > 1) {
-    let electroCost = methodTotalCosts.value.electro;
-    for (let year = 1; year < timePeriod.value; year++) {
-      if (year === 1) {
-        electroCost += methodTotalCosts.value.electro * 0.95; // 5% discount
-      }
-      // After 2 years, no cost for electro
-    }
-    costs.electro = electroCost;
-  }
-
-  return costs;
-});
-
-const mostEconomicalMethod = computed(() => {
-  const methods = [
-    { id: "electro", label: "Электроэпиляция", cost: totalCostsByPeriod.value.electro },
-    { id: "sugaring", label: "Шугаринг", cost: totalCostsByPeriod.value.sugaring },
-    { id: "laser", label: "Лазерная эпиляция", cost: totalCostsByPeriod.value.laser },
-  ];
-
-  return methods.reduce((min, current) =>
-    current.cost < min.cost ? current : min,
-  );
-});
-
-const mostEconomicalExplanation = computed(() => {
-  if (timePeriod.value === 0) {
-    return "Шугаринг является самым доступным вариантом для разовой процедуры";
-  }
-  else if (timePeriod.value === 1) {
-    return "Электроэпиляция требует меньше сеансов в год по сравнению с другими методами";
-  }
-  else if (timePeriod.value <= 3) {
-    return "Электроэпиляция становится выгоднее с каждым годом благодаря меньшему количеству поддерживающих процедур";
-  }
-  else {
-    return "После 3 лет электроэпиляция требует минимальных поддерживающих процедур, что делает её самым экономичным вариантом в долгосрочной перспективе";
-  }
-});
 </script>
 
 <style scoped>

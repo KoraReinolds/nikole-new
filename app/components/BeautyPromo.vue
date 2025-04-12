@@ -33,11 +33,12 @@
               >
                 Услуги
               </button>
-              <div>
-                <span class="text-main-white2 text-3xl font-normal font-roboto">Мурманск</span>
-                <span class="text-main text-3xl font-normal font-roboto">, </span>
-                <span class="text-main text-2xl font-normal font-roboto">ул Юбилейная 9-32</span>
-              </div>
+              <button
+                class="text-main text-3xl font-normal font-roboto hover:text-opacity-80 transition-all cursor-pointer"
+                @click="scrollToContacts"
+              >
+                Контакты
+              </button>
             </div>
 
             <!-- Mobile Hamburger Menu -->
@@ -90,6 +91,12 @@
               >
                 Услуги
               </button>
+              <button
+                class="w-full text-left text-main text-2xl font-normal font-roboto py-2 hover:text-opacity-80 transition-all"
+                @click="scrollToContacts"
+              >
+                Контакты
+              </button>
               <div class="text-main-white2 text-2xl font-normal font-roboto py-2">
                 Мурманск, <span class="text-main text-xl">ул Юбилейная 9-32</span>
               </div>
@@ -110,7 +117,7 @@
             <ul class="space-y-2 md:space-y-4 ml-2 mb-4 md:mb-8 text-main-white2 text-sm md:text-2xl font-normal">
               <li class="flex items-start">
                 <span class="mr-2 hidden md:inline">•</span>
-                <span>с <span class="pink-text-gradient font-medium">выгодой до 20.000</span> рублей за покупку абонемента</span>
+                <span>с <span class="pink-text-gradient font-medium">выгодой от 10.000</span> рублей за весь курс</span>
               </li>
               <li class="flex items-start">
                 <span class="mr-2 hidden md:inline">•</span>
@@ -190,11 +197,14 @@
     </div>
   </div>
 
-  <!-- <BeautyServices ref="servicesSection" />
+  <BeautyServices ref="servicesSection" />
 
   <BeautyFaq />
 
-  <BeautyFooter /> -->
+  <!-- Contacts section -->
+  <BeautyContacts ref="contactsSection" />
+
+  <BeautyFooter />
 </template>
 
 <script setup>
@@ -204,12 +214,11 @@
  */
 import { ref } from "vue";
 import BeautyQuiz from "./BeautyQuiz.vue";
-import BeautyServices from "./BeautyServices.vue";
-import BeautyFaq from "./BeautyFaq.vue";
-import BeautyFooter from "./BeautyFooter.vue";
+import BeautyContacts from "./BeautyContacts.vue";
 
 const quizSection = ref(null);
 const servicesSection = ref(null);
+const contactsSection = ref(null);
 const isMobileMenuOpen = ref(false);
 
 /**
@@ -232,6 +241,14 @@ const scrollToQuiz = () => {
  */
 const scrollToServices = () => {
   servicesSection.value.$el.scrollIntoView({ behavior: "smooth" });
+  isMobileMenuOpen.value = false;
+};
+
+/**
+ * Scrolls to the contacts section smoothly
+ */
+const scrollToContacts = () => {
+  contactsSection.value.$el.scrollIntoView({ behavior: "smooth" });
   isMobileMenuOpen.value = false;
 };
 </script>
