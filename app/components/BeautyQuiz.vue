@@ -10,7 +10,7 @@
         <img
           src="/images/quiz.png"
           alt="Цветы в вазе"
-          class="w-[425px] object-contain"
+          class="w-[300px] md:w-[425px] object-contain"
         >
       </div>
 
@@ -18,8 +18,8 @@
       <div class="pt-8 md:pt-[120px] pb-8 md:pb-16 flex flex-col w-full h-full relative z-10">
         <!-- Quiz header -->
         <div class="relative w-full md:w-[600px]">
-          <h2 class="text-add2-black text-3xl md:text-6xl font-bold font-raleway mb-4 md:mb-10">
-            Ответьте<br>
+          <h2 class="text-add2-black text-xl md:text-3xl font-bold font-raleway mb-4 md:mb-10">
+            Ответьте<br class="hidden md:block">
             на 5 вопросов<br>
             и получите <span class="text-add2-sat">подарок</span>
           </h2>
@@ -34,7 +34,7 @@
 
         <div class="flex flex-col w-full h-full">
           <!-- Progress and heading container -->
-          <div class="flex flex-grow items-start justify-between gap-4 md:gap-16 my-4 md:my-8 flex-wrap">
+          <div class="flex flex-grow items-start justify-between gap-4 md:gap-16 my-4 md:my-8 flex-wrap md:flex-nowrap">
             <!-- Progress steps -->
             <div class="relative flex items-center min-w-[200px] md:min-w-[300px]">
               <div
@@ -87,7 +87,7 @@
                 <!-- Step 2: Problems selection -->
                 <div v-if="currentStep === 2">
                   <QuizHeading>Какие из проблем вам знакомы?</QuizHeading>
-                  <div class="space-y-4 mt-4 p-4 md:p-6 rounded-lg max-w-full md:max-w-[500px]">
+                  <div class="md:space-y-4 mt-4 p-4 md:p-6 rounded-lg max-w-full md:max-w-[500px]">
                     <CheckboxOption
                       v-model="userAnswers.problems"
                       value="frequent_shaving"
@@ -324,7 +324,7 @@
                 <!-- Step 2: Problems selection -->
                 <div v-if="currentStep === 2">
                   <QuizHeading>Какие из проблем вам знакомы?</QuizHeading>
-                  <div class="space-y-4 mt-4 bg-[#FFBCAD] p-4 md:p-6 rounded-lg max-w-full md:max-w-[500px]">
+                  <div class="space-y-4 mt-4 p-4 md:p-6 rounded-lg max-w-full md:max-w-[500px]">
                     <CheckboxOption
                       v-model="userAnswers.problems"
                       value="frequent_shaving"
@@ -361,7 +361,7 @@
                 <!-- Step 3: Zone selection with checkboxes -->
                 <div v-if="currentStep === 3">
                   <QuizHeading>Выберите зоны эпиляции</QuizHeading>
-                  <div class="space-y-4 mt-4 bg-[#FFBCAD] p-4 md:p-6 rounded-lg max-w-full md:max-w-[500px]">
+                  <div class="space-y-4 mt-4 p-4 md:p-6 rounded-lg max-w-full md:max-w-[500px]">
                     <CheckboxOption
                       v-model="userAnswers.zones"
                       value="legs"
@@ -542,7 +542,7 @@
           <!-- Navigation buttons -->
           <div
             v-if="currentStep < 5"
-            class="flex justify-end w-full md:justify-start mt-6 transform md:-translate-x-[208px] mb-[45px] scale-75"
+            class="flex justify-end w-full mt-6 transform md:translate-x-[10px] mb-[45px] md:mb-4 scale-75 md:scale-100"
           >
             <div
               class="relative cursor-pointer"
@@ -801,22 +801,5 @@ const submitQuiz = () => {
   .quiz-step {
     max-width: 100%;
   }
-}
-
-/* Button hover effect */
-.relative.cursor-pointer:hover {
-  transform: scale(1.05);
-  transition: transform 0.2s ease;
-}
-
-.relative.cursor-pointer:active {
-  transform: scale(0.95);
-}
-
-/* Disabled button styles */
-.relative.cursor-pointer[disabled],
-.relative.cursor-pointer.opacity-50 {
-  pointer-events: none;
-  opacity: 0.5;
 }
 </style>
