@@ -248,6 +248,7 @@ const isMobile = ref(true);
 let currentIndex = 0;
 let startY = 0;
 let endY = 0;
+let startScrollY = 0;
 
 /**
  * Updates mobile state based on window width
@@ -265,6 +266,7 @@ const updateMobileState = () => {
  */
 const handleTouchStart = (e) => {
   startY = e.touches[0].clientY;
+  startScrollY = window.scrollY;
 };
 
 /**
@@ -274,6 +276,16 @@ const handleTouchStart = (e) => {
 const handleTouchEnd = (e) => {
   endY = e.changedTouches[0].clientY;
   const delta = startY - endY;
+  const scrollDelta = window.scrollY - startScrollY;
+
+  // Если скролл был небольшим (менее 100px), возвращаемся к предыдущей позиции
+  if (Math.abs(scrollDelta) < 100) {
+    window.scrollTo({
+      top: startScrollY,
+      behavior: "smooth",
+    });
+    return;
+  }
 
   if (Math.abs(delta) > 50) { // минимальная длина свайпа
     if (delta > 0 && currentIndex < 1) { // свайп вверх
@@ -298,21 +310,15 @@ const handleTouchEnd = (e) => {
 onMounted(() => {
   window.addEventListener("resize", updateMobileState);
 
-  const container = document.getElementById("container");
-  if (container) {
-    container.addEventListener("touchstart", handleTouchStart);
-    container.addEventListener("touchend", handleTouchEnd);
-  }
+  window.addEventListener("touchstart", handleTouchStart);
+  window.addEventListener("touchend", handleTouchEnd);
 });
 
 onUnmounted(() => {
   window.removeEventListener("resize", updateMobileState);
 
-  const container = document.getElementById("container");
-  if (container) {
-    container.removeEventListener("touchstart", handleTouchStart);
-    container.removeEventListener("touchend", handleTouchEnd);
-  }
+  window.removeEventListener("touchstart", handleTouchStart);
+  window.removeEventListener("touchend", handleTouchEnd);
 });
 
 /**
