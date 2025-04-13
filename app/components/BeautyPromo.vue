@@ -141,7 +141,7 @@
             </div>
             <div class="flex flex-start flex-col md:flex-row md:flex-row-reverse md:justify-end gap-4 md:gap-16">
               <!-- CTA Button with Reflection -->
-              <div class="relative scale-75 md:scale-100 my-auto">
+              <div class="relative my-auto">
                 <div class="button-firefly-container">
                   <div :class="{ 'button-with-reflection': isMobile }">
                     <!-- Butterfly Decoration -->
@@ -153,7 +153,7 @@
                       >
                     </div> -->
                     <button
-                      class="h-[10vh] w-[80vw] md:w-[340px] md:h-[90px] text-[clamp(1.5rem,7.5vw,2.5rem)] py-2 px-4 md:py-4 md:px-8 font-bold bg-sup2-white text-additional-black text-2xl md:text-3xl font-roboto rounded-md hover:bg-opacity-90 transition-all shadow-lg button-glow button-pulse"
+                      class="h-[7vh] w-[70vw] max-w-[280px] md:max-w-[340px] md:h-[90px] text-[clamp(0.7rem,6vw,1.5rem)] py-2 px-4 md:py-4 md:px-8 font-bold bg-sup2-white text-additional-black md:text-3xl font-roboto rounded-md hover:bg-opacity-90 transition-all shadow-lg button-glow button-pulse"
                       @click="scrollToQuiz"
                     >
                       Получить подарок
