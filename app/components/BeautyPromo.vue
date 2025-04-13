@@ -552,7 +552,7 @@ const scrollToContacts = () => {
 
 /* Mobile-specific adjustments */
 @media (max-width: 768px) {
-  .background-container {
+  /* .background-container {
     scroll-snap-type: y mandatory;
     scroll-snap-align: start;
     height: 100vh;
@@ -567,7 +567,7 @@ const scrollToContacts = () => {
   .quiz-background {
     scroll-snap-align: start;
     height: 100vh;
-  }
+  } */
 
   .background-container::before {
     transform: rotate(-15deg);
