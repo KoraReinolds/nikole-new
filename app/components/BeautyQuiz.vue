@@ -5,23 +5,11 @@
 <template>
   <div class="quiz-container w-full h-screen md:h-full overflow-hidden">
     <div class="container mx-auto max-w-[1080px] h-full relative z-10 flex">
-      <!-- Left side with flower vase image (moved to background) -->
-      <div class="bottom-10 absolute -right-[161px] z-0">
-        <!-- <span class="absolute left-[22%] opacity-90 bottom-[6%] text-white text-sm md:text-xl font-normal font-roboto">
-          ----▶
-        </span> -->
-        <img
-          src="/images/quiz.png"
-          alt="Цветы в вазе"
-          class="w-[50vh] md:w-[625px] object-contain"
-        >
-      </div>
-
-      <!-- Right side with quiz content -->
+      <!-- Left side with quiz content -->
       <div class="pt-[7vh] md:pt-[120px] pb-8 md:pb-16 flex flex-col w-full h-full relative z-10">
         <!-- Quiz header -->
-        <div class="relative w-full md:w-[630px] px-4">
-          <h2 class="text-add2-black text-[clamp(1.25rem,6.5vw,2.5rem)] md:text-6xl font-bold font-raleway mb-[5vh] md:mb-10">
+        <div class="relative w-full md:w-[630px]">
+          <h2 class="text-add2-black text-[clamp(1.25rem,6.5vw,2.5rem)] text-center md:text-left md:text-6xl font-bold font-raleway mb-[5vh] md:mb-10">
             Ответьте<br class="hidden md:block">
             на 5 вопросов<br>
             и получите <span class="text-add2-sat">подарок</span>
@@ -38,9 +26,9 @@
         <div class="flex flex-col w-full h-full">
           <!-- Progress and heading container -->
           <div class="flex flex-grow items-start">
-            <div class="flex flex-col items-start justify-between md:gap-16 md:my-4 md:my-8">
+            <div class="flex flex-col items-center md:items-start justify-between md:gap-16 md:my-4 md:my-8 w-full">
               <!-- Progress steps -->
-              <div class="relative flex items-center md:min-w-[300px] px-4 mb-[5vh] md:mb-0">
+              <div class="relative flex items-center md:min-w-[300px] mb-[5vh] md:mb-0">
                 <div
                   v-for="step in totalSteps"
                   :key="step"
@@ -66,18 +54,18 @@
               </div>
 
               <!-- Step content container -->
-              <div class="flex-grow px-4">
+              <div class="flex-grow w-full">
                 <!-- Single content block with conditional glass effect -->
-                <div class="glass-container md:glass-container-none">
+                <div class="md:glass-container-none">
                   <!-- Step 1: Age question -->
                   <div v-if="currentStep === 1">
                     <QuizHeading
+                      class="glass-container"
                       :show-back-button="false"
+                      value="Сколько Вам лет?"
                       @next="nextStep"
-                    >
-                      Сколько Вам лет?
-                    </QuizHeading>
-                    <div class="space-y-2 md:space-y-4 mt-4 rounded-lg max-w-full md:max-w-[500px] md:pl-12 md:pt-10">
+                    />
+                    <div class="options-container">
                       <RadioOption
                         v-model="userAnswers.age"
                         value="under18"
@@ -96,12 +84,12 @@
                   <!-- Step 2: Problems selection -->
                   <div v-if="currentStep === 2">
                     <QuizHeading
+                      class="glass-container"
+                      value="Какие из проблем вам знакомы?"
                       @back="prevStep"
                       @next="nextStep"
-                    >
-                      Какие из проблем вам знакомы?
-                    </QuizHeading>
-                    <div class="space-y-2 md:space-y-4 mt-4 rounded-lg max-w-full md:max-w-[500px] md:pl-12 md:pt-10">
+                    />
+                    <div class="options-container">
                       <CheckboxOption
                         v-model="userAnswers.problems"
                         value="frequent_shaving"
@@ -138,13 +126,13 @@
                   <!-- Step 3: Zone selection with checkboxes -->
                   <div v-if="currentStep === 3">
                     <QuizHeading
+                      class="glass-container"
                       :show-back-button="true"
+                      value="Выберите зоны эпиляции"
                       @back="prevStep"
                       @next="nextStep"
-                    >
-                      Выберите зоны эпиляции
-                    </QuizHeading>
-                    <div class="space-y-2 md:space-y-4 mt-4 rounded-lg max-w-full md:max-w-[500px] md:pl-12 md:pt-10">
+                    />
+                    <div class="options-container">
                       <CheckboxOption
                         v-model="userAnswers.zones"
                         value="legs"
@@ -192,12 +180,12 @@
                   <!-- Step 4: Method selection -->
                   <div v-if="currentStep === 4">
                     <QuizHeading
+                      class="glass-container"
+                      value="Выберите метод эпиляции"
                       @back="prevStep"
                       @next="nextStep"
-                    >
-                      Выберите метод эпиляции
-                    </QuizHeading>
-                    <div class="space-y-2 md:space-y-4 mt-4 rounded-lg max-w-full md:max-w-[500px] md:pl-12 md:pt-10">
+                    />
+                    <div class="options-container">
                       <!-- Electro epilation option -->
                       <MethodOption
                         v-model="userAnswers.method"
@@ -234,12 +222,12 @@
                   <!-- Final Step - Contact Information & Reward -->
                   <div v-if="currentStep === 5">
                     <QuizHeading
+                      class="glass-container"
                       :show-next-button="false"
+                      value="Последний шаг"
                       @back="prevStep"
-                    >
-                      Последний шаг
-                    </QuizHeading>
-                    <div class="space-y-2 md:space-y-4 mt-4 rounded-lg max-w-full md:max-w-[500px] md:pl-12 md:pt-10">
+                    />
+                    <div class="options-container">
                       <div class="flex items-center gap-2 md:gap-4">
                         <img
                           src="/images/gift.png"
@@ -472,6 +460,10 @@ const submitQuiz = () => {
 </script>
 
 <style scoped>
+.options-container {
+  @apply space-y-2 md:space-y-4 mt-4 rounded-lg max-w-full md:max-w-[500px] md:pt-10
+}
+
 .quiz-container {
   position: relative;
 }
@@ -483,18 +475,18 @@ const submitQuiz = () => {
 
 /* Glass effect styles */
 .glass-container {
-  background: rgba(255, 255, 255, 0.4);
+  background: rgba(255, 255, 255, 0.2);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
   position: relative;
   z-index: 1;
-  padding: 1rem;
+  padding: 0.5rem 1rem;
   border-radius: 0.5rem;
 }
 
-.md\:glass-container-none {
-  @media (min-width: 768px) {
+@media (min-width: 768px) {
+  .glass-container {
     background: none;
     backdrop-filter: none;
     -webkit-backdrop-filter: none;

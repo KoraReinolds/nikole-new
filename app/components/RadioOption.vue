@@ -3,8 +3,8 @@
   Reusable component for radio button inputs with consistent styling
 -->
 <template>
-  <label :class="['flex items-center cursor-pointer', { 'flex-row-reverse': flexRowReverse }]">
-    <div class="relative">
+  <label :class="['flex gap-4 items-center cursor-pointer glass-container h-[7vh] md:h-8', { 'flex-row-reverse': flexRowReverse }]">
+    <div class="relative min-w-[4vh] min-h-[4vh] md:min-w-8 md:min-h-8 flex items-center justify-center">
       <input
         :value="value"
         :checked="modelValue === value"
@@ -24,8 +24,7 @@
     </div>
     <span
       :class="[
-        flexRowReverse ? 'mr-4' : 'ml-4',
-        'text-sm md:text-lg font-medium',
+        'text-sm md:text-lg font-medium mt-1',
         { 'text-gray-400': disabled },
         { 'font-bold': textBold },
       ]"

@@ -7,7 +7,7 @@
     <!-- First promo section -->
     <div class="relative h-[1070px] md:h-[1070px] h-screen w-full background-container">
       <div
-        class="container mx-auto px-4 md:px-24 max-w-[1240px] h-full relative z-10 flex flex-col"
+        class="container mx-auto px-4 md:px-24 max-w-[1240px] h-full relative z-10 flex flex-col border-2 border-red-500"
       >
         <!-- Header section with logo and navigation -->
         <div
@@ -107,7 +107,7 @@
         <div class="flex flex-col lg:flex-row">
           <!-- Left Content Section with Glass Effect -->
           <div
-            class="w-full lg:w-[920px] z-10 flex flex-col justify-center text-center md:text-left glass-container px-2 py-[4vh] md:py-0"
+            class="w-full lg:w-[920px] z-10 flex flex-col justify-center text-center md:text-left glass-container-main px-2 py-[4vh] md:px-0 md:py-0"
           >
             <!-- Main Headline -->
             <h1 class="text-main-white2 text-[clamp(1.25rem,10vw,2.5rem)] md:text-7xl font-bold font-raleway my-4 md:mt-16 md:mb-8 md:mb-[64px] leading-[1.2]">
@@ -198,11 +198,24 @@
     ref="quizSection"
     class="relative h-[1000px] md:h-[1000px] h-screen w-full quiz-background"
   >
-    <BeautyQuiz />
+    <BeautyQuiz class="container mx-auto px-4 md:px-24 max-w-[1240px] h-full relative z-10 flex flex-col border-2 border-red-500" />
 
-    <div class="absolute bottom-0 left-0 w-full bottom-14">
+    <div class="absolute left-0 w-full bottom-[5vh] md:bottom-14">
+      <!-- Left side with flower vase image (moved to background) -->
       <div class="h-[38px] w-full bg-[#FFFAE4]" />
       <div class="h-[16px] w-full bg-[#A78B75]" />
+    </div>
+    <div class="bottom-10 absolute -right-[161px] z-0 w-full left-0 overflow-hidden">
+      <!-- <span class="absolute left-[22%] opacity-90 bottom-[6%] text-white text-sm md:text-xl font-normal font-roboto">
+        ----▶
+      </span> -->
+      <div class="max-w-[1240px] mx-auto flex items-end justify-end">
+        <img
+          src="/images/quiz.png"
+          alt="Цветы в вазе"
+          class="w-[50vh] md:w-[625px] object-contain translate-x-[66px]"
+        >
+      </div>
     </div>
   </div>
 
@@ -500,7 +513,7 @@ const scrollToContacts = () => {
 }
 
 @media (max-width: 768px) {
-  .glass-container {
+  .glass-container-main {
     background: rgba(22, 8, 14, 0.6);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);

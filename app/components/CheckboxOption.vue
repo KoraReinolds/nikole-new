@@ -3,18 +3,18 @@
   Reusable component for checkbox inputs with consistent styling
 -->
 <template>
-  <label :class="['flex items-center cursor-pointer', { 'flex-row-reverse': flexRowReverse, 'cursor-not-allowed': disabled }]">
-    <div class="relative">
+  <label :class="['flex items-center cursor-pointer gap-4 glass-container h-[7vh] md:h-8', { 'flex-row-reverse': flexRowReverse, 'cursor-not-allowed': disabled }]">
+    <div class="relative min-w-[4vh] min-h-[4vh] md:min-w-8 md:min-h-8 flex items-center justify-center">
       <input
         :value="value"
         :checked="isChecked"
         type="checkbox"
-        class="sr-only"
+        class="sr-only mx-auto"
         :disabled="disabled"
         @change="toggleOption"
       >
       <div
-        class="w-5 h-5 p-[2px] bg-zinc-600 rounded-[3px] inline-flex justify-start items-center gap-2.5"
+        class="flex items-center justify-center w-5 h-5 p-[2px] bg-zinc-600 rounded-[3px] inline-flex justify-start items-center gap-2.5"
         :class="{ 'opacity-50': disabled }"
       >
         <div
@@ -25,8 +25,7 @@
     </div>
     <span
       :class="[
-        flexRowReverse ? 'mr-4' : 'ml-4',
-        'text-sm md:text-lg font-medium',
+        'text-sm md:text-lg font-medium mt-1',
         { 'text-gray-400': disabled },
         { 'font-bold': textBold },
       ]"
