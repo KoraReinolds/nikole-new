@@ -5,13 +5,16 @@
 <template>
   <div class="relative flex flex-col items-start overflow-hidden">
     <!-- First promo section -->
-    <div class="relative h-[1070px] md:h-[1070px] h-screen w-full background-container">
+    <div
+      id="container"
+      class="relative h-[1070px] md:h-[1070px] h-screen w-full background-container"
+    >
       <div
         class="container mx-auto px-4 md:px-24 max-w-[1240px] h-full relative z-10 flex flex-col"
       >
         <!-- Header section with logo and navigation -->
         <div
-          class="w-full relative md:mb-8 md:mt-12 h-[18vh] md:h-auto"
+          class="w-full relative md:mb-8 md:mt-12 h-[14vh] md:h-auto"
         >
           <div class="flex justify-start items-center h-full">
             <!-- Logo on the left -->
@@ -107,7 +110,7 @@
         <div class="flex flex-col lg:flex-row">
           <!-- Left Content Section with Glass Effect -->
           <div
-            class="w-full lg:w-[920px] z-10 flex flex-col justify-center text-center md:text-left glass-container-main px-2 py-[4vh] md:px-0 md:py-0"
+            class="w-full lg:w-[920px] z-10 flex flex-col justify-center text-center md:text-left glass-container-main px-4 py-[4vh] md:px-0 md:py-0"
           >
             <!-- Main Headline -->
             <h1 class="text-main-white2 text-[clamp(1.25rem,10vw,2.5rem)] md:text-7xl font-bold font-raleway my-4 md:mt-16 md:mb-8 md:mb-[64px] leading-[1.2]">
@@ -120,7 +123,7 @@
             </h1>
 
             <!-- Bullet Points -->
-            <ul class="space-y-2 md:space-y-4 text-main-white2 text-sm md:text-3xl font-normal md:ml-4">
+            <ul class="space-y-2 md:space-y-4 text-main-white2 text-sm md:text-3xl font-normal md:ml-4 mb-[6vh]">
               <li class="flex items-start">
                 <span class="mr-2 hidden md:inline">•</span>
                 <span class="w-full text-center md:text-left text-[clamp(0.5rem,2vh,2.5rem)]"><span class="pink-text-gradient font-bold">c выгодой от&nbsp;10.000</span> рублей за&nbsp;весь курс</span>
@@ -132,7 +135,7 @@
             </ul>
 
             <!-- <div class="flex items-start"> -->
-            <div class="space-y-2 md:space-y-4 mb-[2vh] md:mb-12 text-main-white2 text-[clamp(0.5rem,2.2vh,3rem)] md:text-4xl font-semibold mt-[6vh] md:mt-[96px]">
+            <div class="space-y-2 md:space-y-4 mb-[2vh] md:mb-12 text-main-white2 text-[clamp(0.5rem,2.2vh,3rem)] md:text-4xl font-semibold md:mt-[96px] hidden md:block">
               <!-- <span class="mr-2 hidden md:inline">•</span> -->
               <span>Пройдите опрос и&nbsp;получите <span class="green-text-gradient font-bold">подарок</span></span>
             </div>
@@ -242,6 +245,9 @@ const servicesSection = ref(null);
 const contactsSection = ref(null);
 const isMobileMenuOpen = ref(false);
 const isMobile = ref(true);
+let currentIndex = 0;
+let startY = 0;
+let endY = 0;
 
 /**
  * Updates mobile state based on window width
@@ -253,13 +259,60 @@ const updateMobileState = () => {
   }
 };
 
+/**
+ * Handles touch start event
+ * @param {TouchEvent} e - Touch event
+ */
+const handleTouchStart = (e) => {
+  startY = e.touches[0].clientY;
+};
+
+/**
+ * Handles touch end event
+ * @param {TouchEvent} e - Touch event
+ */
+const handleTouchEnd = (e) => {
+  endY = e.changedTouches[0].clientY;
+  const delta = startY - endY;
+
+  if (Math.abs(delta) > 50) { // минимальная длина свайпа
+    if (delta > 0 && currentIndex < 1) { // свайп вверх
+      currentIndex++;
+    }
+    else if (delta < 0 && currentIndex > 0) { // свайп вниз
+      currentIndex--;
+    }
+
+    // Находим все секции
+    const sections = [
+      document.querySelector(".background-container"),
+      document.querySelector(".quiz-background"),
+    ];
+
+    if (sections[currentIndex]) {
+      sections[currentIndex].scrollIntoView({ behavior: "smooth" });
+    }
+  }
+};
+
 onMounted(() => {
   window.addEventListener("resize", updateMobileState);
-  // updateMobileState();
+
+  const container = document.getElementById("container");
+  if (container) {
+    container.addEventListener("touchstart", handleTouchStart);
+    container.addEventListener("touchend", handleTouchEnd);
+  }
 });
 
 onUnmounted(() => {
   window.removeEventListener("resize", updateMobileState);
+
+  const container = document.getElementById("container");
+  if (container) {
+    container.removeEventListener("touchstart", handleTouchStart);
+    container.removeEventListener("touchend", handleTouchEnd);
+  }
 });
 
 /**
