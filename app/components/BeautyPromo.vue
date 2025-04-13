@@ -106,41 +106,37 @@
 
         <div class="flex flex-col lg:flex-row">
           <!-- Left Content Section with Glass Effect -->
-          <div :class="['w-full lg:w-[920px] z-10 flex flex-col justify-center', { 'glass-container': isMobile }]">
+          <div
+            class="w-full lg:w-[920px] z-10 flex flex-col justify-center text-center md:text-left glass-container px-2 py-[4vh] md:py-0"
+          >
             <!-- Main Headline -->
-            <h1 class="text-main-white2 text-[clamp(1.25rem,6vw,2.5rem)] md:text-7xl font-bold font-raleway mt-16 mb-8 md:mb-[64px]">
-              Гладкая кожа <span class="pink-text-gradient font-bold">НАВСЕГДА</span><br>
-              <span class="text-[clamp(1rem,5vw,2.5rem)] md:text-6xl">без боли и лишних сеансов</span>
+            <h1 class="text-main-white2 text-[clamp(1.25rem,10vw,2.5rem)] md:text-7xl font-bold font-raleway my-4 md:mt-16 md:mb-8 md:mb-[64px] leading-[1.2]">
+              Гладкая кожа
+              <br class="block md:hidden">
+              <span class="pink-text-gradient font-bold text-[clamp(1.5rem,10vw,3.5rem)]">НАВСЕГДА</span>
+              <br class="block md:hidden">
+              <br class="hidden md:block">
+              <span class="text-[clamp(1rem,5vw,2.5rem)] md:text-6xl">без&nbsp;боли и&nbsp;лишних сеансов</span>
             </h1>
 
             <!-- Bullet Points -->
-            <ul class="space-y-2 md:space-y-4 text-main-white2 text-sm md:text-3xl font-normal ml-4">
+            <ul class="space-y-2 md:space-y-4 text-main-white2 text-sm md:text-3xl font-normal md:ml-4">
               <li class="flex items-start">
                 <span class="mr-2 hidden md:inline">•</span>
-                <span>с <span class="pink-text-gradient font-bold">выгодой от 10.000</span> рублей за весь курс</span>
+                <span class="w-full text-center md:text-left text-[clamp(0.5rem,2vh,2.5rem)]"><span class="pink-text-gradient font-bold">c выгодой от&nbsp;10.000</span> рублей за&nbsp;весь курс</span>
               </li>
               <li class="flex items-start">
                 <span class="mr-2 hidden md:inline">•</span>
-                <span>от мастера с <span class="pink-text-gradient font-bold">опытом 13+ лет</span> в центре Мурманска</span>
+                <span class="w-full text-center md:text-left text-[clamp(0.5rem,2vh,2.5rem)]">от&nbsp;мастера <span class="pink-text-gradient font-bold">c опытом 13+ лет</span><br class="block md:hidden"> в&nbsp;центре Мурманска</span>
               </li>
             </ul>
 
             <!-- <div class="flex items-start"> -->
-            <div class="space-y-2 md:space-y-4 mb-4 md:mb-12 text-main-white2 text-sm md:text-4xl font-semibold mt-[96px]">
+            <div class="space-y-2 md:space-y-4 mb-[2vh] md:mb-12 text-main-white2 text-[clamp(0.5rem,2.2vh,3rem)] md:text-4xl font-semibold mt-[6vh] md:mt-[96px]">
               <!-- <span class="mr-2 hidden md:inline">•</span> -->
-              <span>Пройдите опрос и получите <span class="green-text-gradient font-bold">подарок</span></span>
+              <span>Пройдите опрос и&nbsp;получите <span class="green-text-gradient font-bold">подарок</span></span>
             </div>
-            <div class="flex gap-16">
-              <ul class="space-y-1 md:space-y-2 text-main-white2 text-sm md:text-2xl font-normal w-[390px]">
-                <li class="flex items-start text-end">
-                  <!-- <span class="mr-1 md:mr-2">•</span> -->
-                  <span class="w-full"><span class="green-text-gradient font-bold">бесплатный</span> пробный сеанс</span>
-                </li>
-                <li class="flex items-start text-end">
-                  <!-- <span class="mr-1 md:mr-2">•</span> -->
-                  <span><span class="green-text-gradient font-bold">персональные</span> рекомендации по уходу за кожей</span>
-                </li>
-              </ul>
+            <div class="flex flex-start flex-col md:flex-row md:flex-row-reverse md:justify-end gap-4 md:gap-16">
               <!-- CTA Button with Reflection -->
               <div class="relative scale-75 md:scale-100 my-auto">
                 <div class="button-firefly-container">
@@ -154,7 +150,7 @@
                       >
                     </div> -->
                     <button
-                      class="w-[340px] h-[90px] py-2 px-4 md:py-4 md:px-8 font-bold bg-sup2-white text-additional-black text-xl md:text-3xl font-roboto rounded-md hover:bg-opacity-90 transition-all shadow-lg button-glow button-pulse"
+                      class="h-[10vh] w-[80vw] md:w-[340px] md:h-[90px] text-[clamp(1.5rem,7.5vw,2.5rem)] py-2 px-4 md:py-4 md:px-8 font-bold bg-sup2-white text-additional-black text-2xl md:text-3xl font-roboto rounded-md hover:bg-opacity-90 transition-all shadow-lg button-glow button-pulse"
                       @click="scrollToQuiz"
                     >
                       Получить подарок
@@ -162,6 +158,16 @@
                   </div>
                 </div>
               </div>
+
+              <!-- List of benefits -->
+              <ul class="space-y-2 text-main-white2 text-sm md:text-2xl font-normal w-full md:w-[390px]">
+                <li class="flex items-start">
+                  <span class="w-full text-center md:text-right text-[clamp(0.5rem,2vh,1.5rem)]"><span class="green-text-gradient font-bold">бесплатный</span> пробный сеанс</span>
+                </li>
+                <li class="flex items-start">
+                  <span class="w-full text-center md:text-right text-[clamp(0.5rem,2vh,1.5rem)]"><span class="green-text-gradient font-bold">персональные</span> рекомендации по&nbsp;уходу за&nbsp;кожей</span>
+                </li>
+              </ul>
             </div>
           </div>
         </div>
@@ -222,7 +228,7 @@ const quizSection = ref(null);
 const servicesSection = ref(null);
 const contactsSection = ref(null);
 const isMobileMenuOpen = ref(false);
-const isMobile = ref(false);
+const isMobile = ref(true);
 
 /**
  * Updates mobile state based on window width
@@ -236,6 +242,7 @@ const updateMobileState = () => {
 
 onMounted(() => {
   window.addEventListener("resize", updateMobileState);
+  // updateMobileState();
 });
 
 onUnmounted(() => {
@@ -492,19 +499,19 @@ const scrollToContacts = () => {
   position: relative;
 }
 
-/* Glass effect container */
-.glass-container {
-  background: rgba(22, 8, 14, 0.6);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  border-radius: 16px;
-  padding: 32px 16px;
-  margin: 0;
-  box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
+@media (max-width: 768px) {
+  .glass-container {
+    background: rgba(22, 8, 14, 0.6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: 16px;
+    margin: 0;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.4);
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
 }
 
 /* Button with reflection */
