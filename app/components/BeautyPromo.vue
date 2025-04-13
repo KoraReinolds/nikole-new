@@ -108,55 +108,58 @@
           <!-- Left Content Section with Glass Effect -->
           <div :class="['w-full lg:w-[920px] z-10 flex flex-col justify-center', { 'glass-container': isMobile }]">
             <!-- Main Headline -->
-            <h1 class="text-main-white2 text-[clamp(1.25rem,6vw,2.5rem)] md:text-7xl font-bold font-raleway mt-16 mb-8 md:mb-[106px]">
+            <h1 class="text-main-white2 text-[clamp(1.25rem,6vw,2.5rem)] md:text-7xl font-bold font-raleway mt-16 mb-8 md:mb-[64px]">
               Гладкая кожа <span class="pink-text-gradient font-bold">НАВСЕГДА</span><br>
               <span class="text-[clamp(1rem,5vw,2.5rem)] md:text-6xl">без боли и лишних сеансов</span>
             </h1>
 
             <!-- Bullet Points -->
-            <ul class="space-y-2 md:space-y-4 ml-2 mb-4 md:mb-8 text-main-white2 text-sm md:text-2xl font-normal">
+            <ul class="space-y-2 md:space-y-4 text-main-white2 text-sm md:text-3xl font-normal ml-4">
               <li class="flex items-start">
                 <span class="mr-2 hidden md:inline">•</span>
-                <span>с <span class="pink-text-gradient font-medium">выгодой от 10.000</span> рублей за весь курс</span>
+                <span>с <span class="pink-text-gradient font-bold">выгодой от 10.000</span> рублей за весь курс</span>
               </li>
               <li class="flex items-start">
                 <span class="mr-2 hidden md:inline">•</span>
-                <span>от мастера с <span class="pink-text-gradient font-medium">опытом 13+ лет</span> в центре Мурманска</span>
+                <span>от мастера с <span class="pink-text-gradient font-bold">опытом 13+ лет</span> в центре Мурманска</span>
               </li>
-              <li class="flex items-start">
-                <span class="mr-2 hidden md:inline">•</span>
-                <span>пройдите опрос и получите <span class="pink-text-gradient font-medium">подарок</span></span>
-              </li>
-              <ul class="space-y-1 md:space-y-2 ml-2 mb-8 text-main-white2 text-sm md:text-2xl font-normal">
-                <li class="md:ml-8 md:ml-8 flex items-start">
-                  <span class="mr-1 md:mr-2">•</span>
-                  <span><span class="pink-text-gradient font-medium">бесплатный</span> пробный сеанс</span>
-                </li>
-                <li class="md:ml-8 md:ml-8 flex items-start">
-                  <span class="mr-1 md:mr-2">•</span>
-                  <span><span class="pink-text-gradient font-medium">персональные</span> рекомендации по уходу за кожей</span>
-                </li>
-              </ul>
             </ul>
 
-            <!-- CTA Button with Reflection -->
-            <div class="mt-4 md:mt-8 md:mt-[120px] relative scale-75 md:scale-100">
-              <div class="button-firefly-container">
-                <div class="button-with-reflection">
-                  <!-- Butterfly Decoration -->
-                  <div class="absolute butterfly-pulse w-[50px] md:w-[100px] -top-[50px] -left-[50px] gift-pulse hidden">
-                    <img
-                      src="/images/butterfly.png"
-                      alt="Декоративная бабочка"
-                      class="w-full h-full"
+            <!-- <div class="flex items-start"> -->
+            <div class="space-y-2 md:space-y-4 mb-4 md:mb-12 text-main-white2 text-sm md:text-4xl font-semibold mt-[96px]">
+              <!-- <span class="mr-2 hidden md:inline">•</span> -->
+              <span>Пройдите опрос и получите <span class="green-text-gradient font-bold">подарок</span></span>
+            </div>
+            <div class="flex gap-16">
+              <ul class="space-y-1 md:space-y-2 text-main-white2 text-sm md:text-2xl font-normal w-[390px]">
+                <li class="flex items-start text-end">
+                  <!-- <span class="mr-1 md:mr-2">•</span> -->
+                  <span class="w-full"><span class="green-text-gradient font-bold">бесплатный</span> пробный сеанс</span>
+                </li>
+                <li class="flex items-start text-end">
+                  <!-- <span class="mr-1 md:mr-2">•</span> -->
+                  <span><span class="green-text-gradient font-bold">персональные</span> рекомендации по уходу за кожей</span>
+                </li>
+              </ul>
+              <!-- CTA Button with Reflection -->
+              <div class="relative scale-75 md:scale-100 my-auto">
+                <div class="button-firefly-container">
+                  <div :class="{ 'button-with-reflection': isMobile }">
+                    <!-- Butterfly Decoration -->
+                    <!-- <div class="absolute butterfly-pulse w-[50px] md:w-[100px] -top-[50px] -left-[50px] gift-pulse hidden">
+                      <img
+                        src="/images/butterfly.png"
+                        alt="Декоративная бабочка"
+                        class="w-full h-full"
+                      >
+                    </div> -->
+                    <button
+                      class="w-[340px] h-[90px] py-2 px-4 md:py-4 md:px-8 font-bold bg-sup2-white text-additional-black text-xl md:text-3xl font-roboto rounded-md hover:bg-opacity-90 transition-all shadow-lg button-glow button-pulse"
+                      @click="scrollToQuiz"
                     >
+                      Получить подарок
+                    </button>
                   </div>
-                  <button
-                    class="py-2 px-4 md:py-4 md:px-8 font-bold bg-sup2-white text-additional-black text-xl md:text-2xl font-roboto rounded-md hover:bg-opacity-90 transition-all shadow-lg button-glow button-pulse"
-                    @click="scrollToQuiz"
-                  >
-                    Получить подарок
-                  </button>
                 </div>
               </div>
             </div>
@@ -219,13 +222,16 @@ const quizSection = ref(null);
 const servicesSection = ref(null);
 const contactsSection = ref(null);
 const isMobileMenuOpen = ref(false);
-const isMobile = ref(window.innerWidth <= 768);
+const isMobile = ref(false);
 
 /**
  * Updates mobile state based on window width
+ * Only runs on client-side
  */
 const updateMobileState = () => {
-  isMobile.value = window.innerWidth <= 768;
+  if (import.meta.client) {
+    isMobile.value = window.innerWidth <= 768;
+  }
 };
 
 onMounted(() => {
@@ -285,6 +291,16 @@ const scrollToContacts = () => {
   background-clip: text;
   color: transparent;
   text-shadow: 0 0 10px rgba(255, 74, 129, 0.4);
+  display: inline-block;
+}
+
+/* Gradient text with glow effect */
+.green-text-gradient {
+  background-image: linear-gradient(180deg, #66A489 0%, #8FBE7D 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  text-shadow: 0 0 10px rgba(147, 186, 115, 0.4);
   display: inline-block;
 }
 
