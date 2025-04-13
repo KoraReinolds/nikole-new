@@ -18,7 +18,7 @@
       class="absolute rounded-lg transition-all duration-300"
       :class="[progressColor]"
       :style="{
-        width: `${calculateProgressWidth()}px`,
+        width: `${calculateProgressWidth()}%`,
         height: `${height - trackPadding * 2}px`,
         left: `${trackPadding}px`,
       }"

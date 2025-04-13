@@ -26,7 +26,7 @@
       {{ value }}
     </h3>
     <button
-      :disabled="!showNextButton"
+      v-if="showNextButton"
       class="mt-1 min-w-[4vh] min-h-[4vh] md:min-w-8 md:min-h-8 flex items-center justify-center rounded-full bg-add2-sat hover:bg-opacity-90 transition-all rotate-180"
       @click="$emit('next')"
     >

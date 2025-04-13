@@ -113,24 +113,26 @@
             class="w-full lg:w-[920px] z-10 flex flex-col justify-center text-center md:text-left glass-container-main px-4 py-[4vh] md:px-0 md:py-0"
           >
             <!-- Main Headline -->
-            <h1 class="text-main-white2 text-[clamp(1.25rem,10vw,2.5rem)] md:text-7xl font-bold font-raleway my-4 md:mt-16 md:mb-8 md:mb-[64px] leading-[1.2]">
+            <h1 class="text-main-white2 text-[clamp(1.25rem,10vw,2.5rem)] md:text-7xl font-bold font-raleway mt-4 md:mt-16 leading-[1.2]">
               Гладкая кожа
               <br class="block md:hidden">
               <span class="pink-text-gradient font-bold text-[clamp(1.5rem,10vw,3.5rem)]">НАВСЕГДА</span>
               <br class="block md:hidden">
               <br class="hidden md:block">
-              <span class="text-[clamp(1rem,5vw,2.5rem)] md:text-6xl">без&nbsp;боли и&nbsp;лишних сеансов</span>
             </h1>
+            <p class="text-main-white2 text-[clamp(1rem,5vw,2.5rem)] font-bold leading-[1.4] text-4xl my-4 md:mb-[64px]">
+              Депиляция без&nbsp;боли и&nbsp;лишних&nbsp;сеансов
+            </p>
 
             <!-- Bullet Points -->
             <ul class="space-y-2 md:space-y-4 text-main-white2 text-sm md:text-3xl font-normal md:ml-4 mb-[6vh] md:mb-0">
               <li class="flex items-start">
                 <span class="mr-2 hidden md:inline">•</span>
-                <span class="w-full text-center md:text-left text-[clamp(0.5rem,2vh,2.5rem)]"><span class="pink-text-gradient font-bold">c выгодой от&nbsp;10.000</span> рублей за&nbsp;весь курс</span>
+                <span class="w-full text-center md:text-left text-[clamp(0.5rem,2vh,2.5rem)]">от&nbsp;мастера <span class="pink-text-gradient font-bold">c опытом 13+ лет</span><br class="block md:hidden"> в&nbsp;центре Мурманска</span>
               </li>
               <li class="flex items-start">
                 <span class="mr-2 hidden md:inline">•</span>
-                <span class="w-full text-center md:text-left text-[clamp(0.5rem,2vh,2.5rem)]">от&nbsp;мастера <span class="pink-text-gradient font-bold">c опытом 13+ лет</span><br class="block md:hidden"> в&nbsp;центре Мурманска</span>
+                <span class="w-full text-center md:text-left text-[clamp(0.5rem,2vh,2.5rem)]">c&nbsp;выгодой от&nbsp;<span class="pink-text-gradient font-bold">10.000&nbsp;рублей</span> за&nbsp;весь курс</span>
               </li>
             </ul>
 
