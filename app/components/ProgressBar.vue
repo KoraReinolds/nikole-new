@@ -5,7 +5,7 @@
 <template>
   <div
     ref="progressBarRef"
-    class="relative"
+    class="relative flex items-center justify-center h-[14px]"
     :class="[fullWidth ? 'w-full' : '', `h-[${height}px]`]"
     :style="{ minWidth: minWidth }"
   >
@@ -21,7 +21,6 @@
         width: `${calculateProgressWidth()}px`,
         height: `${height - trackPadding * 2}px`,
         left: `${trackPadding}px`,
-        top: `${trackPadding}px`,
       }"
     />
 

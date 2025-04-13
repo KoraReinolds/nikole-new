@@ -186,13 +186,17 @@
                       @next="nextStep"
                     />
                     <div class="options-container">
+                      <div class="flex gap-4 text-xs md:text-lg font-medium text-add2-black glass-container">
+                        <span class="w-1/2 font-bold">Безопасность</span>
+                        <span class="w-1/2 font-bold">Эффективность</span>
+                      </div>
                       <!-- Electro epilation option -->
                       <MethodOption
                         v-model="userAnswers.method"
                         value="electro"
                         label="Электроэпиляция"
                         tooltip-text="Электроэпиляция — метод удаления волос с помощью электрического тока, который воздействует на волосяной фолликул. Это единственный метод, который обеспечивает перманентное удаление волос."
-                        :safety-value="90"
+                        :safety-value="80"
                         :efficiency-value="95"
                       />
 
@@ -202,7 +206,7 @@
                         value="sugaring"
                         label="Шугаринг"
                         tooltip-text="Шугаринг — метод удаления волос с помощью густой сахарной пасты. Удаляет волосы вместе с корнем, но они отрастают снова через несколько недель. Подходит для чувствительной кожи."
-                        :safety-value="75"
+                        :safety-value="95"
                         :efficiency-value="40"
                       />
 
@@ -212,8 +216,8 @@
                         value="laser"
                         label="Лазерная эпиляция"
                         tooltip-text="Лазерная эпиляция — метод удаления волос с помощью лазерного луча, который воздействует на пигмент волоса. Эффективен для темных волос, но может быть менее эффективен для светлых или седых волос."
-                        :safety-value="50"
-                        :efficiency-value="75"
+                        :safety-value="60"
+                        :efficiency-value="70"
                         :disabled="!allowLaser"
                       />
                     </div>
@@ -227,7 +231,7 @@
                       value="Последний шаг"
                       @back="prevStep"
                     />
-                    <div class="options-container">
+                    <div class="options-container glass-container">
                       <div class="flex items-center gap-2 md:gap-4">
                         <img
                           src="/images/gift.png"
@@ -247,7 +251,7 @@
                         >
                         <a
                           href="#"
-                          class="w-10 h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-[#229ED9] hover:bg-opacity-90 transition-all"
+                          class="min-w-10 min-h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-[#229ED9] hover:bg-opacity-90 transition-all"
                         >
                           <span class="sr-only">Telegram</span>
                           <svg

@@ -307,18 +307,59 @@ const handleTouchEnd = (e) => {
   }
 };
 
+const isScrolling = false;
+let scrollTimeout = null;
+const container = ref(null);
+const sections = ref([]);
+let lastScrollTop = 0;
+const handleScroll = () => {
+  if (scrollTimeout) clearTimeout(scrollTimeout);
+
+  scrollTimeout = setTimeout(() => {
+    // скролл закончился
+
+    const scrollTop = window.scrollY || document.documentElement.scrollTop;
+    const vh = window.innerHeight;
+
+    const currentIndex = Math.floor(scrollTop / vh);
+    const currentOffset = scrollTop % vh;
+    const goingDown = scrollTop > lastScrollTop;
+
+    let targetIndex = currentIndex;
+
+    if (goingDown && currentOffset > vh * 0.10 && currentIndex < sections.value.length - 1) {
+      debugger;
+      targetIndex = currentIndex + 1;
+    }
+    else if (!goingDown && currentOffset < vh * 0.90) {
+      debugger;
+      targetIndex = Math.max(currentIndex, 0);
+    }
+    else if (!goingDown && currentOffset >= vh * 0.90) {
+      debugger;
+      targetIndex = Math.max(currentIndex + 1, 0);
+    }
+
+    sections.value[targetIndex].scrollIntoView({ behavior: "smooth" });
+
+    lastScrollTop = scrollTop;
+  }, 100); // ждём 100мс после последнего скролла
+};
+
 onMounted(() => {
   window.addEventListener("resize", updateMobileState);
-
-  window.addEventListener("touchstart", handleTouchStart);
-  window.addEventListener("touchend", handleTouchEnd);
+  window.addEventListener("scroll", handleScroll);
+  container.value = document.getElementById("root");
+  sections.value = Array.from(container.value.children);
+  // window.addEventListener("touchstart", handleTouchStart);
+  // window.addEventListener("touchend", handleTouchEnd);
 });
 
 onUnmounted(() => {
   window.removeEventListener("resize", updateMobileState);
 
-  window.removeEventListener("touchstart", handleTouchStart);
-  window.removeEventListener("touchend", handleTouchEnd);
+  // window.removeEventListener("touchstart", handleTouchStart);
+  // window.removeEventListener("touchend", handleTouchEnd, { passive: false });
 });
 
 /**

@@ -3,9 +3,19 @@
   Компонент для отображения опции метода эпиляции с тултипом и рейтингами
 -->
 <template>
-  <div class="flex items-center relative h-12">
-    <div class="w-[240px] flex items-center justify-end absolute left-[-304px]">
-      <div class="tooltip-container relative mr-2">
+  <label class="flex items-start flex-col relative glass-container">
+    <div class="flex items-center justify-start">
+      <RadioOption
+        :model-value="modelValue"
+        :value="value"
+        :disabled="disabled"
+        text-color="#232A36"
+        :text-bold="true"
+        @update:model-value="$emit('update:modelValue', $event)"
+      >
+        {{ label }}
+      </RadioOption>
+      <div class="tooltip-container relative ml-2">
         <span class="inline-flex items-center justify-center w-5 h-5 rounded-full cursor-help bg-add2-sat text-white font-bold text-xs">?</span>
         <div class="tooltip-text absolute left-7 top-0 bg-white p-3 rounded-lg shadow-lg z-10 w-[250px] hidden">
           <p class="text-sm text-gray-700">
@@ -13,50 +23,34 @@
           </p>
         </div>
       </div>
-      <RadioOption
-        :model-value="modelValue"
-        :value="value"
-        :disabled="disabled"
-        :flex-row-reverse="true"
-        text-color="#232A36"
-        :text-bold="true"
-        @update:model-value="$emit('update:modelValue', $event)"
-      >
-        {{ label }}
-      </RadioOption>
-      <div class="absolute right-0 text-end top-8 w-[240px] mr-9">
-        <slot name="price" />
+    </div>
+    <div class="flex flex-1 gap-4 justify-between h-full items-center w-full mt-1">
+      <div class="w-1/2 flex text-add2-black">
+        <ProgressBar
+          :model-value="safetyValue"
+          :min="0"
+          :max="100"
+          :height="14"
+          bg-color="bg-[#454B57]"
+          progress-color="bg-sup2-white2"
+          full-width
+        />
+        <!-- <span class="w-1/2">Безопасность</span> -->
+      </div>
+      <div class="w-1/2 flex text-add2-black">
+        <ProgressBar
+          :model-value="efficiencyValue"
+          :min="0"
+          :max="100"
+          :height="14"
+          bg-color="bg-[#454B57]"
+          progress-color="bg-sup2-white2"
+          full-width
+        />
+        <!-- <span class="w-1/2">Эффективность</span> -->
       </div>
     </div>
-    <div class="flex flex-1 justify-between h-full items-center -translate-y-2.5">
-      <div class="w-[160px]">
-        <div class="rating-bar w-full">
-          <ProgressBar
-            :model-value="safetyValue"
-            :min="0"
-            :max="100"
-            :height="14"
-            bg-color="bg-[#454B57]"
-            progress-color="bg-sup2-white2"
-            full-width
-          />
-        </div>
-      </div>
-      <div class="w-[160px]">
-        <div class="rating-bar w-full">
-          <ProgressBar
-            :model-value="efficiencyValue"
-            :min="0"
-            :max="100"
-            :height="14"
-            bg-color="bg-[#454B57]"
-            progress-color="bg-sup2-white2"
-            full-width
-          />
-        </div>
-      </div>
-    </div>
-  </div>
+  </label>
 </template>
 
 <script setup>
@@ -152,6 +146,7 @@ defineEmits(["update:modelValue"]);
   top: 10px;
   width: 12px;
   height: 12px;
+  z-index: 100;
   background: white;
   transform: rotate(45deg);
   box-shadow: -2px 2px 3px rgba(0, 0, 0, 0.05);

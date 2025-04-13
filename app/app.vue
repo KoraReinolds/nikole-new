@@ -1,5 +1,8 @@
 <template>
-  <div class="font-montserrat">
+  <div
+    id="root"
+    class="font-montserrat"
+  >
     <BeautyPromo />
   </div>
 </template>
