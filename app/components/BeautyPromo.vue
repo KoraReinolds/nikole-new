@@ -7,7 +7,7 @@
     <!-- First promo section -->
     <div class="relative h-[1070px] md:h-[1070px] h-screen w-full background-container">
       <div
-        class="container mx-auto px-4 md:px-24 max-w-[1240px] h-full relative z-10 flex flex-col border-2 border-red-500"
+        class="container mx-auto px-4 md:px-24 max-w-[1240px] h-full relative z-10 flex flex-col"
       >
         <!-- Header section with logo and navigation -->
         <div
@@ -198,7 +198,7 @@
     ref="quizSection"
     class="relative h-[1000px] md:h-[1000px] h-screen w-full quiz-background"
   >
-    <BeautyQuiz class="container mx-auto px-4 md:px-24 max-w-[1240px] h-full relative z-10 flex flex-col border-2 border-red-500" />
+    <BeautyQuiz class="container mx-auto px-4 md:px-24 max-w-[1240px] h-full relative z-10 flex flex-col" />
 
     <div class="absolute left-0 w-full bottom-[5vh] md:bottom-14">
       <!-- Left side with flower vase image (moved to background) -->
@@ -552,6 +552,23 @@ const scrollToContacts = () => {
 
 /* Mobile-specific adjustments */
 @media (max-width: 768px) {
+  .background-container {
+    scroll-snap-type: y mandatory;
+    scroll-snap-align: start;
+    height: 100vh;
+    overflow-y: auto;
+  }
+
+  .background-container > div {
+    scroll-snap-align: start;
+    height: 100vh;
+  }
+
+  .quiz-background {
+    scroll-snap-align: start;
+    height: 100vh;
+  }
+
   .background-container::before {
     transform: rotate(-15deg);
   }
