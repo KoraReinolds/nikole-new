@@ -123,7 +123,7 @@
             </h1>
 
             <!-- Bullet Points -->
-            <ul class="space-y-2 md:space-y-4 text-main-white2 text-sm md:text-3xl font-normal md:ml-4 mb-[6vh]">
+            <ul class="space-y-2 md:space-y-4 text-main-white2 text-sm md:text-3xl font-normal md:ml-4 mb-[6vh] md:mb-0">
               <li class="flex items-start">
                 <span class="mr-2 hidden md:inline">•</span>
                 <span class="w-full text-center md:text-left text-[clamp(0.5rem,2vh,2.5rem)]"><span class="pink-text-gradient font-bold">c выгодой от&nbsp;10.000</span> рублей за&nbsp;весь курс</span>
@@ -313,6 +313,7 @@ const container = ref(null);
 const sections = ref([]);
 let lastScrollTop = 0;
 const handleScroll = () => {
+  if (!isMobile.value) return;
   if (scrollTimeout) clearTimeout(scrollTimeout);
 
   scrollTimeout = setTimeout(() => {
@@ -328,15 +329,12 @@ const handleScroll = () => {
     let targetIndex = currentIndex;
 
     if (goingDown && currentOffset > vh * 0.10 && currentIndex < sections.value.length - 1) {
-      debugger;
       targetIndex = currentIndex + 1;
     }
     else if (!goingDown && currentOffset < vh * 0.90) {
-      debugger;
       targetIndex = Math.max(currentIndex, 0);
     }
     else if (!goingDown && currentOffset >= vh * 0.90) {
-      debugger;
       targetIndex = Math.max(currentIndex + 1, 0);
     }
 
@@ -351,6 +349,7 @@ onMounted(() => {
   window.addEventListener("scroll", handleScroll);
   container.value = document.getElementById("root");
   sections.value = Array.from(container.value.children);
+  updateMobileState();
   // window.addEventListener("touchstart", handleTouchStart);
   // window.addEventListener("touchend", handleTouchEnd);
 });

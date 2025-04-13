@@ -14,7 +14,7 @@
             на 5 вопросов<br>
             и получите <span class="text-add2-sat">подарок</span>
           </h2>
-          <div class="absolute bottom-[32px] -right-[140px] h-[140px] w-[140px] gift-pulse hidden md:block">
+          <div class="absolute bottom-[96px] right-[44px] h-[140px] w-[140px] gift-pulse hidden md:block">
             <img
               src="/images/gift.png"
               alt="Подарок"
@@ -251,7 +251,7 @@
                         >
                         <a
                           href="#"
-                          class="min-w-10 min-h-10 md:w-12 md:h-12 flex items-center justify-center rounded-full bg-[#229ED9] hover:bg-opacity-90 transition-all"
+                          class="min-w-10 min-h-10 flex items-center justify-center rounded-full bg-[#229ED9] hover:bg-opacity-90 transition-all"
                         >
                           <span class="sr-only">Telegram</span>
                           <svg
@@ -268,26 +268,15 @@
                         <p class="text-sm md:text-lg text-[#232A36] mt-2 md:mt-4 leading-tight">
                           К сожалению, лазерная эпиляция временно не оказывается. Мы сообщим вам, когда услуга станет доступна.
                         </p>
-                        <p class="text-sm md:text-lg text-[#232A36] leading-tight">
-                          Подпишитесь на наши соцсети, чтобы следить за новостями и акциями:
-                        </p>
-                        <div class="flex gap-2 md:gap-4">
+                        <div class="flex gap-2 md:gap-4 items-center">
+                          <div class="flex flex-col gap-2">
+                            <p class="text-sm md:text-lg text-[#232A36] leading-tight">
+                              Подпишитесь на наши соцсети, чтобы следить за новостями и акциями:
+                            </p>
+                          </div>
                           <a
                             href="#"
-                            class="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-full bg-[#229ED9] hover:bg-opacity-90 transition-all"
-                          >
-                            <span class="sr-only">Telegram</span>
-                            <svg
-                              class="w-4 h-4 md:w-6 md:h-6 fill-white"
-                              viewBox="0 0 24 24"
-                              xmlns="http://www.w3.org/2000/svg"
-                            >
-                              <path d="M12 2C6.48 2 2 6.48 2 12C2 17.52 6.48 22 12 22C17.52 22 22 17.52 22 12C22 6.48 17.52 2 12 2ZM16.64 8.8C16.49 10.38 15.84 14.22 15.51 15.99C15.37 16.74 15.1 16.99 14.84 17.02C14.25 17.07 13.81 16.64 13.25 16.27C12.37 15.69 11.87 15.33 11.02 14.77C10.03 14.12 10.67 13.76 11.24 13.18C11.39 13.03 13.95 10.7 14 10.49C14.0069 10.4476 14.0031 10.4043 13.989 10.364C13.9748 10.3238 13.9507 10.2877 13.92 10.26C13.84 10.19 13.73 10.21 13.64 10.23C13.52 10.26 12.25 11.09 9.82 12.72C9.47 12.96 9.15 13.07 8.86 13.07C8.54 13.07 7.93 12.89 7.47 12.73C6.91 12.54 6.47 12.44 6.5 12.13C6.52 11.97 6.74 11.8 7.16 11.64C9.74 10.49 11.47 9.73 12.35 9.38C14.91 8.3 15.45 8.1 15.82 8.1C15.9 8.1 16.09 8.12 16.21 8.23C16.31 8.32 16.34 8.44 16.35 8.52C16.35 8.59 16.36 8.75 16.64 8.8Z" />
-                            </svg>
-                          </a>
-                          <a
-                            href="#"
-                            class="w-8 h-8 md:w-10 md:h-10 flex items-center justify-center rounded-full bg-[#4C75A3] hover:bg-opacity-90 transition-all"
+                            class="min-w-10 min-h-10 md:w-10 md:h-10 flex items-center justify-center rounded-full bg-[#4C75A3] hover:bg-opacity-90 transition-all"
                           >
                             <span class="sr-only">VK</span>
                             <svg
