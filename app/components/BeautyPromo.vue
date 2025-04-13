@@ -121,7 +121,7 @@
               <br class="hidden md:block">
             </h1>
             <p class="text-main-white2 text-[clamp(1rem,5vw,2.5rem)] font-bold leading-[1.4] text-4xl my-4 md:mb-[64px]">
-              Депиляция без&nbsp;боли и&nbsp;лишних&nbsp;сеансов
+              Эпиляция без&nbsp;боли и&nbsp;лишних&nbsp;сеансов
             </p>
 
             <!-- Bullet Points -->
