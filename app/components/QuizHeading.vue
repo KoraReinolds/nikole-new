@@ -26,8 +26,8 @@
       {{ value }}
     </h3>
     <button
-      v-if="showNextButton"
-      class="mt-1 min-w-[4vh] min-h-[4vh] md:min-w-8 md:min-h-8 flex items-center justify-center rounded-full bg-add2-sat hover:bg-opacity-90 transition-all rotate-180"
+      :disabled="!showNextButton"
+      class="mt-1 min-w-[4vh] min-h-[4vh] md:min-w-8 md:min-h-8 flex items-center justify-center rounded-full bg-add2-sat hover:bg-opacity-90 transition-all rotate-180 disabled:opacity-50 disabled:cursor-not-allowed"
       @click="$emit('next')"
     >
       <svg

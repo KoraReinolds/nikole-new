@@ -62,6 +62,7 @@
                     <QuizHeading
                       class="glass-container"
                       :show-back-button="false"
+                      :show-next-button="!!userAnswers.age"
                       value="Сколько Вам лет?"
                       @next="nextStep"
                     />
@@ -85,6 +86,7 @@
                   <div v-if="currentStep === 2">
                     <QuizHeading
                       class="glass-container"
+                      :show-next-button="userAnswers.problems && userAnswers.problems.length > 0"
                       value="Какие из проблем вам знакомы?"
                       @back="prevStep"
                       @next="nextStep"
@@ -128,6 +130,7 @@
                     <QuizHeading
                       class="glass-container"
                       :show-back-button="true"
+                      :show-next-button="userAnswers.zones && userAnswers.zones.length > 0"
                       value="Выберите зоны эпиляции"
                       @back="prevStep"
                       @next="nextStep"
@@ -181,6 +184,7 @@
                   <div v-if="currentStep === 4">
                     <QuizHeading
                       class="glass-container"
+                      :show-next-button="!!userAnswers.method"
                       value="Выберите метод эпиляции"
                       @back="prevStep"
                       @next="nextStep"
