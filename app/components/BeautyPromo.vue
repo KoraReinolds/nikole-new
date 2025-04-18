@@ -228,9 +228,13 @@
 
   <BeautyFaq />
 
-  <BeautyContacts ref="contactsSection" />
+  <div
+    style="background:radial-gradient(circle, #563C34 0%, #402E28 30%, #16080E 100%);"
+  >
+    <BeautyContacts ref="contactsSection" />
 
-  <BeautyFooter />
+    <BeautyFooter />
+  </div>
 </template>
 
 <script setup>
