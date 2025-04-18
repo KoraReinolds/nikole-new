@@ -5,7 +5,7 @@
 <template>
   <div class="relative w-full overflow-hidden">
     <!-- Services Section -->
-    <div class="bg-[#FFFAE4] py-20">
+    <div class="scroll-container bg-[#FFFAE4] py-20 max-h-screen overflow-hidden">
       <div class="container mx-auto px-4 max-w-[1080px]">
         <!-- Section title -->
         <h2 class="text-5xl font-bold font-raleway text-additional-black mb-16 text-center">
@@ -77,7 +77,7 @@
 
     <!-- Testimonials Section -->
     <div
-      class="relative w-full py-20"
+      class="scroll-container relative w-full py-20 min-h-screen max-h-screen"
       style="background: radial-gradient(circle, #563C34 0%, #402E28 30%, #16080E 100%)"
     >
       <div class="mx-auto max-w-[1080px]">

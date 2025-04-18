@@ -3,7 +3,7 @@
   Component for displaying a promotional section for beauty/hair removal services with quiz
 -->
 <template>
-  <div class="relative flex flex-col items-start overflow-hidden">
+  <div class="scroll-container relative flex flex-col items-start overflow-hidden">
     <!-- First promo section -->
     <div
       id="container"
@@ -201,7 +201,7 @@
   <div
     id="quiz-section"
     ref="quizSection"
-    class="relative h-[1000px] md:h-[1000px] h-screen w-full quiz-background"
+    class="scroll-container relative h-[1000px] md:h-[1000px] h-screen w-full quiz-background"
   >
     <BeautyQuiz class="container mx-auto px-4 md:px-24 max-w-[1240px] h-full relative z-10 flex flex-col" />
 
@@ -226,14 +226,19 @@
 
   <BeautyServices ref="servicesSection" />
 
-  <BeautyFaq />
+  <BeautyFaq class="scroll-container min-h-screen max-h-screen" />
 
   <div
     style="background:radial-gradient(circle, #563C34 0%, #402E28 30%, #16080E 100%);"
   >
-    <BeautyContacts ref="contactsSection" />
+    <BeautyContacts
+      ref="contactsSection"
+      class="scroll-container min-h-screen max-h-screen"
+    />
 
-    <BeautyFooter />
+    <BeautyFooter
+      class="scroll-container min-h-screen max-h-screen"
+    />
   </div>
 </template>
 
@@ -317,6 +322,7 @@ let scrollTimeout = null;
 const container = ref(null);
 const sections = ref([]);
 let lastScrollTop = 0;
+
 const handleScroll = () => {
   if (!isMobile.value) return;
   if (scrollTimeout) clearTimeout(scrollTimeout);
@@ -352,8 +358,7 @@ const handleScroll = () => {
 onMounted(() => {
   window.addEventListener("resize", updateMobileState);
   window.addEventListener("scroll", handleScroll);
-  container.value = document.getElementById("root");
-  sections.value = Array.from(container.value.children);
+  sections.value = [...document.querySelectorAll(".scroll-container")];
   updateMobileState();
   // window.addEventListener("touchstart", handleTouchStart);
   // window.addEventListener("touchend", handleTouchEnd);
