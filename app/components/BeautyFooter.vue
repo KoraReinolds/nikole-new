@@ -12,8 +12,8 @@
       <!-- Section content -->
       <div class="flex flex-col lg:flex-row items-center justify-between">
         <div class="lg:w-1/2 mb-10 lg:mb-0">
-          <h2 class="text-5xl font-bold font-raleway text-white mb-6">
-            Остались <span class="text-[#FFFAE4]">вопросы?</span>
+          <h2 class="text-main-white2 text-5xl font-bold font-raleway mb-6">
+            Остались <span class="pink-text-gradient">вопросы?</span>
           </h2>
           <p class="text-xl text-white font-roboto mb-10">
             Оставьте заявку на консультацию, и мы перезвоним вам в течение 15 минут,
@@ -175,7 +175,7 @@
 
     <div class="container mx-auto px-4 max-w-[1080px]">
       <!-- Bottom links -->
-      <div class="mt-12 pt-8 border-t border-gray-800">
+      <div class="mt-12 pt-8 border-t border-main-gray">
         <div class="flex flex-wrap justify-between items-center">
           <div class="flex items-center gap-4">
             <span class="text-main-gray font-roboto text-sm">г. Мурманск, ул. Юбилейная 9-32</span>

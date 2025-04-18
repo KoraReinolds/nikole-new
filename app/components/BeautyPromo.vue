@@ -224,13 +224,13 @@
     </div>
   </div>
 
-  <!-- <BeautyServices ref="servicesSection" />
+  <BeautyServices ref="servicesSection" />
 
   <BeautyFaq />
 
   <BeautyContacts ref="contactsSection" />
 
-  <BeautyFooter /> -->
+  <BeautyFooter />
 </template>
 
 <script setup>
@@ -240,7 +240,6 @@
  */
 import { ref, onMounted, onUnmounted } from "vue";
 import BeautyQuiz from "./BeautyQuiz.vue";
-import BeautyContacts from "./BeautyContacts.vue";
 
 const quizSection = ref(null);
 const servicesSection = ref(null);

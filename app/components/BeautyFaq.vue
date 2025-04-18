@@ -10,6 +10,14 @@
         Часто задаваемые <span class="pink-text-gradient">вопросы</span>
       </h2>
 
+      <!-- <div class="absolute h-full w-full">
+        <img
+          src="/images/services.png"
+          alt="Сервисы"
+          class="max-w-sm w-full object-contain absolute -bottom-[120px] z-10 right-0 translate-x-full"
+        >
+      </div> -->
+
       <!-- FAQ Accordion -->
       <div class="space-y-4 max-w-3xl mx-auto">
         <div

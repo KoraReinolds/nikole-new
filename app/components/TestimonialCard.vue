@@ -1,0 +1,102 @@
+<!--
+  TestimonialCard.vue
+  Component for displaying individual testimonial/review cards
+-->
+<template>
+  <div class="rounded-xl border p-5 shadow-sm bg-white">
+    <div class="flex justify-between items-start">
+      <div>
+        <div class="font-semibold text-lg text-[#272727] font-open-sans">
+          {{ username }}
+        </div>
+        <div class="text-gray-500 text-sm">
+          {{ date }}
+        </div>
+      </div>
+      <div class="flex gap-1 text-yellow-400">
+        <template
+          v-for="n in 5"
+          :key="n"
+        >
+          <svg
+            xmlns="http://www.w3.org/2000/svg"
+            class="w-5 h-5 fill-current"
+            :class="n <= rating ? '' : 'text-gray-300'"
+            viewBox="0 0 24 24"
+          >
+            <path
+              d="M12 .587l3.668 7.571L24 9.748l-6 5.939 1.417 8.266L12 19.896 4.583 23.953 6 15.687 0 9.748l8.332-1.59z"
+            />
+          </svg>
+        </template>
+      </div>
+    </div>
+
+    <div
+      v-if="service"
+      class="mt-4 space-y-1"
+    >
+      <div class="text-sm text-gray-700">
+        <span class="text-gray-700">{{ service }}</span>
+      </div>
+    </div>
+
+    <div class="mt-4 text-gray-800 leading-relaxed text-[15px] max-h-[100px] overflow-y-auto [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]">
+      {{ text }}
+    </div>
+  </div>
+</template>
+
+<script setup>
+/**
+ * Component for displaying individual testimonial/review cards
+ */
+
+defineProps({
+  /**
+   * Username of the reviewer
+   * @type {string}
+   */
+  username: {
+    type: String,
+    required: true,
+  },
+
+  /**
+   * Date of the review
+   * @type {string}
+   */
+  date: {
+    type: String,
+    required: true,
+  },
+
+  /**
+   * Rating from 1-5
+   * @type {number}
+   */
+  rating: {
+    type: Number,
+    required: true,
+    validator: value => value >= 0 && value <= 5,
+  },
+
+  /**
+   * Service name
+   * @type {string}
+   */
+  service: {
+    type: String,
+    default: "",
+  },
+
+  /**
+   * Review text content
+   * @type {string}
+   */
+  text: {
+    type: String,
+    required: true,
+  },
+});
+</script>
