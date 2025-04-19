@@ -14,22 +14,9 @@
         </div>
       </div>
       <div>
-        <div class="ml-auto flex gap-1 text-yellow-400 w-20 md:w-full">
-          <template
-            v-for="n in 5"
-            :key="n"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              class="w-5 h-5 fill-current"
-              :class="n <= rating ? 'text-add2-white' : 'text-gray-300'"
-              viewBox="0 0 24 24"
-            >
-              <path
-                d="M12 .587l3.668 7.571L24 9.748l-6 5.939 1.417 8.266L12 19.896 4.583 23.953 6 15.687 0 9.748l8.332-1.59z"
-              />
-            </svg>
-          </template>
+        <!-- Page count indicator (moved from bottom) -->
+        <div class="ml-auto font-medium text-gray-700 text-sm">
+          {{ currentIndex + 1 }}/{{ totalCount }}
         </div>
       </div>
     </div>
@@ -52,6 +39,17 @@
     >
       {{ text }}
     </div>
+
+    <!-- "View all reviews" button (moved from bottom of section) -->
+    <!-- <div class="mt-4 flex justify-end">
+      <a
+        href="https://dikidi.ru/ru/profile/olga_evdokimova_171403/reviews"
+        target="_blank"
+        class="py-1.5 px-3 md:px-8 md:py-4 text-md bg-add2 text-white font-medium rounded hover:bg-opacity-90 transition-all font-roboto"
+      >
+        Посмотреть все отзывы
+      </a>
+    </div> -->
   </div>
 </template>
 
@@ -80,13 +78,21 @@ defineProps({
   },
 
   /**
-   * Rating from 1-5
+   * Current index of the testimonial in the list
    * @type {number}
    */
-  rating: {
+  currentIndex: {
     type: Number,
     required: true,
-    validator: value => value >= 0 && value <= 5,
+  },
+
+  /**
+   * Total count of testimonials
+   * @type {number}
+   */
+  totalCount: {
+    type: Number,
+    required: true,
   },
 
   /**
@@ -112,7 +118,7 @@ defineProps({
 <style>
 /* Glass effect styles */
 .glass-container {
-  background: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.8);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);

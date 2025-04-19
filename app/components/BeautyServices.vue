@@ -208,7 +208,7 @@
             <div class="md:overflow-hidden relative">
               <!-- Left arrow for mobile -->
               <button
-                class="absolute -left-4 top-1/2 transform -translate-y-1/2 z-10 md:hidden w-8 h-8 rounded-full bg-main-gray bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all"
+                class="absolute -left-4 top-1/2 transform -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-main-gray bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all"
                 @click="prevSlide"
               >
                 <svg
@@ -240,7 +240,8 @@
                     class="mx-1"
                     :username="testimonial.username"
                     :date="testimonial.date"
-                    :rating="testimonial.rating"
+                    :current-index="currentSlide"
+                    :total-count="testimonials.length"
                     :service="testimonial.service"
                     :text="testimonial.text"
                   />
@@ -249,7 +250,7 @@
 
               <!-- Right arrow for mobile -->
               <button
-                class="absolute -right-4 top-1/2 transform -translate-y-1/2 z-10 md:hidden w-8 h-8 rounded-full bg-main-gray bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all"
+                class="absolute -right-4 top-1/2 transform -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-main-gray bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all"
                 @click="nextSlide"
               >
                 <svg
@@ -270,8 +271,7 @@
 
             <!-- Slider navigation for desktop and page counter/button for mobile -->
             <div class="flex flex-row justify-center md:justify-end items-center mt-[2vh] md:mt-8">
-              <div class="flex items-center justify-center w-full">
-                <!-- Left arrow button (desktop only) -->
+              <!-- <div class="flex items-center justify-center w-full">
                 <button
                   class="hidden md:flex w-10 h-10 rounded-full bg-main-gray bg-opacity-60 items-center justify-center hover:bg-opacity-100 transition-all mx-4"
                   @click="prevSlide"
@@ -291,12 +291,6 @@
                   </svg>
                 </button>
 
-                <!-- Page numbers -->
-                <div class="font-medium text-main-white text-base md:text-lg">
-                  {{ currentSlide + 1 }}/{{ testimonials.length }}
-                </div>
-
-                <!-- Right arrow button (desktop only) -->
                 <button
                   class="hidden md:flex w-10 h-10 rounded-full bg-main-gray bg-opacity-60 items-center justify-center hover:bg-opacity-100 transition-all mx-4"
                   @click="nextSlide"
@@ -315,7 +309,7 @@
                     />
                   </svg>
                 </button>
-              </div>
+              </div> -->
               <div class="shrink-0 mt-2">
                 <a
                   href="https://dikidi.ru/ru/profile/olga_evdokimova_171403/reviews"
@@ -1468,3 +1462,5 @@ const testimonials = shallowRef([
   },
 ]);
 </script>
+
+rewritten_file>
