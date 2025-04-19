@@ -224,7 +224,10 @@
     </div>
   </div>
 
-  <BeautyServices ref="servicesSection" />
+  <BeautyServices
+    ref="servicesSection"
+    :is-mobile="isMobile"
+  />
 
   <BeautyFaq
     class="scroll-container"

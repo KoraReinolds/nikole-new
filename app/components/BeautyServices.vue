@@ -5,21 +5,24 @@
 <template>
   <div class="relative w-full overflow-hidden">
     <!-- Services Section -->
-    <div class="scroll-container bg-[#FFFAE4] py-20 max-h-screen md:max-h-none overflow-hidden">
+    <div
+      class="scroll-container bg-[#FFFAE4] py-20 overflow-hidden"
+      :class="{ 'h-screen': isMobile }"
+    >
       <div class="container mx-auto px-4 max-w-[1080px]">
         <!-- Section title -->
-        <h2 class="text-5xl font-bold font-raleway text-additional-black mb-16 text-center">
+        <h2 class="text-3xl md:text-5xl font-bold font-raleway text-additional-black mb-8 md:mb-16 text-center">
           Наши <span class="pink-text-gradient py-1">услуги</span>
         </h2>
 
         <!-- Service type switcher -->
-        <div class="flex justify-center mb-10">
-          <div class="bg-white rounded-full p-2 inline-flex shadow-md">
+        <div class="flex justify-center mb-6 md:mb-10 overflow-x-auto pb-2">
+          <div class="bg-white rounded-full p-1.5 md:p-2 inline-flex shadow-md">
             <button
               v-for="group in servicesGroups"
               :key="group.title"
               :class="[
-                'py-2 px-6 rounded-full font-medium transition-colors duration-200 text-sm sm:text-base',
+                'py-1.5 md:py-2 px-3 md:px-6 rounded-full font-medium transition-colors duration-200 text-xs sm:text-base whitespace-nowrap',
                 activeServiceType === group.title
                   ? 'bg-[#93BA73] text-white'
                   : 'text-gray-700 hover:bg-gray-100',
@@ -30,7 +33,7 @@
             </button>
             <button
               :class="[
-                'py-2 px-6 rounded-full font-medium transition-colors duration-200 text-sm sm:text-base',
+                'py-1.5 md:py-2 px-3 md:px-6 rounded-full font-medium transition-colors duration-200 text-xs sm:text-base whitespace-nowrap',
                 activeServiceType === 'Все'
                   ? 'bg-[#93BA73] text-white'
                   : 'text-gray-700 hover:bg-gray-100',
@@ -42,8 +45,93 @@
           </div>
         </div>
 
-        <!-- Services grid -->
-        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative">
+        <!-- Services carousel for mobile -->
+        <div class="md:hidden relative">
+          <div class="overflow-hidden">
+            <div
+              class="flex transition-transform duration-500 ease-in-out"
+              :style="{ transform: `translateX(-${currentServiceSlide * 100}%)` }"
+            >
+              <div
+                v-for="(service, index) in filteredServices"
+                :key="index"
+                class="w-full flex-shrink-0 px-2"
+              >
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform h-full flex flex-col">
+                  <div class="p-4 flex flex-col h-full">
+                    <div class="flex flex-col justify-between items-start mb-2">
+                      <h3 class="text-xl font-bold font-raleway text-additional-black">
+                        {{ service.title }}
+                      </h3>
+                      <span class="text-xs font-medium bg-[#FFFAE4] text-[#563C34] px-2 py-1 rounded mt-1">
+                        {{ service.category }}
+                      </span>
+                    </div>
+                    <p class="text-gray-700 mb-4 font-roboto flex-grow text-sm">
+                      {{ service.description }}
+                    </p>
+                    <div class="flex justify-between items-center">
+                      <p class="text-xl font-medium text-[#563C34] font-roboto">
+                        от {{ service.price }} ₽
+                      </p>
+                      <button class="py-1.5 px-3 bg-[#93BA73] text-white text-sm font-medium rounded hover:bg-opacity-90 transition-all font-roboto">
+                        Подробнее
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Carousel navigation -->
+          <div class="flex justify-center mt-4">
+            <button
+              class="w-8 h-8 rounded-full bg-main-gray bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all mx-2"
+              @click="prevServiceSlide"
+            >
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </button>
+
+            <div class="font-medium text-additional-black text-sm">
+              {{ currentServiceSlide + 1 }}/{{ filteredServices.length }}
+            </div>
+
+            <button
+              class="w-8 h-8 rounded-full bg-main-gray bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all mx-2"
+              @click="nextServiceSlide"
+            >
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Services grid for desktop -->
+        <div class="hidden md:grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 relative">
           <div
             v-for="(service, index) in filteredServices"
             :key="index"
@@ -77,22 +165,23 @@
 
     <!-- Testimonials Section -->
     <div
-      class="scroll-container relative w-full py-20 h-screen md:max-h-[634px]"
+      class="scroll-container relative w-full py-12 md:py-20 min-h-[500px] md:max-h-[634px]"
       style="background: radial-gradient(circle, #563C34 0%, #402E28 30%, #16080E 100%)"
+      :class="{ 'h-screen': isMobile }"
     >
       <div class="mx-auto max-w-[1080px]">
         <!-- Section title -->
-        <h2 class="text-5xl font-bold font-raleway text-main-white2 mb-16 text-end w-full px-4">
+        <h2 class="text-3xl md:text-5xl font-bold font-raleway text-main-white2 mb-8 md:mb-16 text-center md:text-end w-full px-4">
           Более <span class="pink-text-gradient">100</span><br> довольных клиентов
         </h2>
-        <div class="container mx-auto px-4 max-w-[1080px] flex justify-end relative">
+        <div class="container mx-auto px-4 max-w-[1080px] flex flex-col md:flex-row md:justify-end relative">
           <img
             src="/images/testimonials.png"
             alt="Николе профстудия"
-            class="absolute -bottom-[150px] -left-[200px] w-[530px]"
+            class="hidden md:block absolute -bottom-[150px] -left-[200px] w-[530px]"
           >
           <!-- Testimonials slider -->
-          <div class="relative w-[800px]">
+          <div class="relative w-full md:w-[800px]">
             <!-- Testimonial cards -->
             <div class="overflow-hidden">
               <div
@@ -102,7 +191,7 @@
                 <div
                   v-for="(testimonial, index) in testimonials"
                   :key="index"
-                  class="w-full flex-shrink-0 pl-4 flex items-center justify-center"
+                  class="w-full flex-shrink-0 pl-0 md:pl-4 flex items-center justify-center"
                 >
                   <TestimonialCard
                     :username="testimonial.username"
@@ -116,15 +205,15 @@
             </div>
 
             <!-- Slider navigation with page numbers and arrows in one row -->
-            <div class="flex justify-end items-center mt-8">
-              <div class="flex items-center justify-center w-full">
+            <div class="flex flex-col md:flex-row justify-center md:justify-end items-center mt-6 md:mt-8">
+              <div class="flex items-center justify-center w-full mb-4 md:mb-0">
                 <!-- Left arrow button -->
                 <button
-                  class="w-10 h-10 rounded-full bg-main-gray bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all mx-4"
+                  class="w-8 md:w-10 h-8 md:h-10 rounded-full bg-main-gray bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all mx-2 md:mx-4"
                   @click="prevSlide"
                 >
                   <svg
-                    class="w-6 h-6"
+                    class="w-4 md:w-6 h-4 md:h-6"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -139,17 +228,17 @@
                 </button>
 
                 <!-- Page numbers instead of dots -->
-                <div class="font-medium text-main-white text-lg">
+                <div class="font-medium text-main-white text-base md:text-lg">
                   {{ currentSlide + 1 }}/{{ testimonials.length }}
                 </div>
 
                 <!-- Right arrow button -->
                 <button
-                  class="w-10 h-10 rounded-full bg-main-gray bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all mx-4"
+                  class="w-8 md:w-10 h-8 md:h-10 rounded-full bg-main-gray bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all mx-2 md:mx-4"
                   @click="nextSlide"
                 >
                   <svg
-                    class="w-6 h-6"
+                    class="w-4 md:w-6 h-4 md:h-6"
                     fill="none"
                     viewBox="0 0 24 24"
                     stroke="currentColor"
@@ -167,7 +256,7 @@
                 <a
                   href="https://dikidi.ru/ru/profile/olga_evdokimova_171403/reviews"
                   target="_blank"
-                  class="py-2 px-4 bg-[#93BA73] text-white font-medium rounded hover:bg-opacity-90 transition-all font-roboto"
+                  class="py-1.5 md:py-2 px-3 md:px-4 bg-[#93BA73] text-white text-sm md:text-base font-medium rounded hover:bg-opacity-90 transition-all font-roboto"
                 >
                   Посмотреть все отзывы
                 </a>
@@ -188,6 +277,13 @@
 
 import { ref, shallowRef, computed } from "vue";
 import TestimonialCard from "./TestimonialCard.vue";
+
+defineProps({
+  isMobile: {
+    type: Boolean,
+    default: false,
+  },
+});
 
 /**
  * Array of beauty services with details
@@ -216,6 +312,36 @@ const servicesGroups = ref([
  * @type {Ref<string>}
  */
 const activeServiceType = ref("Все");
+
+/**
+ * Current service slide index for mobile carousel
+ * @type {Ref<number>}
+ */
+const currentServiceSlide = ref(0);
+
+/**
+ * Method to go to next service slide
+ */
+const nextServiceSlide = () => {
+  if (currentServiceSlide.value < filteredServices.value.length - 1) {
+    currentServiceSlide.value++;
+  }
+  else {
+    currentServiceSlide.value = 0;
+  }
+};
+
+/**
+ * Method to go to previous service slide
+ */
+const prevServiceSlide = () => {
+  if (currentServiceSlide.value > 0) {
+    currentServiceSlide.value--;
+  }
+  else {
+    currentServiceSlide.value = filteredServices.value.length - 1;
+  }
+};
 
 /**
  * Array of specific beauty services offered by the salon
@@ -303,30 +429,47 @@ const services = ref([
 ]);
 
 /**
- * Current slide index
+ * Current testimonial slide index
  * @type {Ref<number>}
  */
 const currentSlide = ref(0);
 
-const parsingReviews = () => {
-  return Array.from(document.querySelectorAll(".review.list-abandoned")).map((review) => {
-    const username = review.querySelector(".username")?.textContent.trim() || "";
-    const date = review.querySelector(".date")?.textContent.replace(/\s+/g, " ").trim() || "";
-    const ratingStyle = review.querySelector(".rating")?.style.getPropertyValue("--stars") || "";
-    const ratingStars = parseInt(ratingStyle) / 26; // пример: 130px = 5 звёзд (130 / 26)
-    const service = review.querySelector(".service")?.textContent.trim() || "";
-    const text = review.querySelector(".abandoned-center-text")?.textContent.trim() || "";
+/**
+ * Filtered services based on selected service type
+ * @returns {Array} Filtered array of services
+ */
+const filteredServices = computed(() => {
+  if (activeServiceType.value === "Все") {
+    return services.value;
+  }
+  return services.value.filter(service => service.category === activeServiceType.value);
+});
 
-    return {
-      username,
-      date,
-      rating: ratingStars,
-      service,
-      text,
-    };
-  });
+/**
+ * Go to the next testimonial slide
+ */
+const nextSlide = () => {
+  if (currentSlide.value < testimonials.value.length - 1) {
+    currentSlide.value++;
+  }
+  else {
+    currentSlide.value = 0;
+  }
 };
 
+/**
+ * Go to the previous testimonial slide
+ */
+const prevSlide = () => {
+  if (currentSlide.value > 0) {
+    currentSlide.value--;
+  }
+  else {
+    currentSlide.value = testimonials.value.length - 1;
+  }
+};
+
+// Remove unused parsingReviews function
 const testimonials = shallowRef([
   {
     username: "Глагольева Ксения",
@@ -1260,39 +1403,4 @@ const testimonials = shallowRef([
     text: "Спасибо за отличную процедуру и прекрасное общение! Уже больше года хожу на шугаринг и с каждым разом все больше убеждаюсь, что не  ошиблась в выборе именно этой процедуры, и  главное не ошиблась в выборе мастера, с которым процедура пролетает комфортно и без всякого стеснения!!!🤗",
   },
 ]);
-
-/**
- * Filtered services based on selected service type
- * @returns {Array} Filtered array of services
- */
-const filteredServices = computed(() => {
-  if (activeServiceType.value === "Все") {
-    return services.value;
-  }
-  return services.value.filter(service => service.category === activeServiceType.value);
-});
-
-/**
- * Go to the next slide
- */
-const nextSlide = () => {
-  if (currentSlide.value < testimonials.value.length - 1) {
-    currentSlide.value++;
-  }
-  else {
-    currentSlide.value = 0;
-  }
-};
-
-/**
- * Go to the previous slide
- */
-const prevSlide = () => {
-  if (currentSlide.value > 0) {
-    currentSlide.value--;
-  }
-  else {
-    currentSlide.value = testimonials.value.length - 1;
-  }
-};
 </script>
