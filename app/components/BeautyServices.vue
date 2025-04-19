@@ -165,7 +165,7 @@
 
     <!-- Testimonials Section -->
     <div
-      class="relative scroll-container relative w-full pt-[7vh] md:py-20 min-h-[500px] md:max-h-[634px]"
+      class="relative scroll-container relative w-full pt-[7vh] md:py-20 min-h-[500px] md:min-h-[634px]"
       style="background: radial-gradient(circle, #563C34 0%, #402E28 30%, #16080E 100%)"
       :class="{ 'h-screen': isMobile }"
     >
@@ -204,39 +204,62 @@
         <div class="container mx-auto px-4 max-w-[1080px] flex flex-col md:flex-row md:justify-end relative">
           <!-- Testimonials slider -->
           <div class="relative w-full md:w-[800px]">
-            <!-- Testimonial cards with navigation arrows on sides for mobile -->
-            <div class="md:overflow-hidden relative">
-              <!-- Left arrow for mobile -->
-              <button
-                class="absolute -left-4 top-1/2 transform -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-main-gray bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all"
-                @click="prevSlide"
+            <!-- Left arrow -->
+            <button
+              class="absolute -left-4 md:-left-10 top-1/2 transform -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-main-gray bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all"
+              @click="prevSlide"
+            >
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
               >
-                <svg
-                  class="w-4 h-4"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M15 19l-7-7 7-7"
-                  />
-                </svg>
-              </button>
-
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </button>
+            <!-- Right arrow -->
+            <button
+              class="absolute -right-4 md:-right-10 top-1/2 transform -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-main-gray bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all"
+              @click="nextSlide"
+            >
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </button>
+            <!-- Testimonial cards with navigation arrows on sides -->
+            <div class="relative md:overflow-hidden">
               <div
+                ref="testimonialsContainer"
                 class="flex transition-transform duration-500 ease-in-out"
                 :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
+                @touchstart="handleTouchStart"
+                @touchmove="handleTouchMove"
+                @touchend="handleTouchEnd"
               >
                 <div
                   v-for="(testimonial, index) in testimonials"
                   :key="index"
-                  class="w-full flex-shrink-0 pl-0 md:pl-4 flex items-center justify-center"
+                  class="w-full flex-shrink-0 pl-0 flex items-center justify-center"
                   :class="{ 'h-[60vh]': isMobile }"
                 >
                   <TestimonialCard
+                    v-if="isVisibleTestimonial(index)"
                     class="mx-1"
                     :username="testimonial.username"
                     :date="testimonial.date"
@@ -247,69 +270,10 @@
                   />
                 </div>
               </div>
-
-              <!-- Right arrow for mobile -->
-              <button
-                class="absolute -right-4 top-1/2 transform -translate-y-1/2 z-10 w-8 h-8 rounded-full bg-main-gray bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all"
-                @click="nextSlide"
-              >
-                <svg
-                  class="w-4 h-4"
-                  fill="none"
-                  viewBox="0 0 24 24"
-                  stroke="currentColor"
-                >
-                  <path
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-width="2"
-                    d="M9 5l7 7-7 7"
-                  />
-                </svg>
-              </button>
             </div>
 
-            <!-- Slider navigation for desktop and page counter/button for mobile -->
+            <!-- Slider navigation -->
             <div class="flex flex-row justify-center md:justify-end items-center mt-[2vh] md:mt-8">
-              <!-- <div class="flex items-center justify-center w-full">
-                <button
-                  class="hidden md:flex w-10 h-10 rounded-full bg-main-gray bg-opacity-60 items-center justify-center hover:bg-opacity-100 transition-all mx-4"
-                  @click="prevSlide"
-                >
-                  <svg
-                    class="w-6 h-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M15 19l-7-7 7-7"
-                    />
-                  </svg>
-                </button>
-
-                <button
-                  class="hidden md:flex w-10 h-10 rounded-full bg-main-gray bg-opacity-60 items-center justify-center hover:bg-opacity-100 transition-all mx-4"
-                  @click="nextSlide"
-                >
-                  <svg
-                    class="w-6 h-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                </button>
-              </div> -->
               <div class="shrink-0 mt-2">
                 <a
                   href="https://dikidi.ru/ru/profile/olga_evdokimova_171403/reviews"
@@ -1461,6 +1425,92 @@ const testimonials = shallowRef([
     text: "Спасибо за отличную процедуру и прекрасное общение! Уже больше года хожу на шугаринг и с каждым разом все больше убеждаюсь, что не  ошиблась в выборе именно этой процедуры, и  главное не ошиблась в выборе мастера, с которым процедура пролетает комфортно и без всякого стеснения!!!🤗",
   },
 ]);
+
+/**
+ * Touch handling variables
+ */
+const touchStartX = ref(0);
+const touchEndX = ref(0);
+const testimonialsContainer = ref(null);
+
+/**
+ * Determines if a testimonial should be rendered based on its index position
+ * Only renders the current, previous and next testimonials
+ * @param {number} index - The index of the testimonial
+ * @returns {boolean} - Whether the testimonial should be visible
+ */
+const isVisibleTestimonial = (index) => {
+  // Calculate the modulo distance to handle wrapping
+  const total = testimonials.value.length;
+  const prev = (currentSlide.value - 1 + total) % total;
+  const next = (currentSlide.value + 1) % total;
+
+  return index === currentSlide.value || index === prev || index === next;
+};
+
+/**
+ * Handle touch start event
+ * @param {TouchEvent} e - The touch event
+ */
+const handleTouchStart = (e) => {
+  touchStartX.value = e.touches[0].clientX;
+};
+
+/**
+ * Handle touch move event
+ * @param {TouchEvent} e - The touch event
+ */
+const handleTouchMove = (e) => {
+  if (!touchStartX.value) return;
+
+  const container = testimonialsContainer.value;
+  if (!container) return;
+
+  touchEndX.value = e.touches[0].clientX;
+  const diff = touchStartX.value - touchEndX.value;
+  const slideWidth = container.offsetWidth;
+
+  // Calculate drag position
+  const dragOffset = -(currentSlide.value * 100) - (diff / slideWidth * 100);
+
+  // Apply transform with resistance at edges
+  if ((currentSlide.value === 0 && diff < 0)
+    || (currentSlide.value === testimonials.value.length - 1 && diff > 0)) {
+    // Add resistance at edges (divide by 3 for less movement)
+    container.style.transform = `translateX(${dragOffset / 3}%)`;
+  }
+  else {
+    container.style.transform = `translateX(${dragOffset}%)`;
+  }
+};
+
+/**
+ * Handle touch end event
+ */
+const handleTouchEnd = () => {
+  if (!touchStartX.value || !touchEndX.value) return;
+
+  const container = testimonialsContainer.value;
+  if (!container) return;
+
+  const diff = touchStartX.value - touchEndX.value;
+  const threshold = 50; // Minimum swipe distance
+
+  if (diff > threshold) {
+    nextSlide();
+  }
+  else if (diff < -threshold) {
+    prevSlide();
+  }
+  else {
+    // Reset to current slide if swipe wasn't significant
+    container.style.transform = `translateX(-${currentSlide.value * 100}%)`;
+  }
+
+  // Reset touch values
+  touchStartX.value = 0;
+  touchEndX.value = 0;
+};
 </script>
 
 rewritten_file>
