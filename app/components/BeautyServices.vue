@@ -165,25 +165,67 @@
 
     <!-- Testimonials Section -->
     <div
-      class="scroll-container relative w-full pt-[7vh] md:py-20 min-h-[500px] md:max-h-[634px]"
+      class="relative scroll-container relative w-full pt-[7vh] md:py-20 min-h-[500px] md:max-h-[634px]"
       style="background: radial-gradient(circle, #563C34 0%, #402E28 30%, #16080E 100%)"
       :class="{ 'h-screen': isMobile }"
     >
+      <div class="absolute left-0 w-full bottom-[5vh] md:bottom-14">
+        <!-- Left side with flower vase image (moved to background) -->
+        <div class="h-[38px] w-full bg-[#FFFAE4]" />
+        <div class="h-[16px] w-full bg-[#A78B75]" />
+      </div>
+      <div class="bottom-10 absolute -right-[161px] z-0 w-full left-0 overflow-hidden">
+        <!-- <span class="absolute left-[22%] opacity-90 bottom-[6%] text-white text-sm md:text-xl font-normal font-roboto">
+        ----▶
+      </span> -->
+        <div class="relative max-w-[1240px] mx-auto flex items-end justify-end">
+          <img
+            src="/images/testimonials.png"
+            alt="Цветы в вазе"
+            class="w-[50vh] bottom-[1vh] md:w-[425px] object-contain
+            md:translate-y-[10px] translate-y-[20px] md:-translate-x-[800px]"
+          >
+          <!-- <img
+            src="/images/testimonials.png"
+            alt="Николе профстудия"
+            class="absolute md:-bottom-[150px] left-[100px] md:-left-[200px] md:w-[530px]"
+          > -->
+        </div>
+      </div>
+
       <div class="mx-auto max-w-[1080px]">
         <!-- Section title -->
         <h2 class="text-3xl md:text-5xl font-bold font-raleway text-main-white2 mb-[2vh] md:mb-16 text-center md:text-end w-full px-4 text-[clamp(1.25rem,6.5vw,2.5rem)]">
-          Более <span class="pink-text-gradient">100</span><br> довольных клиентов
+          <span class=" text-[clamp(1.25rem,12.5vw,3.5rem)]">
+            Более <span class="pink-text-gradient">100</span><br>
+          </span>
+          довольных клиентов
         </h2>
         <div class="container mx-auto px-4 max-w-[1080px] flex flex-col md:flex-row md:justify-end relative">
-          <img
-            src="/images/testimonials.png"
-            alt="Николе профстудия"
-            class="hidden md:block absolute -bottom-[150px] -left-[200px] w-[530px]"
-          >
           <!-- Testimonials slider -->
           <div class="relative w-full md:w-[800px]">
-            <!-- Testimonial cards -->
-            <div class="overflow-hidden">
+            <!-- Testimonial cards with navigation arrows on sides for mobile -->
+            <div class="md:overflow-hidden relative">
+              <!-- Left arrow for mobile -->
+              <button
+                class="absolute -left-4 top-1/2 transform -translate-y-1/2 z-10 md:hidden w-8 h-8 rounded-full bg-main-gray bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all"
+                @click="prevSlide"
+              >
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 19l-7-7 7-7"
+                  />
+                </svg>
+              </button>
+
               <div
                 class="flex transition-transform duration-500 ease-in-out"
                 :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
@@ -204,16 +246,81 @@
                   />
                 </div>
               </div>
+
+              <!-- Right arrow for mobile -->
+              <button
+                class="absolute -right-4 top-1/2 transform -translate-y-1/2 z-10 md:hidden w-8 h-8 rounded-full bg-main-gray bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all"
+                @click="nextSlide"
+              >
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </button>
             </div>
 
-            <!-- Slider navigation with page numbers and arrows in one row -->
-            <div class="flex flex-col md:flex-row justify-center md:justify-end items-center mt-[2vh] md:mt-8">
+            <!-- Slider navigation for desktop and page counter/button for mobile -->
+            <div class="flex flex-row justify-center md:justify-end items-center mt-[2vh] md:mt-8">
+              <div class="flex items-center justify-center w-full">
+                <!-- Left arrow button (desktop only) -->
+                <button
+                  class="hidden md:flex w-10 h-10 rounded-full bg-main-gray bg-opacity-60 items-center justify-center hover:bg-opacity-100 transition-all mx-4"
+                  @click="prevSlide"
+                >
+                  <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M15 19l-7-7 7-7"
+                    />
+                  </svg>
+                </button>
 
+                <!-- Page numbers -->
+                <div class="font-medium text-main-white text-base md:text-lg">
+                  {{ currentSlide + 1 }}/{{ testimonials.length }}
+                </div>
+
+                <!-- Right arrow button (desktop only) -->
+                <button
+                  class="hidden md:flex w-10 h-10 rounded-full bg-main-gray bg-opacity-60 items-center justify-center hover:bg-opacity-100 transition-all mx-4"
+                  @click="nextSlide"
+                >
+                  <svg
+                    class="w-6 h-6"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      stroke-linecap="round"
+                      stroke-linejoin="round"
+                      stroke-width="2"
+                      d="M9 5l7 7-7 7"
+                    />
+                  </svg>
+                </button>
+              </div>
               <div class="shrink-0 mt-2">
                 <a
                   href="https://dikidi.ru/ru/profile/olga_evdokimova_171403/reviews"
                   target="_blank"
-                  class="display-block py-2 px-3 md:px-4 bg-[#93BA73] text-additional-black text-sm md:text-base font-bold rounded hover:bg-opacity-90 transition-all font-roboto"
+                  class="display-block py-2 px-3 md:px-8 md:py-4 bg-[#93BA73] text-additional-black text-sm md:text-xl md:text-base font-bold rounded hover:bg-opacity-90 transition-all font-roboto"
                 >
                   Посмотреть все отзывы
                 </a>

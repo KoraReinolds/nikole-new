@@ -3,13 +3,13 @@
   Component for displaying individual testimonial/review cards
 -->
 <template>
-  <div class="rounded-xl border p-5 shadow-sm bg-white">
-    <div class="flex justify-between items-start">
+  <div class="rounded-xl border p-5 shadow-sm glass-container w-full">
+    <div class="flex justify-between items-start gap-4">
       <div class="w-1/2">
         <div class="w-half font-semibold text-[#272727] font-open-sans text-[clamp(0.25rem,4.5vw,1.5rem)] md:text-sm">
           {{ username }}
         </div>
-        <div class="text-gray-500 text-[clamp(0.25rem,3.5vw,1.5rem)] md:text-sm">
+        <div class="text-gray-500 font-medium text-[clamp(0.25rem,3.5vw,1.5rem)] md:text-sm">
           {{ date }}
         </div>
       </div>
@@ -22,7 +22,7 @@
             <svg
               xmlns="http://www.w3.org/2000/svg"
               class="w-5 h-5 fill-current"
-              :class="n <= rating ? '' : 'text-gray-300'"
+              :class="n <= rating ? 'text-add2-white' : 'text-gray-300'"
               viewBox="0 0 24 24"
             >
               <path
@@ -39,13 +39,14 @@
       class="mt-4 space-y-1"
     >
       <div class="text-sm text-gray-700">
-        <span class="text-gray-700 text-[clamp(0.25rem,3.5vw,1.5rem)] md:text-sm">{{ service }}</span>
+        <span class="text-add2 font-bold text-[clamp(0.25rem,3.5vw,1.5rem)] md:text-sm">{{ service }}</span>
       </div>
     </div>
 
     <div
-      class="mt-4 text-gray-800 leading-relaxed text-[15px] md:max-h-[100px] overflow-y-auto
+      class="mt-4 text-gray-800 leading-relaxed text-sm md:max-h-[100px] overflow-y-auto
       text-[clamp(0.25rem,3.5vw,1.5rem)] md:text-sm
+      font-medium
       max-h-[30vh]
     [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
     >
@@ -107,3 +108,17 @@ defineProps({
   },
 });
 </script>
+
+<style>
+/* Glass effect styles */
+.glass-container {
+  background: rgba(255, 255, 255, 0.6);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  position: relative;
+  z-index: 1;
+  padding: 0.5rem 1rem;
+  border-radius: 0.5rem;
+}
+</style>
