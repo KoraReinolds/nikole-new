@@ -165,13 +165,13 @@
 
     <!-- Testimonials Section -->
     <div
-      class="scroll-container relative w-full py-12 md:py-20 min-h-[500px] md:max-h-[634px]"
+      class="scroll-container relative w-full pt-[7vh] md:py-20 min-h-[500px] md:max-h-[634px]"
       style="background: radial-gradient(circle, #563C34 0%, #402E28 30%, #16080E 100%)"
       :class="{ 'h-screen': isMobile }"
     >
       <div class="mx-auto max-w-[1080px]">
         <!-- Section title -->
-        <h2 class="text-3xl md:text-5xl font-bold font-raleway text-main-white2 mb-8 md:mb-16 text-center md:text-end w-full px-4">
+        <h2 class="text-3xl md:text-5xl font-bold font-raleway text-main-white2 mb-[2vh] md:mb-16 text-center md:text-end w-full px-4 text-[clamp(1.25rem,6.5vw,2.5rem)]">
           Более <span class="pink-text-gradient">100</span><br> довольных клиентов
         </h2>
         <div class="container mx-auto px-4 max-w-[1080px] flex flex-col md:flex-row md:justify-end relative">
@@ -192,8 +192,10 @@
                   v-for="(testimonial, index) in testimonials"
                   :key="index"
                   class="w-full flex-shrink-0 pl-0 md:pl-4 flex items-center justify-center"
+                  :class="{ 'h-[60vh]': isMobile }"
                 >
                   <TestimonialCard
+                    class="mx-1"
                     :username="testimonial.username"
                     :date="testimonial.date"
                     :rating="testimonial.rating"
@@ -205,58 +207,13 @@
             </div>
 
             <!-- Slider navigation with page numbers and arrows in one row -->
-            <div class="flex flex-col md:flex-row justify-center md:justify-end items-center mt-6 md:mt-8">
-              <div class="flex items-center justify-center w-full mb-4 md:mb-0">
-                <!-- Left arrow button -->
-                <button
-                  class="w-8 md:w-10 h-8 md:h-10 rounded-full bg-main-gray bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all mx-2 md:mx-4"
-                  @click="prevSlide"
-                >
-                  <svg
-                    class="w-4 md:w-6 h-4 md:h-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M15 19l-7-7 7-7"
-                    />
-                  </svg>
-                </button>
+            <div class="flex flex-col md:flex-row justify-center md:justify-end items-center mt-[2vh] md:mt-8">
 
-                <!-- Page numbers instead of dots -->
-                <div class="font-medium text-main-white text-base md:text-lg">
-                  {{ currentSlide + 1 }}/{{ testimonials.length }}
-                </div>
-
-                <!-- Right arrow button -->
-                <button
-                  class="w-8 md:w-10 h-8 md:h-10 rounded-full bg-main-gray bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all mx-2 md:mx-4"
-                  @click="nextSlide"
-                >
-                  <svg
-                    class="w-4 md:w-6 h-4 md:h-6"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                  >
-                    <path
-                      stroke-linecap="round"
-                      stroke-linejoin="round"
-                      stroke-width="2"
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                </button>
-              </div>
-              <div class="shrink-0">
+              <div class="shrink-0 mt-2">
                 <a
                   href="https://dikidi.ru/ru/profile/olga_evdokimova_171403/reviews"
                   target="_blank"
-                  class="py-1.5 md:py-2 px-3 md:px-4 bg-[#93BA73] text-white text-sm md:text-base font-medium rounded hover:bg-opacity-90 transition-all font-roboto"
+                  class="display-block py-2 px-3 md:px-4 bg-[#93BA73] text-additional-black text-sm md:text-base font-bold rounded hover:bg-opacity-90 transition-all font-roboto"
                 >
                   Посмотреть все отзывы
                 </a>
@@ -432,7 +389,7 @@ const services = ref([
  * Current testimonial slide index
  * @type {Ref<number>}
  */
-const currentSlide = ref(0);
+const currentSlide = ref(1);
 
 /**
  * Filtered services based on selected service type
