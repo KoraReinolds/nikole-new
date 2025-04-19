@@ -226,18 +226,22 @@
 
   <BeautyServices ref="servicesSection" />
 
-  <BeautyFaq class="scroll-container min-h-screen max-h-screen" />
+  <BeautyFaq
+    class="scroll-container"
+    :class="{ 'h-screen': isMobile }"
+  />
 
   <div
     style="background:radial-gradient(circle, #563C34 0%, #402E28 30%, #16080E 100%);"
   >
     <BeautyContacts
       ref="contactsSection"
-      class="scroll-container min-h-screen max-h-screen"
+      :class="{ 'h-screen': isMobile }"
+      class="scroll-container"
     />
 
     <BeautyFooter
-      class="scroll-container min-h-screen max-h-screen"
+      class="scroll-container h-screen md:h-[718px]"
     />
   </div>
 </template>
