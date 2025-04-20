@@ -1,12 +1,12 @@
 <!--
   BeautyFaq.vue
-  Component for displaying frequently asked questions in an accordion format
+  Component for displaying frequently asked questions in an accordion format with mobile-friendly popup
 -->
 <template>
-  <div class="relative w-full py-20 bg-[#FFFAE4] relative">
-    <div class="container mx-auto px-4 max-w-[1080px]">
+  <div class="relative w-full py-12 md:py-20 bg-[#FFFAE4] md:h-auto h-screen overflow-hidden">
+    <div class="container mx-auto px-4 max-w-[1080px] h-full flex flex-col">
       <!-- Section title -->
-      <h2 class="text-5xl font-bold font-raleway text-additional-black mb-16 text-center">
+      <h2 class="text-3xl md:text-5xl font-bold font-raleway text-additional-black mb-8 md:mb-16 text-center">
         Часто задаваемые <span class="pink-text-gradient">вопросы</span>
       </h2>
 
@@ -19,7 +19,7 @@
       </div> -->
 
       <!-- FAQ Accordion -->
-      <div class="space-y-4 max-w-3xl mx-auto">
+      <div class="space-y-3 md:space-y-4 max-w-3xl mx-auto overflow-y-auto pb-4 flex-grow">
         <div
           v-for="(item, index) in faqItems"
           :key="index"
@@ -27,15 +27,15 @@
         >
           <!-- Accordion header -->
           <button
-            class="w-full px-6 py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-all"
-            @click="toggleAccordion(index)"
+            class="w-full px-4 md:px-6 py-3 md:py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-all"
+            @click="isMobile ? openPopup(index) : toggleAccordion(index)"
           >
-            <h3 class="text-xl font-medium font-raleway text-additional-black">
+            <h3 class="text-lg md:text-xl font-medium font-raleway text-additional-black pr-2">
               {{ item.question }}
             </h3>
             <svg
-              class="w-5 h-5 transform transition-transform"
-              :class="activeIndex === index ? 'rotate-180' : ''"
+              class="w-5 h-5 flex-shrink-0 transform transition-transform"
+              :class="{ 'rotate-180': activeIndex === index && !isMobile }"
               fill="none"
               viewBox="0 0 24 24"
               stroke="currentColor"
@@ -49,8 +49,9 @@
             </svg>
           </button>
 
-          <!-- Accordion content -->
+          <!-- Desktop Accordion content -->
           <div
+            v-if="!isMobile"
             class="px-6 overflow-hidden transition-all duration-300 ease-in-out"
             :class="activeIndex === index ? 'max-h-[500px] py-4' : 'max-h-0'"
           >
@@ -62,7 +63,7 @@
       </div>
 
       <!-- Decorative elements -->
-      <div class="absolute top-20 right-0 opacity-20">
+      <div class="absolute top-20 right-0 opacity-20 hidden md:block">
         <svg
           width="200"
           height="200"
@@ -76,7 +77,7 @@
           />
         </svg>
       </div>
-      <div class="absolute bottom-20 left-0 opacity-20">
+      <div class="absolute bottom-20 left-0 opacity-20 hidden md:block">
         <svg
           width="150"
           height="150"
@@ -95,24 +96,68 @@
         </svg>
       </div>
     </div>
+
+    <!-- Mobile FAQ Answer Popup -->
+    <div
+      v-if="activePopupIndex !== null && isMobile"
+      class="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4"
+      @click.self="closePopup"
+    >
+      <div class="bg-white rounded-lg w-full max-w-md max-h-[80vh] overflow-hidden flex flex-col">
+        <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+          <h3 class="text-xl font-medium font-raleway text-additional-black pr-6">
+            {{ faqItems[activePopupIndex]?.question }}
+          </h3>
+          <button
+            class="text-gray-500 hover:text-gray-700"
+            @click="closePopup"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="px-6 py-4 overflow-y-auto">
+          <p class="text-gray-700 font-roboto">
+            {{ faqItems[activePopupIndex]?.answer }}
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script setup>
 /**
- * FAQ component with accordion functionality
+ * FAQ component with mobile-friendly popup and desktop accordion
  * Displays common questions and answers about beauty services
  */
-import { ref } from "vue";
+import { ref, onMounted } from "vue";
 
 /**
- * Currently active accordion index
+ * Currently active accordion index (for desktop view)
  * @type {Ref<number|null>}
  */
 const activeIndex = ref(null);
 
 /**
- * Toggle accordion open/close state
+ * Currently active popup index (for mobile view)
+ * @type {Ref<number|null>}
+ */
+const activePopupIndex = ref(null);
+
+/**
+ * Toggle accordion open/close state (for desktop)
  * @param {number} index - Index of the accordion to toggle
  */
 const toggleAccordion = (index) => {
@@ -123,6 +168,43 @@ const toggleAccordion = (index) => {
     activeIndex.value = index;
   }
 };
+
+/**
+ * Opens the popup for displaying FAQ answer (for mobile)
+ * @param {number} index - Index of the FAQ item
+ */
+const openPopup = (index) => {
+  activePopupIndex.value = index;
+  // Prevent body scrolling when popup is open
+  document.body.style.overflow = "hidden";
+};
+
+/**
+ * Closes the popup
+ */
+const closePopup = () => {
+  activePopupIndex.value = null;
+  // Restore body scrolling
+  document.body.style.overflow = "";
+};
+
+/**
+ * Check if device is mobile based on screen width
+ * @type {Ref<boolean>}
+ */
+const isMobile = ref(false);
+
+/**
+ * Update mobile status on window resize and initial load
+ */
+const checkMobile = () => {
+  isMobile.value = window.innerWidth < 768;
+};
+
+onMounted(() => {
+  checkMobile();
+  window.addEventListener("resize", checkMobile);
+});
 
 /**
  * FAQ items data
