@@ -115,11 +115,11 @@
                       {{ service.description }}
                     </p>
                     <!-- Mobile price -->
-                    <div class="flex items-center gap-4">
-                      <p class="text-sm line-through text-gray-500 font-roboto">
-                        {{ service.price }} ₽
-                      </p>
-                      <div class="flex gap-2 justify-between">
+                    <div class="flex items-center justify-between">
+                      <div>
+                        <p class="text-sm line-through text-gray-500 font-roboto">
+                          {{ service.price }} ₽
+                        </p>
                         <div class="flex items-center shrink-0">
                           <p class="text-xl font-medium text-[#563C34] font-roboto">
                             {{ calculateDiscountedPrice(service.price, service.discount).discounted }} ₽
@@ -128,10 +128,13 @@
                             -{{ service.discount || loyaltyDiscount.value }}%
                           </span>
                         </div>
-                        <!-- <span class="text-end text-xs text-gray-500 mt-1">
-                          для постоянных клиентов
-                        </span> -->
                       </div>
+                      <button
+                        class="py-2 px-4 bg-[#93BA73] text-sm font-medium rounded hover:bg-opacity-90 transition-all font-roboto"
+                        @click="openServiceForm(service.title)"
+                      >
+                        Выбрать
+                      </button>
                     </div>
                   </div>
                 </div>
@@ -209,17 +212,25 @@
                 {{ service.description }}
               </p>
               <!-- Desktop price -->
-              <div class="flex flex-col">
+              <div class="flex flex-col w-full">
                 <p class="text-sm line-through text-gray-500 font-roboto">
                   {{ service.price }} ₽
                 </p>
-                <div class="flex items-center">
-                  <p class="text-2xl font-medium text-[#563C34] font-roboto">
-                    {{ calculateDiscountedPrice(service.price, service.discount).discounted }} ₽
-                  </p>
-                  <span class="ml-2 text-xs font-medium px-1.5 py-0.5 bg-[#F87171] text-white rounded">
-                    -{{ service.discount || loyaltyDiscount.value }}%
-                  </span>
+                <div class="flex items-center justify-between">
+                  <div class="flex items-center">
+                    <p class="text-2xl font-medium text-[#563C34] font-roboto">
+                      {{ calculateDiscountedPrice(service.price, service.discount).discounted }} ₽
+                    </p>
+                    <span class="ml-2 text-xs font-medium px-1.5 py-0.5 bg-[#F87171] text-white rounded">
+                      -{{ service.discount || loyaltyDiscount.value }}%
+                    </span>
+                  </div>
+                  <button
+                    class="py-2 px-4 bg-[#93BA73] text-sm font-medium rounded hover:bg-opacity-90 transition-all font-roboto"
+                    @click="openServiceForm(service.title)"
+                  >
+                    Выбрать
+                  </button>
                 </div>
                 <!-- <p class="text-xs text-gray-500 mt-1">
                   для постоянных клиентов
@@ -235,15 +246,9 @@
     <div
       id="testimonials"
       class="relative scroll-container relative w-full pt-[7vh] md:py-20 min-h-[500px] md:min-h-[634px]"
-      style="background: radial-gradient(circle, #563C34 0%, #402E28 30%, #16080E 100%)"
+      style="background: radial-gradient(ellipse 50% 50% at 60%, #563C34 0%, #402E28 30%, #16080E 100%)"
       :class="{ 'h-screen': isMobile }"
     >
-      <div class="absolute left-0 w-full bottom-[5vh] md:bottom-14">
-      <!-- Left side with flower vase image (moved to background) -->
-      <!-- <div class="h-[38px] w-full bg-[#FFFAE4]" />
-        <div class="h-[16px] w-full bg-[#A78B75]" /> -->
-      </div>
-
       <div
         class="mx-auto md:px-24 max-w-[1240px] relative"
       >
@@ -262,7 +267,7 @@
           довольных клиентов
         </h2>
 
-        <div class="flex flex-col md:flex-col-reverse">
+        <div class="flex flex-col md:flex-col-reverse gap-[2vh]">
           <!-- Slider navigation -->
           <div class="flex flex-row justify-center md:justify-end items-center mt-[2vh] md:mt-8">
             <a
@@ -351,6 +356,14 @@
       </div>
     </div>
   </div>
+
+  <!-- Service Form Modal -->
+  <BeautyServiceForm
+    :is-open="isServiceFormOpen"
+    :service-title="selectedService"
+    @close="closeServiceForm"
+    @submit="handleServiceFormSubmit"
+  />
 </template>
 
 <script setup>
@@ -361,6 +374,7 @@
 
 import { ref, shallowRef, computed, onMounted, onUnmounted, watch } from "vue";
 import TestimonialCard from "./TestimonialCard.vue";
+import BeautyServiceForm from "./BeautyServiceForm.vue";
 
 defineProps({
   isMobile: {
@@ -1886,4 +1900,41 @@ watch(activeServiceType, () => {
     }
   }, 10);
 });
+
+/**
+ * Selected service for form
+ * @type {Ref<string>}
+ */
+const selectedService = ref("");
+
+/**
+ * Controls visibility of the service form
+ * @type {Ref<boolean>}
+ */
+const isServiceFormOpen = ref(false);
+
+/**
+ * Opens the service form
+ * @param {string} serviceTitle - Title of the selected service
+ */
+const openServiceForm = (serviceTitle) => {
+  selectedService.value = serviceTitle;
+  isServiceFormOpen.value = true;
+};
+
+/**
+ * Closes the service form
+ */
+const closeServiceForm = () => {
+  isServiceFormOpen.value = false;
+};
+
+/**
+ * Handles service form submission
+ * @param {Object} formData - The submitted form data
+ */
+const handleServiceFormSubmit = (formData) => {
+  console.log("Service form submitted:", formData);
+  // Here you would typically send the data to your backend
+};
 </script>
