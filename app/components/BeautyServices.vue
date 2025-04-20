@@ -7,7 +7,7 @@
     <!-- Services Section -->
     <div
       id="services-section"
-      class="scroll-container bg-[#FFFAE4] py-20 overflow-hidden"
+      class="scroll-container bg-[#FFFAE4] py-[7vh] md:py-20 overflow-hidden"
       :class="{ 'h-screen': isMobile }"
     >
       <div class="container mx-auto px-4 md:px-24 max-w-[1240px]">
@@ -90,6 +90,7 @@
               class="flex transition-transform duration-500 ease-in-out"
               :style="{ transform: `translateX(-${currentServiceSlide * 100}%)` }"
             >
+              <!-- Mobile cards -->
               <div
                 v-for="(service, index) in filteredServices"
                 :key="index"
@@ -98,23 +99,32 @@
                 <div class="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform h-full flex flex-col">
                   <div class="p-4 flex flex-col h-full">
                     <div class="flex flex-col justify-between items-start mb-2">
-                      <h3 class="text-xl font-bold font-raleway text-additional-black">
+                      <h3 class="text-xl font-bold font-raleway text-add2-black">
                         {{ service.title }}
                       </h3>
-                      <span class="text-xs font-medium bg-[#FFFAE4] text-[#563C34] px-2 py-1 rounded mt-1">
+                      <!-- <span class="text-xs font-medium bg-[#FFFAE4] text-[#563C34] px-2 py-1 rounded mt-1">
                         {{ service.category }}
-                      </span>
+                      </span> -->
                     </div>
                     <p class="text-gray-700 mb-4 font-roboto flex-grow text-sm">
                       {{ service.description }}
                     </p>
-                    <div class="flex justify-between items-center">
-                      <p class="text-xl font-medium text-[#563C34] font-roboto">
-                        от {{ service.price }} ₽
+                    <!-- Mobile price -->
+                    <div class="flex flex-col">
+                      <p class="text-sm line-through text-gray-500 font-roboto">
+                        {{ service.price }} ₽
                       </p>
-                      <button class="py-1.5 px-3 bg-[#93BA73] text-white text-sm font-medium rounded hover:bg-opacity-90 transition-all font-roboto">
-                        Подробнее
-                      </button>
+                      <div class="flex items-center">
+                        <p class="text-xl font-medium text-[#563C34] font-roboto">
+                          {{ calculateDiscountedPrice(service.price, service.discount).discounted }} ₽
+                        </p>
+                        <span class="ml-2 text-xs font-medium px-1.5 py-0.5 bg-[#F87171] text-white rounded">
+                          -{{ service.discount || loyaltyDiscount.value }}%
+                        </span>
+                      </div>
+                      <p class="text-xs text-gray-500 mt-1">
+                        для постоянных клиентов
+                      </p>
                     </div>
                   </div>
                 </div>
@@ -187,13 +197,22 @@
               <p class="text-gray-700 mb-4 font-roboto flex-grow self-center">
                 {{ service.description }}
               </p>
-              <div class="flex justify-between items-center">
-                <p class="text-2xl font-medium text-[#563C34] font-roboto">
-                  от {{ service.price }} ₽
+              <!-- Desktop price -->
+              <div class="flex flex-col">
+                <p class="text-sm line-through text-gray-500 font-roboto">
+                  {{ service.price }} ₽
                 </p>
-                <button class="py-2 px-4 bg-[#93BA73] text-white font-medium rounded hover:bg-opacity-90 transition-all font-roboto">
-                  Подробнее
-                </button>
+                <div class="flex items-center">
+                  <p class="text-2xl font-medium text-[#563C34] font-roboto">
+                    {{ calculateDiscountedPrice(service.price, service.discount).discounted }} ₽
+                  </p>
+                  <span class="ml-2 text-xs font-medium px-1.5 py-0.5 bg-[#F87171] text-white rounded">
+                    -{{ service.discount || loyaltyDiscount.value }}%
+                  </span>
+                </div>
+                <p class="text-xs text-gray-500 mt-1">
+                  для постоянных клиентов
+                </p>
               </div>
             </div>
           </div>
@@ -340,6 +359,12 @@ defineProps({
 });
 
 /**
+ * Default discount for loyal clients (in percent)
+ * @type {Ref<number>}
+ */
+const loyaltyDiscount = ref(10);
+
+/**
  * Array of beauty services with details
  * @type {Array<{title: string, description: string, price: string}>}
  */
@@ -430,7 +455,7 @@ const prevServiceSlide = () => {
 
 /**
  * Array of specific beauty services offered by the salon
- * @type {Array<{title: string, description: string, price: string, category: string}>}
+ * @type {Array<{title: string, description: string, price: string, category: string, discount?: number}>}
  */
 const services = ref([
   {
@@ -438,78 +463,91 @@ const services = ref([
     description: "Комплексная процедура депиляции для трех зон",
     price: "2 100",
     category: "Шугаринг",
+    discount: null, // null means use default discount
   },
   {
     title: "Электроэпиляция (пробная)",
     description: "Ознакомительная процедура для оценки эффективности",
     price: "500",
     category: "Электроэпиляция",
+    discount: null,
   },
   {
     title: "Глубокое бикини/подмышки/ноги полностью",
     description: "Комплексная процедура для максимального комфорта",
     price: "2 500",
     category: "Шугаринг",
+    discount: null,
   },
   {
     title: "Бикини глубокое",
     description: "Тщательная обработка зоны глубокого бикини",
     price: "1 200",
     category: "Шугаринг",
+    discount: null,
   },
   {
     title: "Электроэпиляция (тело)",
     description: "Процедура для различных зон тела",
     price: "1 500",
     category: "Электроэпиляция",
+    discount: null,
   },
   {
     title: "Подмышки",
     description: "Быстрая и комфортная процедура",
     price: "400",
     category: "Шугаринг",
+    discount: null,
   },
   {
     title: "Электроэпиляция (лицо)",
     description: "Бережная обработка чувствительных зон лица",
     price: "800",
     category: "Электроэпиляция",
+    discount: null,
   },
   {
     title: "Голени",
     description: "Гладкая кожа ног на длительное время",
     price: "800",
     category: "Шугаринг",
+    discount: null,
   },
   {
     title: "Зона паха (воск)",
     description: "Быстрая процедура с использованием воска",
     price: "600",
     category: "Восковая эпиляция",
+    discount: null,
   },
   {
     title: "Ноги полностью",
     description: "Комплексная депиляция ног от щиколотки до бедра",
     price: "1 200",
     category: "Шугаринг",
+    discount: null,
   },
   {
     title: "Зона над верхней губой",
     description: "Деликатная обработка нежной зоны лица",
     price: "300",
     category: "Шугаринг",
+    discount: null,
   },
   {
     title: "Лицо полностью",
     description: "Комплексная процедура для всех зон лица",
     price: "900",
     category: "Шугаринг",
+    discount: null,
   },
   {
     title: "Руки",
     description: "Депиляция рук до локтя или полностью",
     price: "700",
     category: "Шугаринг",
+    discount: null,
   },
 ]);
 
@@ -1697,5 +1735,22 @@ const scrollToService = (serviceName) => {
 const selectMobileService = (serviceName) => {
   activeServiceType.value = serviceName;
   isServiceDropdownOpen.value = false;
+};
+
+/**
+ * Calculate discounted price for a service
+ * @param {string} price - Original price as string
+ * @param {number|null} serviceDiscount - Individual service discount, if any
+ * @returns {{original: number, discounted: number}} - Original and discounted prices
+ */
+const calculateDiscountedPrice = (price, serviceDiscount) => {
+  const originalPrice = parseInt(price.replace(/\s+/g, ""), 10);
+  const discount = serviceDiscount !== null ? serviceDiscount : loyaltyDiscount.value;
+  const discountedPrice = Math.round(originalPrice * (1 - discount / 100));
+
+  return {
+    original: originalPrice,
+    discounted: discountedPrice,
+  };
 };
 </script>
