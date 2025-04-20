@@ -26,7 +26,10 @@
       class="mt-4 space-y-1"
     >
       <div class="text-sm text-gray-700">
-        <span class="text-add2 font-bold text-[clamp(0.25rem,3.5vw,1.5rem)] md:text-sm">{{ service }}</span>
+        <span
+          class="text-add2 font-bold text-[clamp(0.25rem,3.5vw,1.5rem)] md:text-sm cursor-pointer hover:underline"
+          @click="$emit('serviceClick', service)"
+        >{{ service }}</span>
       </div>
     </div>
 
@@ -113,6 +116,11 @@ defineProps({
     required: true,
   },
 });
+
+/**
+ * Define emits for the component
+ */
+defineEmits(["serviceClick"]);
 </script>
 
 <style>

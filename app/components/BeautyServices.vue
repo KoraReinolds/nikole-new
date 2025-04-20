@@ -6,6 +6,7 @@
   <div class="relative w-full overflow-hidden">
     <!-- Services Section -->
     <div
+      id="services-section"
       class="scroll-container bg-[#FFFAE4] py-20 overflow-hidden"
       :class="{ 'h-screen': isMobile }"
     >
@@ -271,6 +272,7 @@
                     :total-count="testimonials.length"
                     :service="testimonial.service"
                     :text="testimonial.text"
+                    @service-click="scrollToService"
                   />
                 </div>
               </div>
@@ -1587,6 +1589,31 @@ const handleTouchEnd = () => {
   touchStartX.value = 0;
   touchEndX.value = 0;
 };
-</script>
 
-rewritten_file>
+/**
+ * Scrolls to a specific service when clicked in a testimonial
+ * @param {string} serviceName - The name of the service to scroll to
+ */
+const scrollToService = (serviceName) => {
+  if (!serviceName) return;
+
+  // Find the service in the services array
+  const serviceToShow = services.value.find(service => service.title === serviceName);
+
+  if (serviceToShow) {
+    // Set the active service type to the category of the service
+    activeServiceType.value = serviceToShow.category;
+
+    // Scroll to services section
+    document.getElementById("services-section").scrollIntoView({ behavior: "smooth" });
+
+    // For mobile: find the index of the service in the filtered services and set the carousel to that slide
+    setTimeout(() => {
+      const serviceIndex = filteredServices.value.findIndex(service => service.title === serviceName);
+      if (serviceIndex !== -1) {
+        currentServiceSlide.value = serviceIndex;
+      }
+    }, 500); // Small delay to ensure the filtered services are updated after category change
+  }
+};
+</script>
