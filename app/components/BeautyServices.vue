@@ -87,8 +87,12 @@
         <div class="md:hidden relative">
           <div class="overflow-hidden">
             <div
+              ref="servicesContainer"
               class="flex transition-transform duration-500 ease-in-out"
               :style="{ transform: `translateX(-${currentServiceSlide * 100}%)` }"
+              @touchstart="handleServiceTouchStart"
+              @touchmove="handleServiceTouchMove"
+              @touchend="handleServiceTouchEnd"
             >
               <!-- Mobile cards -->
               <div
@@ -348,7 +352,7 @@
  * Shows service cards with images, descriptions, pricing and client reviews
  */
 
-import { ref, shallowRef, computed, onMounted, onUnmounted } from "vue";
+import { ref, shallowRef, computed, onMounted, onUnmounted, watch } from "vue";
 import TestimonialCard from "./TestimonialCard.vue";
 
 defineProps({
@@ -433,6 +437,13 @@ const currentServiceSlide = ref(0);
  * Method to go to next service slide
  */
 const nextServiceSlide = () => {
+  // Save current transform position
+  const container = servicesContainer.value;
+  if (container) {
+    container.style.transition = "transform 500ms ease-in-out";
+  }
+
+  // Update slide index
   if (currentServiceSlide.value < filteredServices.value.length - 1) {
     currentServiceSlide.value++;
   }
@@ -445,6 +456,13 @@ const nextServiceSlide = () => {
  * Method to go to previous service slide
  */
 const prevServiceSlide = () => {
+  // Save current transform position
+  const container = servicesContainer.value;
+  if (container) {
+    container.style.transition = "transform 500ms ease-in-out";
+  }
+
+  // Update slide index
   if (currentServiceSlide.value > 0) {
     currentServiceSlide.value--;
   }
@@ -1623,7 +1641,7 @@ const testimonialsContainer = ref(null);
  * @param {number} index - The index of the testimonial
  * @returns {boolean} - Whether the testimonial should be visible
  */
-const isVisibleTestimonial = (index) => {
+const _isVisibleTestimonial = (index) => {
   // Calculate the modulo distance to handle wrapping
   const total = testimonials.value.length;
   const prev = (currentSlide.value - 1 + total) % total;
@@ -1733,7 +1751,18 @@ const scrollToService = (serviceName) => {
  * @param {string} serviceName - The name of the service to select
  */
 const selectMobileService = (serviceName) => {
-  activeServiceType.value = serviceName;
+  // Если выбрана новая группа услуг, сбрасываем индекс текущего слайда
+  if (activeServiceType.value !== serviceName) {
+    activeServiceType.value = serviceName;
+    // Сбрасываем индекс текущего слайда
+    setTimeout(() => {
+      currentServiceSlide.value = 0;
+    }, 10); // Небольшая задержка, чтобы успел обновиться filteredServices
+  }
+  else {
+    activeServiceType.value = serviceName;
+  }
+
   isServiceDropdownOpen.value = false;
 };
 
@@ -1753,4 +1782,88 @@ const calculateDiscountedPrice = (price, serviceDiscount) => {
     discounted: discountedPrice,
   };
 };
+
+/**
+ * Touch handling variables for services carousel
+ */
+const serviceTouchStartX = ref(0);
+const serviceTouchEndX = ref(0);
+const servicesContainer = ref(null);
+
+/**
+ * Handle touch start event for services carousel
+ * @param {TouchEvent} e - The touch event
+ */
+const handleServiceTouchStart = (e) => {
+  serviceTouchStartX.value = e.touches[0].clientX;
+};
+
+/**
+ * Handle touch move event for services carousel
+ * @param {TouchEvent} e - The touch event
+ */
+const handleServiceTouchMove = (e) => {
+  if (!serviceTouchStartX.value) return;
+
+  const container = servicesContainer.value;
+  if (!container) return;
+
+  serviceTouchEndX.value = e.touches[0].clientX;
+  const diff = serviceTouchStartX.value - serviceTouchEndX.value;
+  const slideWidth = container.offsetWidth;
+
+  // Apply direct transform during swipe for smooth movement
+  const dragOffset = -(diff / slideWidth * 100);
+
+  // Apply transform with resistance at edges
+  if ((currentServiceSlide.value === 0 && diff < 0)
+    || (currentServiceSlide.value === filteredServices.value.length - 1 && diff > 0)) {
+    // Add resistance at edges (divide by 3 for less movement)
+    container.style.transform = `translateX(${-(currentServiceSlide.value * 100) + (dragOffset / 3)}%)`;
+  }
+  else {
+    container.style.transform = `translateX(${-(currentServiceSlide.value * 100) + dragOffset}%)`;
+  }
+};
+
+/**
+ * Handle touch end event for services carousel
+ */
+const handleServiceTouchEnd = () => {
+  if (!serviceTouchStartX.value || !serviceTouchEndX.value) return;
+
+  const container = servicesContainer.value;
+  if (!container) return;
+
+  const diff = serviceTouchStartX.value - serviceTouchEndX.value;
+  const threshold = 50; // Minimum swipe distance
+
+  if (diff > threshold) {
+    // Swipe left - go to next slide
+    nextServiceSlide();
+  }
+  else if (diff < -threshold) {
+    // Swipe right - go to previous slide
+    prevServiceSlide();
+  }
+  else {
+    // Return to original position if swipe was too small
+    container.style.transform = `translateX(-${currentServiceSlide.value * 100}%)`;
+  }
+
+  // Reset touch values
+  serviceTouchStartX.value = 0;
+  serviceTouchEndX.value = 0;
+};
+
+// Следим за изменением типа услуг и сбрасываем индекс, когда тип меняется
+watch(activeServiceType, () => {
+  // Даем время для обновления filteredServices
+  setTimeout(() => {
+    // Проверяем, находится ли текущий индекс в пределах нового списка
+    if (currentServiceSlide.value >= filteredServices.value.length) {
+      currentServiceSlide.value = 0;
+    }
+  }, 10);
+});
 </script>
