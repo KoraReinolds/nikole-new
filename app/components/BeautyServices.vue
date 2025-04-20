@@ -12,7 +12,7 @@
     >
       <div class="container mx-auto px-4 md:px-24 max-w-[1240px]">
         <!-- Section title -->
-        <h2 class="text-3xl md:text-5xl font-bold font-raleway text-additional-black mb-8 md:mb-16 text-center">
+        <h2 class="text-3xl md:text-5xl font-bold font-raleway text-additional-black mb-[2vh] md:mb-16 text-center">
           Наши <span class="pink-text-gradient py-1">услуги</span>
         </h2>
 
@@ -106,29 +106,32 @@
                       <h3 class="text-xl font-bold font-raleway text-add2-black">
                         {{ service.title }}
                       </h3>
-                      <!-- <span class="text-xs font-medium bg-[#FFFAE4] text-[#563C34] px-2 py-1 rounded mt-1">
-                        {{ service.category }}
-                      </span> -->
                     </div>
-                    <p class="text-gray-700 mb-4 font-roboto flex-grow text-sm">
+                    <img
+                      :src="service.image || '/images/бикини.jpg'"
+                      class="w-full h-[15vh] object-cover flex-grow"
+                    >
+                    <p class="text-gray-700 mb-4 font-roboto mt-4 text-sm">
                       {{ service.description }}
                     </p>
                     <!-- Mobile price -->
-                    <div class="flex flex-col">
+                    <div class="flex items-center gap-4">
                       <p class="text-sm line-through text-gray-500 font-roboto">
                         {{ service.price }} ₽
                       </p>
-                      <div class="flex items-center">
-                        <p class="text-xl font-medium text-[#563C34] font-roboto">
-                          {{ calculateDiscountedPrice(service.price, service.discount).discounted }} ₽
-                        </p>
-                        <span class="ml-2 text-xs font-medium px-1.5 py-0.5 bg-[#F87171] text-white rounded">
-                          -{{ service.discount || loyaltyDiscount.value }}%
-                        </span>
+                      <div class="flex gap-2 justify-between">
+                        <div class="flex items-center shrink-0">
+                          <p class="text-xl font-medium text-[#563C34] font-roboto">
+                            {{ calculateDiscountedPrice(service.price, service.discount).discounted }} ₽
+                          </p>
+                          <span class="ml-2 text-xs font-medium px-1.5 py-0.5 bg-[#F87171] text-white rounded">
+                            -{{ service.discount || loyaltyDiscount.value }}%
+                          </span>
+                        </div>
+                        <!-- <span class="text-end text-xs text-gray-500 mt-1">
+                          для постоянных клиентов
+                        </span> -->
                       </div>
-                      <p class="text-xs text-gray-500 mt-1">
-                        для постоянных клиентов
-                      </p>
                     </div>
                   </div>
                 </div>
@@ -189,16 +192,20 @@
             :key="index"
             class="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform hover:scale-[1.02]"
           >
-            <div class="p-6 h-full flex flex-col">
+            <div class="p-6 h-full flex flex-col items-start glass-container">
               <div class="flex flex-col justify-between items-start mb-2">
                 <h3 class="text-2xl font-bold font-raleway text-additional-black">
                   {{ service.title }}
                 </h3>
-                <span class="text-xs font-medium bg-[#FFFAE4] text-[#563C34] px-2 py-1 rounded">
+              <!-- <span class="text-xs font-medium bg-[#FFFAE4] text-[#563C34] px-2 py-1 rounded">
                   {{ service.category }}
-                </span>
+                </span> -->
               </div>
-              <p class="text-gray-700 mb-4 font-roboto flex-grow self-center">
+              <img
+                :src="service.image || '/images/бикини.jpg'"
+                class="w-full h-40 object-cover flex-grow"
+              >
+              <p class="text-gray-700 my-auto mr-auto font-roboto self-center py-4">
                 {{ service.description }}
               </p>
               <!-- Desktop price -->
@@ -214,9 +221,9 @@
                     -{{ service.discount || loyaltyDiscount.value }}%
                   </span>
                 </div>
-                <p class="text-xs text-gray-500 mt-1">
+                <!-- <p class="text-xs text-gray-500 mt-1">
                   для постоянных клиентов
-                </p>
+                </p> -->
               </div>
             </div>
           </div>
@@ -231,8 +238,8 @@
       :class="{ 'h-screen': isMobile }"
     >
       <div class="absolute left-0 w-full bottom-[5vh] md:bottom-14">
-        <!-- Left side with flower vase image (moved to background) -->
-        <!-- <div class="h-[38px] w-full bg-[#FFFAE4]" />
+      <!-- Left side with flower vase image (moved to background) -->
+      <!-- <div class="h-[38px] w-full bg-[#FFFAE4]" />
         <div class="h-[16px] w-full bg-[#A78B75]" /> -->
       </div>
 
@@ -482,6 +489,7 @@ const services = ref([
     price: "2 100",
     category: "Шугаринг",
     discount: null, // null means use default discount
+    image: "/images/тело.jpg",
   },
   {
     title: "Электроэпиляция (пробная)",
@@ -489,6 +497,7 @@ const services = ref([
     price: "500",
     category: "Электроэпиляция",
     discount: null,
+    image: "/images/тело.jpg",
   },
   {
     title: "Глубокое бикини/подмышки/ноги полностью",
@@ -496,6 +505,7 @@ const services = ref([
     price: "2 500",
     category: "Шугаринг",
     discount: null,
+    image: "/images/тело.jpg",
   },
   {
     title: "Бикини глубокое",
@@ -503,6 +513,7 @@ const services = ref([
     price: "1 200",
     category: "Шугаринг",
     discount: null,
+    image: "/images/бикини.jpg",
   },
   {
     title: "Электроэпиляция (тело)",
@@ -510,6 +521,7 @@ const services = ref([
     price: "1 500",
     category: "Электроэпиляция",
     discount: null,
+    image: "/images/тело.jpg",
   },
   {
     title: "Подмышки",
@@ -517,6 +529,7 @@ const services = ref([
     price: "400",
     category: "Шугаринг",
     discount: null,
+    image: "/images/подмышки.jpg",
   },
   {
     title: "Электроэпиляция (лицо)",
@@ -524,6 +537,7 @@ const services = ref([
     price: "800",
     category: "Электроэпиляция",
     discount: null,
+    image: "/images/лицо.jpg",
   },
   {
     title: "Голени",
@@ -531,6 +545,7 @@ const services = ref([
     price: "800",
     category: "Шугаринг",
     discount: null,
+    image: "/images/голени.jpg",
   },
   {
     title: "Зона паха (воск)",
@@ -538,6 +553,7 @@ const services = ref([
     price: "600",
     category: "Восковая эпиляция",
     discount: null,
+    image: "/images/бикини.jpg",
   },
   {
     title: "Ноги полностью",
@@ -545,6 +561,7 @@ const services = ref([
     price: "1 200",
     category: "Шугаринг",
     discount: null,
+    image: "/images/ноги.jpg",
   },
   {
     title: "Зона над верхней губой",
@@ -552,6 +569,7 @@ const services = ref([
     price: "300",
     category: "Шугаринг",
     discount: null,
+    image: "/images/губы.jpg",
   },
   {
     title: "Лицо полностью",
@@ -559,6 +577,7 @@ const services = ref([
     price: "900",
     category: "Шугаринг",
     discount: null,
+    image: "/images/лицо.jpg",
   },
   {
     title: "Руки",
@@ -566,6 +585,7 @@ const services = ref([
     price: "700",
     category: "Шугаринг",
     discount: null,
+    image: "/images/руки.jpg",
   },
 ]);
 

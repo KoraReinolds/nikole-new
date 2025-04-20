@@ -144,7 +144,10 @@
               </li>
               <li class="flex items-start">
                 <span class="mr-2 hidden md:inline">•</span>
-                <span class="w-full text-center md:text-left text-[clamp(0.5rem,2vh,2.5rem)]">c&nbsp;выгодой от&nbsp;<span class="pink-text-gradient font-bold">10.000&nbsp;рублей</span> за&nbsp;весь курс</span>
+                <span
+                  class="
+                w-full text-center md:text-left text-[clamp(0.5rem,2vh,2.5rem)]"
+                ><span class="pink-text-gradient font-bold">с&nbsp;выгодой&nbsp;10%&nbsp;</span>для&nbsp;постоянных клиентов</span>
               </li>
             </ul>
 
