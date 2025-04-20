@@ -10,7 +10,7 @@
       class="scroll-container bg-[#FFFAE4] py-20 overflow-hidden"
       :class="{ 'h-screen': isMobile }"
     >
-      <div class="container mx-auto px-4 max-w-[1080px]">
+      <div class="container mx-auto px-4 md:px-24 max-w-[1240px]">
         <!-- Section title -->
         <h2 class="text-3xl md:text-5xl font-bold font-raleway text-additional-black mb-8 md:mb-16 text-center">
           Наши <span class="pink-text-gradient py-1">услуги</span>
@@ -86,7 +86,7 @@
           </div>
 
           <!-- Carousel navigation -->
-          <div class="flex justify-center mt-4">
+          <div class="flex justify-center items-center mt-4">
             <button
               class="w-8 h-8 rounded-full bg-main-gray bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all mx-2"
               @click="prevServiceSlide"
@@ -172,122 +172,111 @@
     >
       <div class="absolute left-0 w-full bottom-[5vh] md:bottom-14">
         <!-- Left side with flower vase image (moved to background) -->
-        <div class="h-[38px] w-full bg-[#FFFAE4]" />
-        <div class="h-[16px] w-full bg-[#A78B75]" />
-      </div>
-      <div class="bottom-10 absolute -right-[161px] z-0 w-full left-0 overflow-hidden">
-        <!-- <span class="absolute left-[22%] opacity-90 bottom-[6%] text-white text-sm md:text-xl font-normal font-roboto">
-        ----▶
-      </span> -->
-        <div class="relative max-w-[1240px] mx-auto flex items-end justify-end">
-          <img
-            src="/images/testimonials.png"
-            alt="Цветы в вазе"
-            class="w-[50vh] bottom-[1vh] md:w-[425px] object-contain
-            md:translate-y-[10px] translate-y-[20px] md:-translate-x-[800px]"
-          >
-          <!-- <img
-            src="/images/testimonials.png"
-            alt="Николе профстудия"
-            class="absolute md:-bottom-[150px] left-[100px] md:-left-[200px] md:w-[530px]"
-          > -->
-        </div>
+        <!-- <div class="h-[38px] w-full bg-[#FFFAE4]" />
+        <div class="h-[16px] w-full bg-[#A78B75]" /> -->
       </div>
 
       <div
-
-        class="mx-auto max-w-[1080px]"
+        id="testimonials"
+        class="mx-auto md:px-24 max-w-[1240px] relative"
       >
-        <div id="testimonials" />
+        <div class="-bottom-[15vh]  md:-bottom-[140px] absolute z-0 w-full left-0 overflow-hidden">
+          <img
+            src="/images/testimonials.png"
+            alt="Цветы в вазе"
+            class="md:w-[575px] left-0 object-contain"
+          >
+        </div>
         <!-- Section title -->
-        <h2 class="text-3xl md:text-5xl font-bold font-raleway text-main-white2 mb-[2vh] md:mb-16 text-center md:text-end w-full px-4 text-[clamp(1.25rem,6.5vw,2.5rem)]">
+        <h2 class="text-3xl md:text-5xl font-bold font-raleway text-main-white2 mb-[2vh] md:mb-16 text-center md:text-end w-full text-[clamp(1.25rem,6.5vw,2.5rem)]">
           <span class=" text-[clamp(1.25rem,12.5vw,3.5rem)]">
             Более <span class="pink-text-gradient">100</span><br>
           </span>
           довольных клиентов
         </h2>
-        <div class="container mx-auto px-4 max-w-[1080px] flex flex-col md:flex-row md:justify-end relative">
-          <!-- Testimonials slider -->
-          <div class="relative w-full md:w-[800px]">
-            <!-- Left arrow -->
-            <button
-              class="absolute -left-4 md:-left-10 top-1/2 transform -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-main-gray bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all"
-              @click="prevSlide"
-            >
-              <svg
-                class="w-4 h-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M15 19l-7-7 7-7"
-                />
-              </svg>
-            </button>
-            <!-- Right arrow -->
-            <button
-              class="absolute -right-4 md:-right-10 top-1/2 transform -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-main-gray bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all"
-              @click="nextSlide"
-            >
-              <svg
-                class="w-4 h-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M9 5l7 7-7 7"
-                />
-              </svg>
-            </button>
-            <!-- Testimonial cards with navigation arrows on sides -->
-            <div class="relative md:overflow-hidden">
-              <div
-                ref="testimonialsContainer"
-                class="flex transition-transform duration-500 ease-in-out"
-                :style="{ transform: `translateX(-${currentSlide * 100}%)` }"
-                @touchstart="handleTouchStart"
-                @touchmove="handleTouchMove"
-                @touchend="handleTouchEnd"
-              >
-                <div
-                  v-for="(testimonial) in displayTestimonials"
-                  :key="testimonial.date"
-                  class="w-full flex-shrink-0 pl-0 flex items-center justify-center"
-                  :class="{ 'h-[60vh]': isMobile }"
-                >
-                  <TestimonialCard
-                    :key="testimonial.date"
-                    class="mx-1"
-                    :username="testimonial.username"
-                    :date="testimonial.date"
-                    :current-index="currentSlide"
-                    :total-count="testimonials.length"
-                    :service="testimonial.service"
-                    :text="testimonial.text"
-                    @service-click="scrollToService"
-                  />
-                </div>
-              </div>
-            </div>
 
-            <!-- Slider navigation -->
-            <div class="flex flex-row justify-center md:justify-end items-center mt-[2vh] md:mt-8">
-              <div class="shrink-0 mt-2">
-                <a
-                  href="https://dikidi.ru/ru/profile/olga_evdokimova_171403/reviews"
-                  target="_blank"
-                  class="display-block py-2 px-3 md:px-8 md:py-4 bg-[#93BA73] text-additional-black text-sm md:text-xl md:text-base font-bold rounded hover:bg-opacity-90 transition-all font-roboto"
+        <div class="flex flex-col md:flex-col-reverse">
+          <!-- Slider navigation -->
+          <div class="flex flex-row justify-center md:justify-end items-center mt-[2vh] md:mt-8">
+            <a
+              href="https://dikidi.ru/ru/profile/olga_evdokimova_171403/reviews"
+              target="_blank"
+              class="display-block py-2 px-3 md:px-8 md:py-4 bg-[#93BA73] text-additional-black text-sm md:text-xl md:text-base font-bold rounded hover:bg-opacity-90 transition-all font-roboto"
+            >
+              Посмотреть все отзывы
+            </a>
+          </div>
+          <div class="container mx-auto max-w-[1080px] flex flex-col md:flex-row md:justify-end relative">
+            <!-- Testimonials slider -->
+            <div class="relative w-full md:w-[600px] md:h-[400px]">
+              <!-- Left arrow -->
+              <button
+                class="absolute left-1 md:-left-10 top-1/2 transform -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-main-gray bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all"
+                @click="prevSlide"
+              >
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
                 >
-                  Посмотреть все отзывы
-                </a>
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M15 19l-7-7 7-7"
+                  />
+                </svg>
+              </button>
+              <!-- Right arrow -->
+              <button
+                class="absolute right-1 md:-right-10 top-1/2 transform -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-main-gray bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all"
+                @click="nextSlide"
+              >
+                <svg
+                  class="w-4 h-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    stroke-width="2"
+                    d="M9 5l7 7-7 7"
+                  />
+                </svg>
+              </button>
+              <!-- Testimonial cards with navigation arrows on sides -->
+              <div class="relative md:overflow-hidden md:h-[400px]">
+                <div
+                  ref="testimonialsContainer"
+                  class="flex transition-transform duration-500 ease-in-out md:h-[400px]"
+                  :style="{ transform: `translateX(-${(visibleSlideIndex) * 100}%)` }"
+                  @touchstart="handleTouchStart"
+                  @touchmove="handleTouchMove"
+                  @touchend="handleTouchEnd"
+                >
+                  <!-- v-for="(testimonial) in testimonials" -->
+                  <div
+                    v-for="(testimonial, index) in displayTestimonials"
+                    :key="testimonial.date + index"
+                    class="w-full flex-shrink-0 pl-0 flex items-center justify-center"
+                    :class="{ 'h-[60vh]': isMobile }"
+                  >
+                    <TestimonialCard
+                      :key="testimonial.date + index"
+                      class="mx-[10vw] md:mx-1"
+                      :username="testimonial.username"
+                      :date="testimonial.date"
+                      :current-index="currentSlide"
+                      :total-count="testimonials.length"
+                      :service="testimonial.service"
+                      :text="testimonial.text"
+                      @service-click="scrollToService"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
           </div>
@@ -457,10 +446,17 @@ const services = ref([
 ]);
 
 /**
- * Current testimonial slide index
+ * Current testimonial slide index in the full testimonials array
  * @type {Ref<number>}
  */
 const currentSlide = ref(1);
+
+/**
+ * Current visible slide index in the display window (always between 0-2)
+ * This is used for the transform calculation to keep sliding smooth
+ * @type {Ref<number>}
+ */
+const visibleSlideIndex = ref(2);
 
 /**
  * Filtered services based on selected service type
@@ -474,57 +470,103 @@ const filteredServices = computed(() => {
 });
 
 /**
+ * Computed array of visible testimonials
+ * Always displays exactly 5 testimonials, regardless of the total count
+ * The array will always have the format: [prev-2, prev-1, current, next+1, next+2]
+ * @returns {Array} Array of 5 testimonials to display
+ */
+const displayTestimonials = computed(() => {
+  const total = testimonials.value.length;
+  const result = [];
+
+  // Add previous 2 slides
+  for (let i = 2; i > 0; i--) {
+    const index = (currentSlide.value - i + total) % total;
+    result.push(testimonials.value[index]);
+  }
+
+  // Add current slide
+  result.push(testimonials.value[currentSlide.value]);
+
+  // Add next 2 slides
+  for (let i = 1; i <= 2; i++) {
+    const index = (currentSlide.value + i) % total;
+    result.push(testimonials.value[index]);
+  }
+
+  return result;
+});
+
+/**
  * Go to the next testimonial slide
  */
 const nextSlide = () => {
-  // Update slide index
-  if (currentSlide.value < testimonials.value.length - 1) {
-    currentSlide.value++;
-  }
-  else {
-    currentSlide.value = 0;
-  }
-
-  // Reset transform position after slide change
+  // Save current transform position
   const container = testimonialsContainer.value;
   if (container) {
-    setTimeout(() => {
+    container.style.transition = "transform 500ms ease-in-out";
+  }
+
+  // Move visible window to the right
+  visibleSlideIndex.value = 3; // Show the next slide
+
+  // After animation completes, update the actual testimonials and reset visible index
+  setTimeout(() => {
+    // Update global slide index
+    if (currentSlide.value < testimonials.value.length - 1) {
+      currentSlide.value++;
+    }
+    else {
+      currentSlide.value = 0;
+    }
+
+    // Reset transform immediately without animation
+    if (container) {
       container.style.transition = "none";
-      container.style.transform = "translateX(0)";
+      visibleSlideIndex.value = 2; // Reset to center
 
       // Re-enable transition after reset
       setTimeout(() => {
         container.style.transition = "transform 500ms ease-in-out";
       }, 10);
-    }, 50);
-  }
+    }
+  }, 500);
 };
 
 /**
  * Go to the previous testimonial slide
  */
 const prevSlide = () => {
-  // Update slide index
-  if (currentSlide.value > 0) {
-    currentSlide.value--;
-  }
-  else {
-    currentSlide.value = testimonials.value.length - 1;
-  }
-
-  // Reset transform position after slide change
+  // Save current transform position
   const container = testimonialsContainer.value;
   if (container) {
-    setTimeout(() => {
+    container.style.transition = "transform 500ms ease-in-out";
+  }
+
+  // Move visible window to the left
+  visibleSlideIndex.value = 1; // Show the previous slide
+
+  // After animation completes, update the actual testimonials and reset visible index
+  setTimeout(() => {
+    // Update global slide index
+    if (currentSlide.value > 0) {
+      currentSlide.value--;
+    }
+    else {
+      currentSlide.value = testimonials.value.length - 1;
+    }
+
+    // Reset transform immediately without animation
+    if (container) {
       container.style.transition = "none";
-      container.style.transform = "translateX(0)";
+      visibleSlideIndex.value = 2; // Reset to center
 
       // Re-enable transition after reset
       setTimeout(() => {
         container.style.transition = "transform 500ms ease-in-out";
       }, 10);
-    }, 50);
-  }
+    }
+  }, 500);
 };
 
 // Remove unused parsingReviews function
@@ -1461,27 +1503,6 @@ const testimonials = shallowRef([
     text: "Спасибо за отличную процедуру и прекрасное общение! Уже больше года хожу на шугаринг и с каждым разом все больше убеждаюсь, что не  ошиблась в выборе именно этой процедуры, и  главное не ошиблась в выборе мастера, с которым процедура пролетает комфортно и без всякого стеснения!!!🤗",
   },
 ]);
-const displayTestimonials = computed(() => {
-  const total = testimonials.value.length;
-  const result = [];
-
-  // Add previous 2 slides
-  for (let i = 2; i > 0; i--) {
-    const index = (currentSlide.value - i + total) % total;
-    result.push(testimonials.value[index]);
-  }
-
-  // Add current slide
-  result.push(testimonials.value[currentSlide.value]);
-
-  // Add next 2 slides
-  for (let i = 1; i <= 2; i++) {
-    const index = (currentSlide.value + i) % total;
-    result.push(testimonials.value[index]);
-  }
-
-  return result;
-});
 
 /**
  * Touch handling variables
@@ -1527,6 +1548,9 @@ const handleTouchMove = (e) => {
   const diff = touchStartX.value - touchEndX.value;
   const slideWidth = container.offsetWidth;
 
+  // Calculate base position using visibleSlideIndex (which is always centered at 2)
+  const baseOffset = -(visibleSlideIndex.value * 100);
+
   // Apply direct transform during swipe for smooth movement
   const dragOffset = -(diff / slideWidth * 100);
 
@@ -1534,10 +1558,10 @@ const handleTouchMove = (e) => {
   if ((currentSlide.value === 0 && diff < 0)
     || (currentSlide.value === testimonials.value.length - 1 && diff > 0)) {
     // Add resistance at edges (divide by 3 for less movement)
-    container.style.transform = `translateX(${dragOffset / 3}%)`;
+    container.style.transform = `translateX(${baseOffset + (dragOffset / 3)}%)`;
   }
   else {
-    container.style.transform = `translateX(${dragOffset}%)`;
+    container.style.transform = `translateX(${baseOffset + dragOffset}%)`;
   }
 };
 
@@ -1555,35 +1579,16 @@ const handleTouchEnd = () => {
 
   if (diff > threshold) {
     // Swipe left - go to next slide
-    if (currentSlide.value < testimonials.value.length - 1) {
-      currentSlide.value++;
-    }
-    else {
-      currentSlide.value = 0;
-    }
+    nextSlide(); // Reuse nextSlide logic
   }
   else if (diff < -threshold) {
     // Swipe right - go to previous slide
-    if (currentSlide.value > 0) {
-      currentSlide.value--;
-    }
-    else {
-      currentSlide.value = testimonials.value.length - 1;
-    }
+    prevSlide(); // Reuse prevSlide logic
   }
-
-  // Reset transform after swipe and currentSlide change
-  setTimeout(() => {
-    if (container) {
-      container.style.transition = "none";
-      container.style.transform = "translateX(0)";
-
-      // Re-enable transition after reset
-      setTimeout(() => {
-        container.style.transition = "transform 500ms ease-in-out";
-      }, 10);
-    }
-  }, 50);
+  else {
+    // Return to original position if swipe was too small
+    container.style.transform = `translateX(-${visibleSlideIndex.value * 100}%)`;
+  }
 
   // Reset touch values
   touchStartX.value = 0;
