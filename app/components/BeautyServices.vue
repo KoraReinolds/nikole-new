@@ -233,6 +233,7 @@
 
     <!-- Testimonials Section -->
     <div
+      id="testimonials"
       class="relative scroll-container relative w-full pt-[7vh] md:py-20 min-h-[500px] md:min-h-[634px]"
       style="background: radial-gradient(circle, #563C34 0%, #402E28 30%, #16080E 100%)"
       :class="{ 'h-screen': isMobile }"
@@ -244,12 +245,11 @@
       </div>
 
       <div
-        id="testimonials"
         class="mx-auto md:px-24 max-w-[1240px] relative"
       >
-        <div class="-bottom-[15vh]  md:-bottom-[140px] absolute z-0 w-full left-0 overflow-hidden">
+        <div class="-bottom-[15vh] md:-bottom-[80px] absolute z-0 w-full left-0 overflow-hidden">
           <img
-            src="/images/testimonials.png"
+            src="/images/reviews.png"
             alt="Цветы в вазе"
             class="md:w-[575px] left-0 object-contain"
           >
