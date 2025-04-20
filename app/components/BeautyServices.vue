@@ -17,8 +17,9 @@
         </h2>
 
         <!-- Service type switcher -->
-        <div class="flex justify-center mb-6 md:mb-10 overflow-x-auto pb-2">
-          <div class="bg-white rounded-full p-1.5 md:p-2 inline-flex shadow-md">
+        <div class="flex justify-center mb-6 md:mb-10">
+          <!-- Desktop version -->
+          <div class="hidden md:block bg-white rounded-full p-1.5 md:p-2 inline-flex shadow-md">
             <button
               v-for="group in servicesGroups"
               :key="group.title"
@@ -32,17 +33,53 @@
             >
               {{ group.title }}
             </button>
-            <!-- <button
-              :class="[
-                'py-1.5 md:py-2 px-3 md:px-6 rounded-full font-medium transition-colors duration-200 text-xs sm:text-base whitespace-nowrap',
-                activeServiceType === 'Все'
-                  ? 'bg-[#93BA73] text-white'
-                  : 'text-gray-700 hover:bg-gray-100',
-              ]"
-              @click="activeServiceType = 'Все'"
+          </div>
+
+          <!-- Mobile dropdown version -->
+          <div
+            ref="serviceDropdownRef"
+            class="md:hidden relative w-[80%] max-w-[250px]"
+          >
+            <div
+              class="bg-white rounded-full py-2 px-4 shadow-md flex justify-between items-center cursor-pointer"
+              @click="isServiceDropdownOpen = !isServiceDropdownOpen"
             >
-              Все услуги
-            </button> -->
+              <span class="text-gray-700 font-medium">{{ activeServiceType }}</span>
+              <svg
+                class="w-4 h-4 ml-2 transition-transform duration-300 text-additional-black"
+                :class="{ 'transform rotate-180': isServiceDropdownOpen }"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M19 9l-7 7-7-7"
+                />
+              </svg>
+            </div>
+
+            <!-- Dropdown menu -->
+            <div
+              v-if="isServiceDropdownOpen"
+              class="absolute top-full left-0 right-0 mt-1 bg-white rounded-lg shadow-lg z-50 overflow-hidden"
+            >
+              <button
+                v-for="group in servicesGroups"
+                :key="group.title"
+                :class="[
+                  'block w-full text-left px-4 py-2 text-sm',
+                  activeServiceType === group.title
+                    ? 'bg-[#93BA73] text-white'
+                    : 'text-gray-700 hover:bg-gray-100',
+                ]"
+                @click="selectMobileService(group.title)"
+              >
+                {{ group.title }}
+              </button>
+            </div>
           </div>
         </div>
 
@@ -292,7 +329,7 @@
  * Shows service cards with images, descriptions, pricing and client reviews
  */
 
-import { ref, shallowRef, computed } from "vue";
+import { ref, shallowRef, computed, onMounted, onUnmounted } from "vue";
 import TestimonialCard from "./TestimonialCard.vue";
 
 defineProps({
@@ -329,6 +366,37 @@ const servicesGroups = ref([
  * @type {Ref<string>}
  */
 const activeServiceType = ref("Электроэпиляция");
+
+/**
+ * Whether the service dropdown is open
+ * @type {Ref<boolean>}
+ */
+const isServiceDropdownOpen = ref(false);
+
+/**
+ * Reference to the dropdown container
+ * @type {Ref<HTMLElement | null>}
+ */
+const serviceDropdownRef = ref(null);
+
+/**
+ * Close dropdown when clicking outside
+ * @param {MouseEvent} event - The click event
+ */
+const handleClickOutside = (event) => {
+  if (serviceDropdownRef.value && !serviceDropdownRef.value.contains(event.target)) {
+    isServiceDropdownOpen.value = false;
+  }
+};
+
+// Add and remove click event listener for dropdown
+onMounted(() => {
+  document.addEventListener("click", handleClickOutside);
+});
+
+onUnmounted(() => {
+  document.removeEventListener("click", handleClickOutside);
+});
 
 /**
  * Current service slide index for mobile carousel
@@ -1620,5 +1688,14 @@ const scrollToService = (serviceName) => {
       }
     }, 500); // Small delay to ensure the filtered services are updated after category change
   }
+};
+
+/**
+ * Selects a mobile service from the dropdown
+ * @param {string} serviceName - The name of the service to select
+ */
+const selectMobileService = (serviceName) => {
+  activeServiceType.value = serviceName;
+  isServiceDropdownOpen.value = false;
 };
 </script>
