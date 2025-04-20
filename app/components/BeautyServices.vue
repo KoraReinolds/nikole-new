@@ -253,13 +253,13 @@
                 @touchend="handleTouchEnd"
               >
                 <div
-                  v-for="(testimonial, index) in testimonials"
-                  :key="index"
+                  v-for="(testimonial) in displayTestimonials"
+                  :key="testimonial.date"
                   class="w-full flex-shrink-0 pl-0 flex items-center justify-center"
                   :class="{ 'h-[60vh]': isMobile }"
                 >
                   <TestimonialCard
-                    v-if="isVisibleTestimonial(index)"
+                    :key="testimonial.date"
                     class="mx-1"
                     :username="testimonial.username"
                     :date="testimonial.date"
@@ -471,11 +471,26 @@ const filteredServices = computed(() => {
  * Go to the next testimonial slide
  */
 const nextSlide = () => {
+  // Update slide index
   if (currentSlide.value < testimonials.value.length - 1) {
     currentSlide.value++;
   }
   else {
     currentSlide.value = 0;
+  }
+
+  // Reset transform position after slide change
+  const container = testimonialsContainer.value;
+  if (container) {
+    setTimeout(() => {
+      container.style.transition = "none";
+      container.style.transform = "translateX(0)";
+
+      // Re-enable transition after reset
+      setTimeout(() => {
+        container.style.transition = "transform 500ms ease-in-out";
+      }, 10);
+    }, 50);
   }
 };
 
@@ -483,11 +498,26 @@ const nextSlide = () => {
  * Go to the previous testimonial slide
  */
 const prevSlide = () => {
+  // Update slide index
   if (currentSlide.value > 0) {
     currentSlide.value--;
   }
   else {
     currentSlide.value = testimonials.value.length - 1;
+  }
+
+  // Reset transform position after slide change
+  const container = testimonialsContainer.value;
+  if (container) {
+    setTimeout(() => {
+      container.style.transition = "none";
+      container.style.transform = "translateX(0)";
+
+      // Re-enable transition after reset
+      setTimeout(() => {
+        container.style.transition = "transform 500ms ease-in-out";
+      }, 10);
+    }, 50);
   }
 };
 
@@ -1425,6 +1455,27 @@ const testimonials = shallowRef([
     text: "Спасибо за отличную процедуру и прекрасное общение! Уже больше года хожу на шугаринг и с каждым разом все больше убеждаюсь, что не  ошиблась в выборе именно этой процедуры, и  главное не ошиблась в выборе мастера, с которым процедура пролетает комфортно и без всякого стеснения!!!🤗",
   },
 ]);
+const displayTestimonials = computed(() => {
+  const total = testimonials.value.length;
+  const result = [];
+
+  // Add previous 2 slides
+  for (let i = 2; i > 0; i--) {
+    const index = (currentSlide.value - i + total) % total;
+    result.push(testimonials.value[index]);
+  }
+
+  // Add current slide
+  result.push(testimonials.value[currentSlide.value]);
+
+  // Add next 2 slides
+  for (let i = 1; i <= 2; i++) {
+    const index = (currentSlide.value + i) % total;
+    result.push(testimonials.value[index]);
+  }
+
+  return result;
+});
 
 /**
  * Touch handling variables
@@ -1470,8 +1521,8 @@ const handleTouchMove = (e) => {
   const diff = touchStartX.value - touchEndX.value;
   const slideWidth = container.offsetWidth;
 
-  // Calculate drag position
-  const dragOffset = -(currentSlide.value * 100) - (diff / slideWidth * 100);
+  // Apply direct transform during swipe for smooth movement
+  const dragOffset = -(diff / slideWidth * 100);
 
   // Apply transform with resistance at edges
   if ((currentSlide.value === 0 && diff < 0)
@@ -1497,15 +1548,36 @@ const handleTouchEnd = () => {
   const threshold = 50; // Minimum swipe distance
 
   if (diff > threshold) {
-    nextSlide();
+    // Swipe left - go to next slide
+    if (currentSlide.value < testimonials.value.length - 1) {
+      currentSlide.value++;
+    }
+    else {
+      currentSlide.value = 0;
+    }
   }
   else if (diff < -threshold) {
-    prevSlide();
+    // Swipe right - go to previous slide
+    if (currentSlide.value > 0) {
+      currentSlide.value--;
+    }
+    else {
+      currentSlide.value = testimonials.value.length - 1;
+    }
   }
-  else {
-    // Reset to current slide if swipe wasn't significant
-    container.style.transform = `translateX(-${currentSlide.value * 100}%)`;
-  }
+
+  // Reset transform after swipe and currentSlide change
+  setTimeout(() => {
+    if (container) {
+      container.style.transition = "none";
+      container.style.transform = "translateX(0)";
+
+      // Re-enable transition after reset
+      setTimeout(() => {
+        container.style.transition = "transform 500ms ease-in-out";
+      }, 10);
+    }
+  }, 50);
 
   // Reset touch values
   touchStartX.value = 0;
