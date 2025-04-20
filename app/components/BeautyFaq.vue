@@ -19,7 +19,7 @@
       </div> -->
 
       <!-- FAQ Accordion -->
-      <div class="space-y-3 md:space-y-4 max-w-3xl mx-auto overflow-y-auto pb-4 flex-grow">
+      <div class="space-y-[1vh] md:space-y-4 max-w-3xl mx-auto overflow-y-auto pb-4 flex-grow">
         <div
           v-for="(item, index) in faqItems"
           :key="index"
@@ -27,14 +27,14 @@
         >
           <!-- Accordion header -->
           <button
-            class="w-full px-4 md:px-6 py-3 md:py-4 text-left flex justify-between items-center hover:bg-gray-50 transition-all"
+            class="w-full px-4 md:px-6 py-[1vh] md:py-4 text-left flex justify-between items-center gap-2 hover:bg-gray-50 transition-all"
             @click="isMobile ? openPopup(index) : toggleAccordion(index)"
           >
-            <h3 class="text-lg md:text-xl font-medium font-raleway text-additional-black pr-2">
+            <h3 class="text-[clamp(0.8rem,2vh,1.5rem)] md:text-xl font-medium font-raleway text-additional-black">
               {{ item.question }}
             </h3>
             <svg
-              class="w-5 h-5 flex-shrink-0 transform transition-transform"
+              class="w-5 h-5 flex-shrink-0 transform transition-transform text-additional-black"
               :class="{ 'rotate-180': activeIndex === index && !isMobile }"
               fill="none"
               viewBox="0 0 24 24"

@@ -31,7 +31,7 @@
             >
               {{ group.title }}
             </button>
-            <button
+            <!-- <button
               :class="[
                 'py-1.5 md:py-2 px-3 md:px-6 rounded-full font-medium transition-colors duration-200 text-xs sm:text-base whitespace-nowrap',
                 activeServiceType === 'Все'
@@ -41,7 +41,7 @@
               @click="activeServiceType = 'Все'"
             >
               Все услуги
-            </button>
+            </button> -->
           </div>
         </div>
 
@@ -193,7 +193,11 @@
         </div>
       </div>
 
-      <div class="mx-auto max-w-[1080px]">
+      <div
+
+        class="mx-auto max-w-[1080px]"
+      >
+        <div id="testimonials" />
         <!-- Section title -->
         <h2 class="text-3xl md:text-5xl font-bold font-raleway text-main-white2 mb-[2vh] md:mb-16 text-center md:text-end w-full px-4 text-[clamp(1.25rem,6.5vw,2.5rem)]">
           <span class=" text-[clamp(1.25rem,12.5vw,3.5rem)]">
@@ -333,7 +337,7 @@ const servicesGroups = ref([
  * Currently active service type filter
  * @type {Ref<string>}
  */
-const activeServiceType = ref("Все");
+const activeServiceType = ref("Электроэпиляция");
 
 /**
  * Current service slide index for mobile carousel

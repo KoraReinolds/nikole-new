@@ -7,18 +7,18 @@
     <div class="container mx-auto px-4 max-w-[1080px] relative z-10">
       <!-- Section content -->
       <div class="flex flex-col lg:flex-row items-center justify-between">
-        <div class="lg:w-1/2 mb-10 lg:mb-0">
-          <h2 class="text-main-white2 text-5xl font-bold font-raleway mb-6">
+        <div class="lg:w-1/2 mb-[5vh] md:mb-10 lg:mb-0">
+          <h2 class="text-main-white2 text-[clamp(0.8rem,5vh,2rem)] md:text-5xl font-bold font-raleway mb-6">
             Остались <span class="pink-text-gradient">вопросы?</span>
           </h2>
-          <p class="text-xl text-white font-roboto mb-10">
+          <p class="text-[clamp(0.8rem,2vh,1.5rem)] md:text-xl text-white font-roboto mb-[5vh] md:mb-10">
             Оставьте заявку на консультацию, и мы перезвоним вам в течение 15 минут,
             чтобы ответить на все вопросы и подобрать оптимальное решение.
           </p>
 
-          <div class="flex flex-col sm:flex-row gap-4 mb-12">
+          <div class="flex flex-col sm:flex-row gap-4">
             <button
-              class="py-4 px-8 font-bold bg-[#93BA73] text-additional-black text-lg font-roboto rounded-md hover:bg-opacity-90 transition-all shadow-lg"
+              class="py-4 px-8 font-bold bg-[#93BA73] text-additional-black text-[clamp(0.8rem,2vh,1.5rem)] md:text-lg font-roboto rounded-md hover:bg-opacity-90 transition-all shadow-lg"
               @click="scrollToQuiz"
             >
               Пройти тест и получить подарок
@@ -29,9 +29,9 @@
         <!-- Contact form -->
         <div
           v-if="showForm"
-          class="lg:w-1/2 bg-white p-8 rounded-lg shadow-xl max-w-md w-full"
+          class="lg:w-1/2 bg-white p-[2vh] md:p-8 rounded-lg shadow-xl max-w-md w-full"
         >
-          <h3 class="text-2xl font-bold font-raleway text-additional-black mb-6">
+          <h3 class="text-xl md:text-2xl font-bold font-raleway text-additional-black mb-[2vh] md:mb-6">
             Оставить заявку
           </h3>
 

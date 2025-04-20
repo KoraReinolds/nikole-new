@@ -38,6 +38,12 @@
               </button>
               <button
                 class="text-main text-3xl font-normal font-roboto hover:text-opacity-80 transition-all cursor-pointer"
+                @click="scrollToReviews"
+              >
+                Отзывы
+              </button>
+              <button
+                class="text-main text-3xl font-normal font-roboto hover:text-opacity-80 transition-all cursor-pointer"
                 @click="scrollToContacts"
               >
                 Контакты
@@ -93,6 +99,12 @@
                 @click="scrollToServices"
               >
                 Услуги
+              </button>
+              <button
+                class="w-full text-left text-main text-2xl font-normal font-roboto py-2 hover:text-opacity-80 transition-all"
+                @click="scrollToReviews"
+              >
+                Отзывы
               </button>
               <button
                 class="w-full text-left text-main text-2xl font-normal font-roboto py-2 hover:text-opacity-80 transition-all"
@@ -406,6 +418,14 @@ const scrollToServices = () => {
  */
 const scrollToContacts = () => {
   contactsSection.value.$el.scrollIntoView({ behavior: "smooth" });
+  isMobileMenuOpen.value = false;
+};
+
+/**
+ * Scrolls to the reviews section smoothly
+ */
+const scrollToReviews = () => {
+  document.getElementById("testimonials").scrollIntoView({ behavior: "smooth" });
   isMobileMenuOpen.value = false;
 };
 </script>
