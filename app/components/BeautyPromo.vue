@@ -91,7 +91,7 @@
           <!-- Mobile Menu Dropdown -->
           <div
             v-if="isMobileMenuOpen"
-            class="md:hidden absolute top-full left-0 right-0 bg-[#16080E] bg-opacity-95 backdrop-blur-sm z-50"
+            class="md:hidden absolute top-full left-0 right-0 bg-[#16080E] bg-opacity-95 backdrop-blur-sm z-[100]"
           >
             <div class="container mx-auto px-4 py-4">
               <button
@@ -193,19 +193,11 @@
         </div>
 
         <!-- Right Image Section -->
-        <div class="absolute -right-[750px] bottom-0">
-          <!-- <div
-            class="absolute top-0 left-0 z-10"
-            :style="{
-              width: '100%',
-              height: '100%',
-              background: 'linear-gradient(to bottom, rgba(22, 8, 14, 1.0) 0%, rgba(148, 119, 12, 0.0) 20%)',
-            }"
-          /> -->
+        <div class="absolute -right-[750px] bottom-0 pointer-events-none">
           <img
             src="/images/main.png"
             alt="Женщина"
-            class="object-cover z-10 max-w-none h-full opacity-70"
+            class="object-cover z-[5] max-w-none h-full opacity-70"
           >
         </div>
       </div>
@@ -296,7 +288,7 @@ const updateMobileState = () => {
  * Handles touch start event
  * @param {TouchEvent} e - Touch event
  */
-const handleTouchStart = (e) => {
+const _handleTouchStart = (e) => {
   startY = e.touches[0].clientY;
   startScrollY = window.scrollY;
 };
@@ -305,7 +297,7 @@ const handleTouchStart = (e) => {
  * Handles touch end event
  * @param {TouchEvent} e - Touch event
  */
-const handleTouchEnd = (e) => {
+const _handleTouchEnd = (e) => {
   endY = e.changedTouches[0].clientY;
   const delta = startY - endY;
   const scrollDelta = window.scrollY - startScrollY;
@@ -339,9 +331,9 @@ const handleTouchEnd = (e) => {
   }
 };
 
-const isScrolling = false;
+const _isScrolling = false;
 let scrollTimeout = null;
-const container = ref(null);
+const _container = ref(null);
 const sections = ref([]);
 let lastScrollTop = 0;
 
@@ -632,6 +624,7 @@ const scrollToReviews = () => {
   background: radial-gradient(ellipse 20% 30% at 40%, #563C34 0%, #402E28 30%, #16080E 100%);
   transform: rotate(-25deg);
   z-index: 1;
+  pointer-events: none;
 }
 
 .background-container::after {
@@ -643,6 +636,7 @@ const scrollToReviews = () => {
   height: 100%;
   background: linear-gradient(to bottom, rgba(148, 119, 12, 0.0) 80%, rgba(22, 8, 14, 1.0) 100%);
   z-index: 2;
+  pointer-events: none;
 }
 
 /* Quiz background */
