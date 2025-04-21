@@ -7,13 +7,13 @@
     <!-- Services Section -->
     <div
       id="services-section"
-      class="scroll-container bg-[#FFFAE4] py-[7vh] md:py-20 overflow-hidden"
+      class="relative scroll-container services-background py-[7vh] md:py-20"
       :class="{ 'h-screen': isMobile }"
     >
-      <div class="container mx-auto px-4 md:px-24 max-w-[1240px]">
+      <div class="container mx-auto md:px-24 max-w-[1240px]">
         <!-- Section title -->
-        <h2 class="text-3xl md:text-5xl font-bold font-raleway text-additional-black mb-[2vh] md:mb-16 text-center">
-          Наши <span class="pink-text-gradient py-1">услуги</span>
+        <h2 class="text-3xl md:text-5xl font-bold font-raleway text-sup2-black mb-[2vh] md:mb-16 text-center">
+          Наши <span class="text-sup2-white py-1">услуги</span>
         </h2>
 
         <!-- Service type switcher -->
@@ -26,7 +26,7 @@
               :class="[
                 'py-1.5 md:py-2 px-3 md:px-6 rounded-full font-medium transition-colors duration-200 text-xs sm:text-base whitespace-nowrap',
                 activeServiceType === group.title
-                  ? 'bg-[#93BA73] text-white'
+                  ? 'bg-sup2-white text-white'
                   : 'text-gray-700 hover:bg-gray-100',
               ]"
               @click="activeServiceType = group.title"
@@ -41,12 +41,12 @@
             class="md:hidden relative w-[80%] max-w-[250px]"
           >
             <div
-              class="bg-white rounded-full py-2 px-4 shadow-md flex justify-between items-center cursor-pointer"
+              class="bg-sup2 rounded-full py-2 px-4 shadow-md flex justify-between items-center cursor-pointer"
               @click="isServiceDropdownOpen = !isServiceDropdownOpen"
             >
-              <span class="text-gray-700 font-medium">{{ activeServiceType }}</span>
+              <span class="text-white font-medium">{{ activeServiceType }}</span>
               <svg
-                class="w-4 h-4 ml-2 transition-transform duration-300 text-additional-black"
+                class="w-4 h-4 ml-2 transition-transform duration-300 text-white"
                 :class="{ 'transform rotate-180': isServiceDropdownOpen }"
                 fill="none"
                 viewBox="0 0 24 24"
@@ -72,7 +72,7 @@
                 :class="[
                   'block w-full text-left px-4 py-2 text-sm',
                   activeServiceType === group.title
-                    ? 'bg-[#93BA73] text-white'
+                    ? 'bg-sup2-white text-white'
                     : 'text-gray-700 hover:bg-gray-100',
                 ]"
                 @click="selectMobileService(group.title)"
@@ -84,8 +84,28 @@
         </div>
 
         <!-- Services carousel for mobile -->
-        <div class="md:hidden relative">
-          <div class="overflow-hidden">
+        <div class="md:hidden relative flex justify-start mt-[6vh] md:mt-0 flex-col h-full">
+          <div class="overflow-hidden relative">
+            <!-- Left arrow -->
+            <button
+              class="absolute left-1 top-1/2 transform -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-sup2-white flex items-center justify-center hover:bg-opacity-100 transition-all"
+              @click="prevServiceSlide"
+            >
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </button>
+
             <div
               ref="servicesContainer"
               class="flex transition-transform duration-500 ease-in-out"
@@ -98,20 +118,24 @@
               <div
                 v-for="(service, index) in filteredServices"
                 :key="index"
-                class="w-full flex-shrink-0 px-2"
+                class="w-full flex-shrink-0 px-8"
               >
-                <div class="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform h-full flex flex-col">
-                  <div class="p-4 flex flex-col h-full">
-                    <div class="flex flex-col justify-between items-start mb-2">
-                      <h3 class="text-xl font-bold font-raleway text-add2-black">
+                <div class="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform flex flex-col">
+                  <div class="p-4 flex flex-col">
+                    <div class="flex justify-between items-start mb-2">
+                      <h3 class="text-md md:text-xl font-bold font-raleway text-sup2-black">
                         {{ service.title }}
                       </h3>
+
+                      <div class="font-medium text-sup2-black text-sm">
+                        {{ currentServiceSlide + 1 }}/{{ filteredServices.length }}
+                      </div>
                     </div>
                     <img
                       :src="service.image || '/images/бикини.jpg'"
-                      class="w-full h-[15vh] object-cover flex-grow"
+                      class="w-full h-[15vh] object-cover md:flex-grow"
                     >
-                    <p class="text-gray-700 mb-4 font-roboto mt-4 text-sm">
+                    <p class="text-gray-700 mb-4 font-roboto mt-4 text-sm flex items-center">
                       {{ service.description }}
                     </p>
                     <!-- Mobile price -->
@@ -130,7 +154,7 @@
                         </div>
                       </div>
                       <button
-                        class="py-2 px-4 bg-[#93BA73] text-sm font-medium rounded hover:bg-opacity-90 transition-all font-roboto"
+                        class="py-2 px-4 bg-sup2-white text-sm font-medium rounded hover:bg-opacity-90 transition-all font-roboto"
                         @click="openServiceForm(service.title)"
                       >
                         Выбрать
@@ -140,35 +164,10 @@
                 </div>
               </div>
             </div>
-          </div>
 
-          <!-- Carousel navigation -->
-          <div class="flex justify-center items-center mt-4">
+            <!-- Right arrow -->
             <button
-              class="w-8 h-8 rounded-full bg-main-gray bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all mx-2"
-              @click="prevServiceSlide"
-            >
-              <svg
-                class="w-4 h-4"
-                fill="none"
-                viewBox="0 0 24 24"
-                stroke="currentColor"
-              >
-                <path
-                  stroke-linecap="round"
-                  stroke-linejoin="round"
-                  stroke-width="2"
-                  d="M15 19l-7-7 7-7"
-                />
-              </svg>
-            </button>
-
-            <div class="font-medium text-additional-black text-sm">
-              {{ currentServiceSlide + 1 }}/{{ filteredServices.length }}
-            </div>
-
-            <button
-              class="w-8 h-8 rounded-full bg-main-gray bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all mx-2"
+              class="absolute right-1 top-1/2 transform -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-sup2-white flex items-center justify-center hover:bg-opacity-100 transition-all"
               @click="nextServiceSlide"
             >
               <svg
@@ -197,7 +196,7 @@
           >
             <div class="p-6 h-full flex flex-col items-start glass-container">
               <div class="flex flex-col justify-between items-start mb-2">
-                <h3 class="text-2xl font-bold font-raleway text-additional-black">
+                <h3 class="text-2xl font-bold font-raleway text-sup2-black">
                   {{ service.title }}
                 </h3>
               <!-- <span class="text-xs font-medium bg-[#FFFAE4] text-[#563C34] px-2 py-1 rounded">
@@ -226,7 +225,7 @@
                     </span>
                   </div>
                   <button
-                    class="py-2 px-4 bg-[#93BA73] text-sm font-medium rounded hover:bg-opacity-90 transition-all font-roboto"
+                    class="py-2 px-4 bg-sup2-white text-sm font-medium rounded hover:bg-opacity-90 transition-all font-roboto"
                     @click="openServiceForm(service.title)"
                   >
                     Выбрать
@@ -240,6 +239,11 @@
           </div>
         </div>
       </div>
+
+      <img
+        src="/images/flowers.png"
+        class="md:hidden absolute object-cover flex-grow bottom-0 left-[50%] -translate-x-1/2 translate-y-[50%]"
+      >
     </div>
 
     <!-- Testimonials Section -->
@@ -273,7 +277,7 @@
             <a
               href="https://dikidi.ru/ru/profile/olga_evdokimova_171403/reviews"
               target="_blank"
-              class="display-block py-2 px-3 md:px-8 md:py-4 bg-[#93BA73] text-additional-black text-sm md:text-xl md:text-base font-bold rounded hover:bg-opacity-90 transition-all font-roboto"
+              class="display-block py-2 px-3 md:px-8 md:py-4 bg-[#93BA73] text-sup2-black text-sm md:text-xl md:text-base font-bold rounded hover:bg-opacity-90 transition-all font-roboto"
             >
               Посмотреть все отзывы
             </a>
@@ -1938,3 +1942,9 @@ const handleServiceFormSubmit = (formData) => {
   // Here you would typically send the data to your backend
 };
 </script>
+
+<style scoped>
+.services-background {
+  background: linear-gradient(to bottom, #FDFFF5 0%, #FFFEE6 37%, #FFFAE4 100%);
+}
+</style>

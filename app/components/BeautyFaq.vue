@@ -7,7 +7,7 @@
     <div class="container mx-auto px-4 max-w-[1080px] h-full flex flex-col">
       <!-- Section title -->
       <h2 class="text-3xl md:text-5xl font-bold font-raleway text-additional-black mb-8 md:mb-16 text-center">
-        Часто задаваемые <span class="pink-text-gradient">вопросы</span>
+        Часто задаваемые <span class="text-sup2-white">вопросы</span>
       </h2>
 
       <!-- <div class="absolute h-full w-full">
