@@ -286,10 +286,11 @@ const updateMobileState = () => {
 };
 
 /**
- * Updates screen height CSS variable on resize
- * Used to maintain layout when keyboard opens on mobile
+ * Sets initial screen height CSS variable
+ * Used to maintain fixed layout even when keyboard opens on mobile
+ * Only called once at app initialization
  */
-const updateScreenHeight = () => {
+const setInitialScreenHeight = () => {
   if (import.meta.client) {
     const screenHeight = window.innerHeight;
     document.documentElement.style.setProperty("--screen-height", `${screenHeight}px`);
@@ -386,11 +387,10 @@ const handleScroll = () => {
 
 onMounted(() => {
   window.addEventListener("resize", updateMobileState);
-  window.addEventListener("resize", updateScreenHeight);
   window.addEventListener("scroll", handleScroll);
 
-  // Initial setup of screen height
-  updateScreenHeight();
+  // Set initial screen height only once
+  setInitialScreenHeight();
 
   sections.value = [...document.querySelectorAll(".scroll-container")];
   updateMobileState();
@@ -400,7 +400,6 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener("resize", updateMobileState);
-  window.removeEventListener("resize", updateScreenHeight);
   window.removeEventListener("scroll", handleScroll);
   document.removeEventListener("visibilitychange", () => {});
   // window.removeEventListener("touchstart", handleTouchStart);
