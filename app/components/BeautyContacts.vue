@@ -3,7 +3,7 @@
   Component for displaying Yandex Map location
 -->
 <template>
-  <div class="relative w-full py-16">
+  <div class="relative w-full py-[7vh] md:pt-[120px] pb-16">
     <div class="container mx-auto px-4 max-w-[1080px] relative z-10">
       <!-- Section content -->
       <div class="flex flex-col lg:flex-row items-center justify-between">

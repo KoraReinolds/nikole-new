@@ -5,7 +5,7 @@
 <template>
   <!-- CTA section -->
   <footer
-    class="relative w-full py-[5vh] md:py-20 overflow-hidden border-t border-main-gray"
+    class="relative w-full py-[5vh] md:pb-[120px] md:pt-16 overflow-hidden border-t border-main-gray"
   >
     <div class="container mx-auto px-4 md:px-24 max-w-[1240px]">
       <!-- <h2 class="text-main-white2 text-4xl md:text-5xl font-bold font-raleway mb-8 text-center">

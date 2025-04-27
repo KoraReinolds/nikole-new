@@ -7,7 +7,7 @@
     <!-- Services Section -->
     <div
       id="services-section"
-      class="relative scroll-container services-background py-[7vh] md:py-20"
+      class="relative scroll-container services-background py-[7vh] md:py-[120px]"
       :class="{ 'h-screen': isMobile }"
     >
       <div class="container mx-auto md:px-24 max-w-[1240px]">
@@ -249,7 +249,7 @@
     <!-- Testimonials Section -->
     <div
       id="testimonials"
-      class="relative scroll-container relative w-full pt-[7vh] md:py-20 min-h-[500px] md:min-h-[634px]"
+      class="relative scroll-container relative w-full pt-[7vh] md:py-[120px] min-h-[500px] md:min-h-[634px]"
       style="background: radial-gradient(ellipse 50% 50% at 60%, #563C34 0%, #402E28 30%, #16080E 100%)"
       :class="{ 'h-screen': isMobile }"
     >

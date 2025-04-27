@@ -3,7 +3,7 @@
   Component for displaying frequently asked questions in an accordion format with mobile-friendly popup
 -->
 <template>
-  <div class="relative w-full py-12 md:py-20 bg-[#FFFAE4] md:h-auto h-screen overflow-hidden">
+  <div class="relative w-full py-12 md:py-[120px] bg-[#FFFAE4] md:h-auto h-screen overflow-hidden">
     <div class="container mx-auto px-4 max-w-[1080px] h-full flex flex-col">
       <!-- Section title -->
       <h2 class="text-3xl md:text-5xl font-bold font-raleway text-additional-black mb-8 md:mb-16 text-center">
@@ -27,7 +27,7 @@
         >
           <!-- Accordion header -->
           <button
-            class="w-full px-4 md:px-6 py-[1vh] md:py-4 text-left flex justify-between items-center gap-2 hover:bg-gray-50 transition-all"
+            class="w-full h-[9vh] md:h-auto px-4 md:px-6 py-[1vh] md:py-4 text-left flex justify-between items-center gap-2 hover:bg-gray-50 transition-all"
             @click="isMobile ? openPopup(index) : toggleAccordion(index)"
           >
             <h3 class="text-[clamp(0.8rem,2vh,1.5rem)] md:text-xl font-medium font-raleway text-additional-black">

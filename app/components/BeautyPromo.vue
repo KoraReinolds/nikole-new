@@ -140,13 +140,13 @@
             <ul class="space-y-2 md:space-y-4 text-main-white2 text-sm md:text-3xl font-normal md:ml-4 mb-[6vh] md:mb-0">
               <li class="flex items-start">
                 <span class="mr-2 hidden md:inline">•</span>
-                <span class="w-full text-center md:text-left text-[clamp(0.5rem,2vh,2.5rem)]">от&nbsp;мастера <span class="pink-text-gradient font-bold">c опытом 13+ лет</span><br class="block md:hidden"> в&nbsp;центре Мурманска</span>
+                <span class="w-full text-center md:text-left text-[clamp(0.5rem,2vh,2.5rem)] md:text-2xl">от&nbsp;мастера <span class="pink-text-gradient font-bold">c опытом 13+ лет</span><br class="block md:hidden"> в&nbsp;центре Мурманска</span>
               </li>
               <li class="flex items-start">
                 <span class="mr-2 hidden md:inline">•</span>
                 <span
                   class="
-                w-full text-center md:text-left text-[clamp(0.5rem,2vh,2.5rem)]"
+                w-full text-center md:text-left text-[clamp(0.5rem,2vh,2.5rem)] md:text-2xl"
                 ><span class="pink-text-gradient font-bold">с&nbsp;выгодой&nbsp;10%&nbsp;</span>для&nbsp;постоянных клиентов</span>
               </li>
             </ul>
@@ -182,10 +182,10 @@
               <!-- List of benefits -->
               <ul class="space-y-2 text-main-white2 text-sm md:text-2xl font-normal w-full md:w-[390px]">
                 <li class="flex items-start">
-                  <span class="w-full text-center md:text-right text-[clamp(0.5rem,2vh,1.5rem)]"><span class="green-text-gradient font-bold">бесплатный</span> пробный сеанс</span>
+                  <span class="w-full text-center md:text-right text-[clamp(0.5rem,2vh,1.5rem)] md:text-xl"><span class="green-text-gradient font-bold">бесплатный</span> пробный сеанс</span>
                 </li>
                 <li class="flex items-start">
-                  <span class="w-full text-center md:text-right text-[clamp(0.5rem,2vh,1.5rem)]"><span class="green-text-gradient font-bold">персональные</span> рекомендации по&nbsp;уходу за&nbsp;кожей</span>
+                  <span class="w-full text-center md:text-right text-[clamp(0.5rem,2vh,1.5rem)] md:text-xl"><span class="green-text-gradient font-bold">персональные</span> рекомендации по&nbsp;уходу за&nbsp;кожей</span>
                 </li>
               </ul>
             </div>
