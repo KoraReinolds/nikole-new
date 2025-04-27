@@ -45,12 +45,12 @@
               </label>
               <input
                 id="phone"
-                v-model="isScrollDisabled"
+                v-model="form.phone"
                 type="tel"
                 class="w-full bg-white text-additional-black px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#93BA73] focus:border-transparent font-roboto"
                 required
-                @focus="isScrollDisabled = true"
-                @blur="isScrollDisabled = false"
+                @focus="handleInputFocus"
+                @blur="handleInputBlur"
               >
             </div>
 
@@ -160,6 +160,33 @@ const submitForm = async () => {
   }
   finally {
     isSubmitting.value = false;
+  }
+};
+
+/**
+ * Prevents scroll position from changing when keyboard is open
+ * @param {FocusEvent} e - Focus event
+ */
+const handleInputFocus = () => {
+  isScrollDisabled.value = true;
+
+  // For iOS specifically, we need to prevent content from shifting
+  if (navigator && /iPad|iPhone|iPod/.test(navigator.userAgent)) {
+    document.body.style.position = "fixed";
+    document.body.style.width = "100%";
+  }
+};
+
+/**
+ * Restores normal scrolling when keyboard is closed
+ */
+const handleInputBlur = () => {
+  isScrollDisabled.value = false;
+
+  // Reset for iOS
+  if (navigator && /iPad|iPhone|iPod/.test(navigator.userAgent)) {
+    document.body.style.position = "";
+    document.body.style.width = "";
   }
 };
 </script>

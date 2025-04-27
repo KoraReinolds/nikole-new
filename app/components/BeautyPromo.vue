@@ -282,6 +282,28 @@ let startScrollY = 0;
 const updateMobileState = () => {
   if (import.meta.client) {
     isMobile.value = window.innerWidth <= 768;
+
+    // Set fixed viewport height for mobile devices
+    if (isMobile.value) {
+      const vh = window.innerHeight * 0.01;
+      document.documentElement.style.setProperty("--vh", `${vh}px`);
+    }
+  }
+};
+
+/**
+ * Sets initial viewport height
+ * Prevents layout issues when keyboard opens on mobile
+ */
+const setInitialViewportHeight = () => {
+  if (import.meta.client && window.innerWidth <= 768) {
+    const vh = window.innerHeight * 0.01;
+    document.documentElement.style.setProperty("--vh", `${vh}px`);
+
+    // Apply initial height to all scroll containers
+    document.querySelectorAll(".scroll-container").forEach((container) => {
+      container.style.height = `calc(var(--vh, 1vh) * 100)`;
+    });
   }
 };
 
@@ -376,15 +398,26 @@ const handleScroll = () => {
 onMounted(() => {
   window.addEventListener("resize", updateMobileState);
   window.addEventListener("scroll", handleScroll);
+
+  // Handle visibility changes (helps with keyboard)
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden && isMobile.value) {
+      // When app becomes visible again, reset the fixed height
+      setInitialViewportHeight();
+    }
+  });
+
   sections.value = [...document.querySelectorAll(".scroll-container")];
   updateMobileState();
+  setInitialViewportHeight();
   // window.addEventListener("touchstart", handleTouchStart);
   // window.addEventListener("touchend", handleTouchEnd);
 });
 
 onUnmounted(() => {
   window.removeEventListener("resize", updateMobileState);
-
+  window.removeEventListener("scroll", handleScroll);
+  document.removeEventListener("visibilitychange", () => {});
   // window.removeEventListener("touchstart", handleTouchStart);
   // window.removeEventListener("touchend", handleTouchEnd, { passive: false });
 });
@@ -437,6 +470,18 @@ const scrollToReviews = () => {
 
 .font-roboto {
   font-family: 'Roboto', sans-serif;
+}
+
+/* Use fixed viewport height for mobile */
+@media (max-width: 768px) {
+  .h-screen {
+    height: calc(var(--vh, 1vh) * 100);
+  }
+
+  .scroll-container {
+    height: calc(var(--vh, 1vh) * 100);
+    min-height: calc(var(--vh, 1vh) * 100);
+  }
 }
 
 /* Gradient text with glow effect */
