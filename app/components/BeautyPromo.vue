@@ -248,6 +248,7 @@
       ref="contactsSection"
       :class="{ 'h-screen': isMobile }"
       class="scroll-container"
+      :is-scroll-disabled="isScrollDisabled"
     />
 
     <BeautyFooter
@@ -336,8 +337,10 @@ let scrollTimeout = null;
 const _container = ref(null);
 const sections = ref([]);
 let lastScrollTop = 0;
+const isScrollDisabled = ref(false);
 
 const handleScroll = () => {
+  if (isScrollDisabled.value) return;
   if (!isMobile.value) return;
   if (scrollTimeout) clearTimeout(scrollTimeout);
 

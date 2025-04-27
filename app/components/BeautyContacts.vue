@@ -49,6 +49,8 @@
                 type="tel"
                 class="w-full bg-white text-additional-black px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#93BA73] focus:border-transparent font-roboto"
                 required
+                @focus="isScrollDisabled = true"
+                @blur="isScrollDisabled = false"
               >
             </div>
 
@@ -102,6 +104,8 @@
  * @type {Ref<boolean>}
  */
 const showForm = ref(true);
+
+const isScrollDisabled = defineModel("isScrollDisabled", { required: true });
 
 /**
  * Form submission state
