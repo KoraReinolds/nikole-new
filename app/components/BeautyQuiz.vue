@@ -195,35 +195,42 @@
                         <span class="w-1/2 font-bold">Эффективность</span>
                       </div>
                       <!-- Electro epilation option -->
-                      <MethodOption
-                        v-model="userAnswers.method"
-                        value="electro"
-                        label="Электроэпиляция"
-                        tooltip-text="Электроэпиляция — метод удаления волос с помощью электрического тока, который воздействует на волосяной фолликул. Это единственный метод, который обеспечивает перманентное удаление волос."
-                        :safety-value="80"
-                        :efficiency-value="95"
-                      />
+                      <div class="glass-container">
+                        <MethodOption
+                          v-model="userAnswers.method"
+                          value="electro"
+                          label="Электроэпиляция"
+                          tooltip-text="Электроэпиляция — метод удаления волос с помощью электрического тока, который воздействует на волосяной фолликул. Это единственный метод, который обеспечивает перманентное удаление волос."
+                          :safety-value="80"
+                          :efficiency-value="95"
+                        />
+                      </div>
 
                       <!-- Sugaring option -->
-                      <MethodOption
-                        v-model="userAnswers.method"
-                        value="sugaring"
-                        label="Шугаринг"
-                        tooltip-text="Шугаринг — метод удаления волос с помощью густой сахарной пасты. Удаляет волосы вместе с корнем, но они отрастают снова через несколько недель. Подходит для чувствительной кожи."
-                        :safety-value="95"
-                        :efficiency-value="40"
-                      />
+                      <div class="glass-container">
+                        <MethodOption
+                          v-model="userAnswers.method"
+                          value="sugaring"
+                          label="Шугаринг"
+                          tooltip-text="Шугаринг — метод удаления волос с помощью густой сахарной пасты. Удаляет волосы вместе с корнем, но они отрастают снова через несколько недель. Подходит для чувствительной кожи."
+                          :safety-value="95"
+                          :efficiency-value="40"
+                        />
+                      </div>
 
                       <!-- Laser epilation option -->
-                      <MethodOption
-                        v-model="userAnswers.method"
-                        value="laser"
-                        label="Лазерная эпиляция"
-                        tooltip-text="Лазерная эпиляция — метод удаления волос с помощью лазерного луча, который воздействует на пигмент волоса. Эффективен для темных волос, но может быть менее эффективен для светлых или седых волос."
-                        :safety-value="60"
-                        :efficiency-value="70"
-                        :disabled="!allowLaser"
-                      />
+                      <div class="glass-container">
+                        <MethodOption
+                          v-model="userAnswers.method"
+                          class="glass-container"
+                          value="laser"
+                          label="Лазерная эпиляция"
+                          tooltip-text="Лазерная эпиляция — метод удаления волос с помощью лазерного луча, который воздействует на пигмент волоса. Эффективен для темных волос, но может быть менее эффективен для светлых или седых волос."
+                          :safety-value="60"
+                          :efficiency-value="70"
+                          :disabled="!allowLaser"
+                        />
+                      </div>
                     </div>
                   </div>
 
@@ -243,7 +250,7 @@
                           class="w-10 h-10 md:w-16 md:h-16 hidden md:block"
                         >
                         <p class="text-sm md:text-lg text-[#232A36] leading-tight">
-                          Персональные рекомендации уже готовы! Оставьте свой номер телефона и забирайте их в нашем Telegram боте:
+                          Персональные рекомендации уже готовы! Оставьте свой номер телефона и забирайте их в нашем Telegram боте. Мы перезвоним вам по указанному номеру телефона, чтобы записать на бесплатный пробный сеанс.
                         </p>
                       </div>
                       <div class="flex items-center gap-2">
@@ -302,6 +309,44 @@
         </div>
       </div>
     </div>
+
+    <!-- Global Tooltip Popup (Mobile) -->
+    <div
+      v-if="activeTooltip"
+      class="fixed inset-0 bg-black bg-opacity-50 z-[9999] flex items-center justify-center p-4"
+      @click.self="closeActiveTooltip"
+    >
+      <div class="bg-white rounded-lg w-full max-w-md max-h-[80vh] overflow-hidden flex flex-col">
+        <div class="px-6 py-4 border-b border-gray-200 flex justify-between items-center">
+          <h3 class="text-xl font-medium font-raleway text-additional-black pr-6">
+            {{ activeTooltip.label }}
+          </h3>
+          <button
+            class="text-gray-500 hover:text-gray-700"
+            @click="closeActiveTooltip"
+          >
+            <svg
+              class="w-5 h-5"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M6 18L18 6M6 6l12 12"
+              />
+            </svg>
+          </button>
+        </div>
+        <div class="px-6 py-4 overflow-y-auto">
+          <p class="text-gray-700 font-roboto">
+            {{ activeTooltip.text }}
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
@@ -310,7 +355,7 @@
  * Beauty Quiz component for guiding users through a personalized hair removal quiz
  * Collects user preferences and subtly guides them toward electro-epilation
  */
-import { ref, computed, watch, onMounted } from "vue";
+import { ref, computed, watch, onMounted, provide } from "vue";
 import RadioOption from "./RadioOption.vue";
 import CheckboxOption from "./CheckboxOption.vue";
 import QuizHeading from "./QuizHeading.vue";
@@ -337,6 +382,17 @@ const defaultAnswers = {
 
 // User answers storage
 const userAnswers = ref({ ...defaultAnswers });
+
+// Global tooltip state
+const activeTooltip = ref(null);
+const closeActiveTooltip = () => {
+  activeTooltip.value = null;
+  document.body.style.overflow = "";
+};
+
+// Provide tooltip state to child components
+provide("activeTooltip", activeTooltip);
+provide("closeActiveTooltip", closeActiveTooltip);
 
 // Load saved quiz data from localStorage
 const loadSavedQuizData = () => {
@@ -445,7 +501,7 @@ const prevStep = () => {
 /**
  * Submit the quiz results
  */
-const submitQuiz = () => {
+const _submitQuiz = () => {
   if (!userAnswers.value.reward || !validatePhone()) {
     alert("Пожалуйста, выберите подарок и введите номер телефона");
     return;
@@ -490,46 +546,6 @@ const submitQuiz = () => {
     box-shadow: none;
     padding: 0;
   }
-}
-
-/* Tooltip styles */
-.tooltip-container {
-  position: relative;
-}
-
-.tooltip-container:hover .tooltip-text {
-  display: block;
-  animation: fadeIn 0.3s;
-}
-
-.tooltip-text {
-  position: absolute;
-  left: 30px;
-  top: -5px;
-  background: white;
-  padding: 12px;
-  border-radius: 8px;
-  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1), 0 1px 3px rgba(0, 0, 0, 0.08);
-  z-index: 10;
-  width: 250px;
-  display: none;
-}
-
-.tooltip-text::before {
-  content: '';
-  position: absolute;
-  left: -6px;
-  top: 10px;
-  width: 12px;
-  height: 12px;
-  background: white;
-  transform: rotate(45deg);
-  box-shadow: -2px 2px 3px rgba(0, 0, 0, 0.05);
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; }
-  to { opacity: 1; }
 }
 
 /* Mobile-specific styles */

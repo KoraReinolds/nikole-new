@@ -340,11 +340,11 @@ let lastScrollTop = 0;
 const isScrollDisabled = ref(false);
 
 const handleScroll = () => {
-  if (isScrollDisabled.value) return;
   if (!isMobile.value) return;
   if (scrollTimeout) clearTimeout(scrollTimeout);
 
   scrollTimeout = setTimeout(() => {
+    if (isScrollDisabled.value) return;
     // скролл закончился
 
     const scrollTop = window.scrollY || document.documentElement.scrollTop;
@@ -650,7 +650,7 @@ const scrollToReviews = () => {
 
 @media (max-width: 768px) {
   .glass-container-main {
-    background: rgba(22, 8, 14, 0.6);
+    /* background: rgba(22, 8, 14, 0.6);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border-radius: 16px;
@@ -659,7 +659,7 @@ const scrollToReviews = () => {
     height: 100%;
     display: flex;
     flex-direction: column;
-    justify-content: center;
+    justify-content: center; */
   }
 }
 
