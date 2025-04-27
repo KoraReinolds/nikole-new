@@ -49,8 +49,6 @@
                 type="tel"
                 class="w-full bg-white text-additional-black px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#93BA73] focus:border-transparent font-roboto"
                 required
-                @focus="handleInputFocus"
-                @blur="handleInputBlur"
               >
             </div>
 
@@ -105,7 +103,13 @@
  */
 const showForm = ref(true);
 
-const isScrollDisabled = defineModel("isScrollDisabled", { required: true });
+/**
+ * Model for scroll disable state
+ * This value is managed by the parent component
+ * to detect when keyboard is open
+ * @type {import('vue').Ref<boolean>}
+ */
+const _isScrollDisabled = defineModel("isScrollDisabled", { required: true });
 
 /**
  * Form submission state
@@ -161,22 +165,6 @@ const submitForm = async () => {
   finally {
     isSubmitting.value = false;
   }
-};
-
-/**
- * Handles input focus to prevent layout issues
- */
-const handleInputFocus = () => {
-  isScrollDisabled.value = true;
-  // Let the resize event handle height adjustments
-};
-
-/**
- * Handles input blur to restore normal scrolling
- */
-const handleInputBlur = () => {
-  isScrollDisabled.value = false;
-  // Let the resize event handle height adjustments
 };
 </script>
 

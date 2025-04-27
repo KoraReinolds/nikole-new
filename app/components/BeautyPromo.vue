@@ -351,6 +351,30 @@ const sections = ref([]);
 let lastScrollTop = 0;
 const isScrollDisabled = ref(false);
 
+/**
+ * Detects if keyboard is open by comparing current height to initial height
+ * Sets isScrollDisabled to true when keyboard is detected
+ */
+const detectKeyboard = () => {
+  if (import.meta.client) {
+    const currentHeight = window.innerHeight;
+    const initialHeightStr = getComputedStyle(document.documentElement).getPropertyValue("--screen-height") || "0px";
+    const initialHeight = parseInt(initialHeightStr) || window.innerHeight;
+
+    // If current height is significantly less than initial height, keyboard is likely open
+    // We use 75% as threshold to account for various keyboard sizes
+    if (currentHeight < initialHeight * 0.75) {
+      isScrollDisabled.value = true;
+    }
+    else {
+      isScrollDisabled.value = false;
+    }
+
+    // Debug output to console for development
+    console.debug(`Keyboard detection: current=${currentHeight}, initial=${initialHeight}, keyboard ${isScrollDisabled.value ? "open" : "closed"}`);
+  }
+};
+
 const handleScroll = () => {
   if (!isMobile.value) return;
   if (scrollTimeout) clearTimeout(scrollTimeout);
@@ -386,6 +410,7 @@ const handleScroll = () => {
 
 onMounted(() => {
   window.addEventListener("resize", updateMobileState);
+  window.addEventListener("resize", detectKeyboard);
   window.addEventListener("scroll", handleScroll);
 
   // Set initial screen height only once
@@ -399,6 +424,7 @@ onMounted(() => {
 
 onUnmounted(() => {
   window.removeEventListener("resize", updateMobileState);
+  window.removeEventListener("resize", detectKeyboard);
   window.removeEventListener("scroll", handleScroll);
   document.removeEventListener("visibilitychange", () => {});
   // window.removeEventListener("touchstart", handleTouchStart);
