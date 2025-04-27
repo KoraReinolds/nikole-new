@@ -344,6 +344,7 @@ const handleScroll = () => {
   if (scrollTimeout) clearTimeout(scrollTimeout);
 
   scrollTimeout = setTimeout(() => {
+    return;
     if (isScrollDisabled.value) return;
     // скролл закончился
 
