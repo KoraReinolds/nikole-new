@@ -276,12 +276,36 @@ let endY = 0;
 let startScrollY = 0;
 
 /**
- * Updates mobile state based on window width
- * Only runs on client-side
+ * Updates mobile state based on device characteristics
+ * Uses multiple factors to better distinguish between mobile devices and desktop
+ * with small screen sizes
  */
 const updateMobileState = () => {
   if (import.meta.client) {
-    isMobile.value = window.innerWidth <= 768;
+    // Get screen width and device pixel ratio
+    const width = window.innerWidth;
+    const pixelRatio = window.devicePixelRatio || 1;
+
+    // Check for touch capability
+    const hasTouch = "ontouchstart" in window
+      || navigator.maxTouchPoints > 0
+      || navigator.msMaxTouchPoints > 0;
+
+    // Check for mobile-specific features or patterns
+    const isMobileUserAgent = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+    // Check if orientation is available (more common on mobile)
+    const hasOrientation = typeof window.orientation !== "undefined"
+      || navigator.userAgent.indexOf("IEMobile") !== -1;
+
+    // Combined check for mobile: either small screen with touch capability OR
+    // identified as mobile via user agent OR has high pixel ratio typical of mobile
+    isMobile.value = (width <= 768 && hasTouch)
+      || isMobileUserAgent
+      || (hasOrientation)
+      || (width <= 768 && pixelRatio >= 2);
+
+    console.debug(`Device detection: width=${width}, touch=${hasTouch}, ratio=${pixelRatio}, mobile=${isMobile.value}`);
   }
 };
 
@@ -503,6 +527,10 @@ const scrollToReviews = () => {
 
   .h-\[7vh\] {
     height: calc(var(--screen-height) * 0.07);
+  }
+
+  .h-\[9vh\] {
+    height: calc(var(--screen-height) * 0.09);
   }
 
   .h-\[14vh\] {

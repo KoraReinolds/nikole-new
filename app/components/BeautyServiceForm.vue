@@ -64,6 +64,8 @@
             id="phone"
             v-model="form.phone"
             type="tel"
+            autocomplete="tel"
+            placeholder="Введите номер телефона"
             class="w-full bg-white text-additional-black px-4 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-[#93BA73] focus:border-transparent font-roboto"
             required
           >
