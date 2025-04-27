@@ -282,28 +282,17 @@ let startScrollY = 0;
 const updateMobileState = () => {
   if (import.meta.client) {
     isMobile.value = window.innerWidth <= 768;
-
-    // Set fixed viewport height for mobile devices
-    if (isMobile.value) {
-      const vh = window.innerHeight * 0.01;
-      document.documentElement.style.setProperty("--vh", `${vh}px`);
-    }
   }
 };
 
 /**
- * Sets initial viewport height
- * Prevents layout issues when keyboard opens on mobile
+ * Updates screen height CSS variable on resize
+ * Used to maintain layout when keyboard opens on mobile
  */
-const setInitialViewportHeight = () => {
-  if (import.meta.client && window.innerWidth <= 768) {
-    const vh = window.innerHeight * 0.01;
-    document.documentElement.style.setProperty("--vh", `${vh}px`);
-
-    // Apply initial height to all scroll containers
-    document.querySelectorAll(".scroll-container").forEach((container) => {
-      container.style.height = `calc(var(--vh, 1vh) * 100)`;
-    });
+const updateScreenHeight = () => {
+  if (import.meta.client) {
+    const screenHeight = window.innerHeight;
+    document.documentElement.style.setProperty("--screen-height", `${screenHeight}px`);
   }
 };
 
@@ -397,25 +386,21 @@ const handleScroll = () => {
 
 onMounted(() => {
   window.addEventListener("resize", updateMobileState);
+  window.addEventListener("resize", updateScreenHeight);
   window.addEventListener("scroll", handleScroll);
 
-  // Handle visibility changes (helps with keyboard)
-  document.addEventListener("visibilitychange", () => {
-    if (!document.hidden && isMobile.value) {
-      // When app becomes visible again, reset the fixed height
-      setInitialViewportHeight();
-    }
-  });
+  // Initial setup of screen height
+  updateScreenHeight();
 
   sections.value = [...document.querySelectorAll(".scroll-container")];
   updateMobileState();
-  setInitialViewportHeight();
   // window.addEventListener("touchstart", handleTouchStart);
   // window.addEventListener("touchend", handleTouchEnd);
 });
 
 onUnmounted(() => {
   window.removeEventListener("resize", updateMobileState);
+  window.removeEventListener("resize", updateScreenHeight);
   window.removeEventListener("scroll", handleScroll);
   document.removeEventListener("visibilitychange", () => {});
   // window.removeEventListener("touchstart", handleTouchStart);
@@ -472,15 +457,19 @@ const scrollToReviews = () => {
   font-family: 'Roboto', sans-serif;
 }
 
-/* Use fixed viewport height for mobile */
+/* Use dynamic screen height for mobile */
 @media (max-width: 768px) {
   .h-screen {
-    height: calc(var(--vh, 1vh) * 100);
+    height: var(--screen-height, 100vh);
   }
 
   .scroll-container {
-    height: calc(var(--vh, 1vh) * 100);
-    min-height: calc(var(--vh, 1vh) * 100);
+    height: var(--screen-height, 100vh);
+    min-height: var(--screen-height, 100vh);
+  }
+
+  #container {
+    height: var(--screen-height, 100vh) !important;
   }
 }
 

@@ -3,7 +3,7 @@
   Component for displaying Yandex Map location
 -->
 <template>
-  <div class="relative w-full py-[7vh] md:pt-[120px] pb-16">
+  <div class="relative w-full py-[7vh] md:pt-[120px] pb-16 mobile-contact-section">
     <div class="container mx-auto px-4 max-w-[1080px] relative z-10">
       <!-- Section content -->
       <div class="flex flex-col lg:flex-row items-center justify-between">
@@ -164,33 +164,27 @@ const submitForm = async () => {
 };
 
 /**
- * Prevents scroll position from changing when keyboard is open
- * @param {FocusEvent} e - Focus event
+ * Handles input focus to prevent layout issues
  */
 const handleInputFocus = () => {
   isScrollDisabled.value = true;
-
-  // For iOS specifically, we need to prevent content from shifting
-  if (navigator && /iPad|iPhone|iPod/.test(navigator.userAgent)) {
-    document.body.style.position = "fixed";
-    document.body.style.width = "100%";
-  }
+  // Let the resize event handle height adjustments
 };
 
 /**
- * Restores normal scrolling when keyboard is closed
+ * Handles input blur to restore normal scrolling
  */
 const handleInputBlur = () => {
   isScrollDisabled.value = false;
-
-  // Reset for iOS
-  if (navigator && /iPad|iPhone|iPod/.test(navigator.userAgent)) {
-    document.body.style.position = "";
-    document.body.style.width = "";
-  }
+  // Let the resize event handle height adjustments
 };
 </script>
 
 <style scoped>
-/* Add any additional styles here */
+/* Add support for dynamic height in mobile */
+@media (max-width: 768px) {
+  .mobile-contact-section {
+    min-height: var(--screen-height, 100vh);
+  }
+}
 </style>
