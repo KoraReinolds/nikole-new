@@ -22,7 +22,7 @@
               <img
                 src="/images/logo.png"
                 alt="Николе профстудия"
-                class="h-[10vh] md:h-36"
+                class="h-[calc(var(--screen-height)*0.1)] md:h-36"
               >
             </div>
 
@@ -122,7 +122,7 @@
         <div class="flex flex-col lg:flex-row">
           <!-- Left Content Section with Glass Effect -->
           <div
-            class="w-full lg:w-[920px] z-10 flex flex-col justify-center text-center md:text-left glass-container-main px-4 py-[4vh] md:px-0 md:py-0"
+            class="w-full lg:w-[920px] z-10 flex flex-col justify-center text-center md:text-left glass-container-main px-4 py-[calc(var(--screen-height)*0.04)] md:px-0 md:py-0"
           >
             <!-- Main Headline -->
             <h1 class="text-main-white2 text-[clamp(1.25rem,10vw,2.5rem)] md:text-7xl font-bold font-raleway mt-4 md:mt-16 leading-[1.2]">
@@ -137,22 +137,22 @@
             </p>
 
             <!-- Bullet Points -->
-            <ul class="space-y-2 md:space-y-4 text-main-white2 text-sm md:text-3xl font-normal md:ml-4 mb-[6vh] md:mb-0">
+            <ul class="space-y-2 md:space-y-4 text-main-white2 text-sm md:text-3xl font-normal md:ml-4 mb-[calc(var(--screen-height)*0.06)] md:mb-0">
               <li class="flex items-start">
                 <span class="mr-2 hidden md:inline">•</span>
-                <span class="w-full text-center md:text-left text-[clamp(0.5rem,2vh,2.5rem)] md:text-2xl">от&nbsp;мастера <span class="pink-text-gradient font-bold">c опытом 13+ лет</span><br class="block md:hidden"> в&nbsp;центре Мурманска</span>
+                <span class="w-full text-center md:text-left text-[clamp(0.5rem,calc(var(--screen-height)*0.02),2.5rem)] md:text-2xl">от&nbsp;мастера <span class="pink-text-gradient font-bold">c опытом 13+ лет</span><br class="block md:hidden"> в&nbsp;центре Мурманска</span>
               </li>
               <li class="flex items-start">
                 <span class="mr-2 hidden md:inline">•</span>
                 <span
                   class="
-                w-full text-center md:text-left text-[clamp(0.5rem,2vh,2.5rem)] md:text-2xl"
+                w-full text-center md:text-left text-[clamp(0.5rem,calc(var(--screen-height)*0.02),2.5rem)] md:text-2xl"
                 ><span class="pink-text-gradient font-bold">с&nbsp;выгодой&nbsp;10%&nbsp;</span>для&nbsp;постоянных клиентов</span>
               </li>
             </ul>
 
             <!-- <div class="flex items-start"> -->
-            <div class="space-y-2 md:space-y-4 mb-[2vh] md:mb-12 text-main-white2 text-[clamp(0.5rem,2.2vh,3rem)] md:text-4xl font-semibold md:mt-[96px] hidden md:block">
+            <div class="space-y-2 md:space-y-4 mb-[calc(var(--screen-height)*0.02)] md:mb-12 text-main-white2 text-[clamp(0.5rem,calc(var(--screen-height)*0.022),3rem)] md:text-4xl font-semibold md:mt-[96px] hidden md:block">
               <!-- <span class="mr-2 hidden md:inline">•</span> -->
               <span>Пройдите опрос и&nbsp;получите <span class="green-text-gradient font-bold">подарок</span></span>
             </div>
@@ -170,7 +170,7 @@
                       >
                     </div> -->
                     <button
-                      class="h-[7vh] w-[70vw] max-w-[280px] md:max-w-[340px] md:h-[90px] text-[clamp(0.7rem,6vw,1.5rem)] py-2 px-4 md:py-4 md:px-8 font-bold bg-sup2-white text-additional-black md:text-3xl font-roboto rounded-md hover:bg-opacity-90 transition-all shadow-lg button-glow button-pulse"
+                      class="h-[calc(var(--screen-height)*0.07)] w-[70vw] max-w-[280px] md:max-w-[340px] md:h-[90px] text-[clamp(0.7rem,6vw,1.5rem)] py-2 px-4 md:py-4 md:px-8 font-bold bg-sup2-white text-additional-black md:text-3xl font-roboto rounded-md hover:bg-opacity-90 transition-all shadow-lg button-glow button-pulse"
                       @click="scrollToQuiz"
                     >
                       Получить подарок
@@ -182,10 +182,10 @@
               <!-- List of benefits -->
               <ul class="space-y-2 text-main-white2 text-sm md:text-2xl font-normal w-full md:w-[390px]">
                 <li class="flex items-start">
-                  <span class="w-full text-center md:text-right text-[clamp(0.5rem,2vh,1.5rem)] md:text-xl"><span class="green-text-gradient font-bold">бесплатный</span> пробный сеанс</span>
+                  <span class="w-full text-center md:text-right text-[clamp(0.5rem,calc(var(--screen-height)*0.02),1.5rem)] md:text-xl"><span class="green-text-gradient font-bold">бесплатный</span> пробный сеанс</span>
                 </li>
                 <li class="flex items-start">
-                  <span class="w-full text-center md:text-right text-[clamp(0.5rem,2vh,1.5rem)] md:text-xl"><span class="green-text-gradient font-bold">персональные</span> рекомендации по&nbsp;уходу за&nbsp;кожей</span>
+                  <span class="w-full text-center md:text-right text-[clamp(0.5rem,calc(var(--screen-height)*0.02),1.5rem)] md:text-xl"><span class="green-text-gradient font-bold">персональные</span> рекомендации по&nbsp;уходу за&nbsp;кожей</span>
                 </li>
               </ul>
             </div>
@@ -212,7 +212,7 @@
   >
     <BeautyQuiz class="container mx-auto px-4 md:px-24 max-w-[1240px] h-full relative z-10 flex flex-col" />
 
-    <div class="absolute left-0 w-full bottom-[5vh] md:bottom-14">
+    <div class="absolute left-0 w-full bottom-[calc(var(--screen-height)*0.05)] md:bottom-14">
       <!-- Left side with flower vase image (moved to background) -->
       <div class="h-[38px] w-full bg-[#FFFAE4]" />
       <div class="h-[16px] w-full bg-[#A78B75]" />
@@ -225,7 +225,7 @@
         <img
           src="/images/quiz.png"
           alt="Цветы в вазе"
-          class="w-[50vh] md:w-[625px] object-contain translate-x-[66px]"
+          class="w-[calc(var(--screen-height)*0.5)] md:w-[625px] object-contain translate-x-[66px]"
         >
       </div>
     </div>
@@ -356,7 +356,6 @@ const handleScroll = () => {
   if (scrollTimeout) clearTimeout(scrollTimeout);
 
   scrollTimeout = setTimeout(() => {
-    return;
     if (isScrollDisabled.value) return;
     // скролл закончился
 
@@ -469,6 +468,44 @@ const scrollToReviews = () => {
 
   #container {
     height: var(--screen-height, 100vh) !important;
+  }
+
+  /* Replace common vh values with calculated values */
+  .h-\[10vh\] {
+    height: calc(var(--screen-height) * 0.1);
+  }
+
+  .h-\[7vh\] {
+    height: calc(var(--screen-height) * 0.07);
+  }
+
+  .h-\[14vh\] {
+    height: calc(var(--screen-height) * 0.14);
+  }
+
+  .py-\[7vh\] {
+    padding-top: calc(var(--screen-height) * 0.07);
+    padding-bottom: calc(var(--screen-height) * 0.07);
+  }
+
+  .mb-\[5vh\] {
+    margin-bottom: calc(var(--screen-height) * 0.05);
+  }
+
+  .mb-\[6vh\] {
+    margin-bottom: calc(var(--screen-height) * 0.06);
+  }
+
+  .mb-\[2vh\] {
+    margin-bottom: calc(var(--screen-height) * 0.02);
+  }
+
+  .bottom-\[5vh\] {
+    bottom: calc(var(--screen-height) * 0.05);
+  }
+
+  .bottom-\[6vh\] {
+    bottom: calc(var(--screen-height) * 0.06);
   }
 }
 
