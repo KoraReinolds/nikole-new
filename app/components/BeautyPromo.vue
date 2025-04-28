@@ -10,7 +10,7 @@
       class="relative h-[1070px] md:h-[1070px] h-screen w-full background-container"
     >
       <div
-        class="container mx-auto px-4 md:px-24 max-w-[1240px] h-full relative z-10 flex flex-col"
+        class="container mx-auto px-4 md:px-12 lg:px-24 max-w-[1240px] h-full relative z-10 flex flex-col"
       >
         <!-- Header section with logo and navigation -->
         <div
@@ -18,7 +18,7 @@
         >
           <div class="flex justify-start items-center h-full">
             <!-- Logo on the left -->
-            <div class="md:min-w-[288px] mr-12 md:-ml-4">
+            <div class="lg:min-w-[288px] mr-12 md:-ml-4">
               <img
                 src="/images/logo.png"
                 alt="Николе профстудия"
@@ -29,21 +29,21 @@
             <div class="grow" />
 
             <!-- Desktop Menu -->
-            <div class="hidden md:flex items-center gap-12">
+            <div class="hidden md:flex items-center md:gap-8 lg:gap-12 text-main md:text-2xl lg:text-3xl font-normal font-roboto">
               <button
-                class="text-main text-3xl font-normal font-roboto hover:text-opacity-80 transition-all cursor-pointer"
+                class="hover:text-opacity-80 transition-all cursor-pointer"
                 @click="scrollToServices"
               >
                 Услуги
               </button>
               <button
-                class="text-main text-3xl font-normal font-roboto hover:text-opacity-80 transition-all cursor-pointer"
+                class="hover:text-opacity-80 transition-all cursor-pointer"
                 @click="scrollToReviews"
               >
                 Отзывы
               </button>
               <button
-                class="text-main text-3xl font-normal font-roboto hover:text-opacity-80 transition-all cursor-pointer"
+                class="hover:text-opacity-80 transition-all cursor-pointer"
                 @click="scrollToContacts"
               >
                 Контакты
@@ -125,34 +125,37 @@
             class="w-full lg:w-[920px] z-10 flex flex-col justify-center text-center md:text-left glass-container-main px-4 py-[calc(var(--screen-height)*0.04)] md:px-0 md:py-0"
           >
             <!-- Main Headline -->
-            <h1 class="text-main-white2 text-[clamp(1.25rem,10vw,2.5rem)] md:text-7xl font-bold font-raleway mt-4 md:mt-16 leading-[1.2]">
+            <h1 class="text-main-white2 text-[clamp(1.25rem,10vw,2.5rem)] md:text-5xl lg:text-7xl font-bold font-raleway mt-4 md:mt-16 leading-[1.2]">
               Гладкая кожа
               <br class="block md:hidden">
               <span class="pink-text-gradient font-bold text-[clamp(1.5rem,10vw,3.5rem)]">НАВСЕГДА</span>
               <br class="block md:hidden">
               <br class="hidden md:block">
             </h1>
-            <p class="text-main-white2 text-[clamp(1rem,5vw,2.5rem)] font-bold leading-[1.4] text-4xl my-4 md:mb-[64px]">
+            <p class="text-main-white2 text-[clamp(1rem,5vw,2.5rem)] font-bold leading-[1.4] md:text-2xl lg:text-4xl my-4 md:mb-[64px]">
               Эпиляция без&nbsp;боли и&nbsp;лишних&nbsp;сеансов
             </p>
 
             <!-- Bullet Points -->
-            <ul class="space-y-2 md:space-y-4 text-main-white2 text-sm md:text-3xl font-normal md:ml-4 mb-[calc(var(--screen-height)*0.06)] md:mb-0">
+            <ul class="space-y-2 md:space-y-4 text-main-white2 text-sm md:text-3xl font-normal md:ml-4 mb-[calc(var(--screen-height)*0.06)] md:mb-0 md:text-xl lg:text-3xl">
               <li class="flex items-start">
                 <span class="mr-2 hidden md:inline">•</span>
-                <span class="w-full text-center md:text-left text-[clamp(0.5rem,calc(var(--screen-height)*0.02),2.5rem)] md:text-2xl">от&nbsp;мастера <span class="pink-text-gradient font-bold">c опытом 13+ лет</span><br class="block md:hidden"> в&nbsp;центре Мурманска</span>
+                <span class="w-full text-center md:text-left text-[clamp(0.5rem,calc(var(--screen-height)*0.02),2.5rem)]">от&nbsp;мастера <span class="pink-text-gradient font-bold">c опытом 13+ лет</span><br class="block md:hidden"></span>
               </li>
               <li class="flex items-start">
                 <span class="mr-2 hidden md:inline">•</span>
                 <span
                   class="
-                w-full text-center md:text-left text-[clamp(0.5rem,calc(var(--screen-height)*0.02),2.5rem)] md:text-2xl"
-                ><span class="pink-text-gradient font-bold">с&nbsp;выгодой&nbsp;10%&nbsp;</span>для&nbsp;постоянных клиентов</span>
+                w-full text-center md:text-left text-[clamp(0.5rem,calc(var(--screen-height)*0.02),2.5rem)]"
+                >
+                  <!-- с&nbsp;выгодой&nbsp;10%&nbsp;</span>для&nbsp;постоянных клиентов -->
+                  в&nbsp;<span class="pink-text-gradient font-bold">центре Мурманска</span>
+                </span>
               </li>
             </ul>
 
             <!-- <div class="flex items-start"> -->
-            <div class="space-y-2 md:space-y-4 mb-[calc(var(--screen-height)*0.02)] md:mb-12 text-main-white2 text-[clamp(0.5rem,calc(var(--screen-height)*0.022),3rem)] md:text-4xl font-semibold md:mt-[96px] hidden md:block">
+            <div class="space-y-2 md:space-y-4 mb-[calc(var(--screen-height)*0.02)] md:mb-12 text-main-white2 text-[clamp(0.5rem,calc(var(--screen-height)*0.022),3rem)] md:text-3xl lg:text-4xl font-semibold md:mt-[96px] hidden md:block">
               <!-- <span class="mr-2 hidden md:inline">•</span> -->
               <span>Пройдите опрос и&nbsp;получите <span class="green-text-gradient font-bold">подарок</span></span>
             </div>
@@ -170,7 +173,7 @@
                       >
                     </div> -->
                     <button
-                      class="h-[calc(var(--screen-height)*0.07)] w-[70vw] max-w-[280px] md:max-w-[340px] md:h-[90px] text-[clamp(0.7rem,6vw,1.5rem)] py-2 px-4 md:py-4 md:px-8 font-bold bg-sup2-white text-additional-black md:text-3xl font-roboto rounded-md hover:bg-opacity-90 transition-all shadow-lg button-glow button-pulse"
+                      class="h-[calc(var(--screen-height)*0.07)] w-[70vw] max-w-[280px] lg:max-w-[340px] md:h-[90px] text-[clamp(0.7rem,6vw,1.5rem)] py-2 px-4 md:py-2 lg:py-4 md:px-4 lg:px-8 font-bold bg-sup2-white text-additional-black md:text-xl lg:text-3xl font-roboto rounded-md hover:bg-opacity-90 transition-all shadow-lg button-glow button-pulse"
                       @click="scrollToQuiz"
                     >
                       Получить подарок
@@ -180,12 +183,12 @@
               </div>
 
               <!-- List of benefits -->
-              <ul class="space-y-2 text-main-white2 text-sm md:text-2xl font-normal w-full md:w-[390px]">
+              <ul class="space-y-2 text-main-white2 text-sm md:text-2xl font-normal w-full md:w-[390px] w-full text-center md:text-right text-[clamp(0.5rem,calc(var(--screen-height)*0.02),1.5rem)] md:text-lg lg:text-2xl">
                 <li class="flex items-start">
-                  <span class="w-full text-center md:text-right text-[clamp(0.5rem,calc(var(--screen-height)*0.02),1.5rem)] md:text-xl"><span class="green-text-gradient font-bold">бесплатный</span> пробный сеанс</span>
+                  <span class="w-full"><span class="green-text-gradient font-bold">бесплатный</span> пробный сеанс</span>
                 </li>
                 <li class="flex items-start">
-                  <span class="w-full text-center md:text-right text-[clamp(0.5rem,calc(var(--screen-height)*0.02),1.5rem)] md:text-xl"><span class="green-text-gradient font-bold">персональные</span> рекомендации по&nbsp;уходу за&nbsp;кожей</span>
+                  <span class="w-full"><span class="green-text-gradient font-bold">персональные</span> рекомендации по&nbsp;выбору&nbsp;метода эпиляции</span>
                 </li>
               </ul>
             </div>
@@ -435,7 +438,7 @@ const handleScroll = () => {
 onMounted(() => {
   window.addEventListener("resize", updateMobileState);
   window.addEventListener("resize", detectKeyboard);
-  window.addEventListener("scroll", handleScroll);
+  // window.addEventListener("scroll", handleScroll);
 
   // Set initial screen height only once
   setInitialScreenHeight();
@@ -449,7 +452,7 @@ onMounted(() => {
 onUnmounted(() => {
   window.removeEventListener("resize", updateMobileState);
   window.removeEventListener("resize", detectKeyboard);
-  window.removeEventListener("scroll", handleScroll);
+  // window.removeEventListener("scroll", handleScroll);
   document.removeEventListener("visibilitychange", () => {});
   // window.removeEventListener("touchstart", handleTouchStart);
   // window.removeEventListener("touchend", handleTouchEnd, { passive: false });
