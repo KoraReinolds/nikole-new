@@ -3,10 +3,10 @@
   Component for displaying frequently asked questions in an accordion format with mobile-friendly popup
 -->
 <template>
-  <div class="relative w-full py-12 md:py-[120px] bg-[#FFFAE4] md:h-auto h-screen overflow-hidden">
-    <div class="container mx-auto px-4 max-w-[1080px] h-full flex flex-col">
+  <div class="relative w-full py-[7vh] md:py-[120px] bg-[#FFFAE4] md:h-auto overflow-hidden">
+    <div class="container mx-auto px-4 md:px-12 lg:px-24 max-w-[1240px] h-full flex flex-col">
       <!-- Section title -->
-      <h2 class="text-3xl md:text-5xl font-bold font-raleway text-additional-black mb-8 md:mb-16 text-center">
+      <h2 class="text-3xl md:text-5xl font-bold font-raleway text-additional-black mb-[5vh] md:mb-10 lg:mb-16 text-center">
         Часто задаваемые <span class="text-sup2-white">вопросы</span>
       </h2>
 
@@ -19,7 +19,7 @@
       </div> -->
 
       <!-- FAQ Accordion -->
-      <div class="space-y-[1vh] md:space-y-4 max-w-3xl mx-auto overflow-y-auto pb-4 flex-grow">
+      <div class="space-y-[1vh] max-w-3xl mx-auto overflow-y-auto flex-grow z-10">
         <div
           v-for="(item, index) in faqItems"
           :key="index"

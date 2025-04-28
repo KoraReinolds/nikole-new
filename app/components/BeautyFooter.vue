@@ -5,21 +5,21 @@
 <template>
   <!-- CTA section -->
   <footer
-    class="relative w-full py-[5vh] md:pb-[120px] md:pt-16 overflow-hidden border-t border-main-gray"
+    class="relative w-full pt-[5vh] pb-[7vh] md:pb-[120px] md:pt-12 overflow-hidden border-t border-main-gray"
   >
-    <div class="container mx-auto px-4 md:px-24 max-w-[1240px]">
+    <div class="container mx-auto px-4 md:px-12 lg:px-24 max-w-[1240px]">
       <!-- <h2 class="text-main-white2 text-4xl md:text-5xl font-bold font-raleway mb-8 text-center">
         Мы на карте
       </h2> -->
 
-      <div class="w-full h-[100vh] md:h-[400px] rounded-lg overflow-hidden">
+      <div class="w-full h-[400px] rounded-lg overflow-hidden">
         <div
           id="map"
           class="w-full h-full"
         />
       </div>
 
-      <div class="container mx-auto px-4 max-w-[1080px]">
+      <div class="container mx-auto max-w-[1240px]">
         <!-- Bottom links -->
         <div class="mt-[5vh] md:mt-12 pt-[4vh] border-t border-main-gray">
           <div class="flex flex-col md:flex-row flex-wrap justify-around gap-6">

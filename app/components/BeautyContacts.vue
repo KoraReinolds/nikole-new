@@ -3,21 +3,24 @@
   Component for displaying Yandex Map location
 -->
 <template>
-  <div class="relative w-full py-[calc(var(--screen-height)*0.07)] md:pt-[120px] pb-16 mobile-contact-section">
-    <div class="container mx-auto px-4 max-w-[1080px] relative z-10">
+  <div class="relative w-full pt-[7vh] md:pt-[120px] pb-[5vh] md:pb-12 mobile-contact-section">
+    <div class="container mx-auto px-4 md:px-12 lg:px-24 max-w-[1240px] relative z-10">
       <!-- Section content -->
-      <div class="flex flex-col lg:flex-row items-center justify-between">
-        <div class="lg:w-1/2 mb-[calc(var(--screen-height)*0.05)] md:mb-10 lg:mb-0">
-          <h2 class="text-main-white2 text-[clamp(0.8rem,calc(var(--screen-height)*0.05),2rem)] md:text-5xl font-bold font-raleway mb-6">
+      <div class="flex flex-col lg:flex-row items-center lg:items-start justify-between lg:gap-8">
+        <div class="lg:w-1/2 mb-[5vh] md:mb-10 lg:mb-0">
+          <h2 class="text-main-white2 text-[clamp(0.8rem,calc(var(--screen-height)*0.05),2rem)] md:text-5xl font-bold font-raleway mb-[5vh] md:mb-10 lg:mb-16 text-center lg:text-left">
             Остались <span class="pink-text-gradient">вопросы?</span>
           </h2>
-          <p class="text-[clamp(0.8rem,calc(var(--screen-height)*0.02),1.5rem)] md:text-xl text-white font-roboto mb-[calc(var(--screen-height)*0.05)] md:mb-10">
-            Оставьте заявку на консультацию, и мы перезвоним вам в течение 15 минут,
-            чтобы ответить на все вопросы и подобрать оптимальное решение.
-          </p>
+          <div
+            class="flex md:flex-col gap-4 items-center lg:items-start"
+          >
+            <p class="max-w-[444px] text-[clamp(0.8rem,calc(var(--screen-height)*0.02),1.5rem)] md:text-xl text-main-white font-roboto text-center lg:text-left">
+              Оставьте заявку на консультацию, и мы перезвоним вам в течение 15 минут,
+              чтобы ответить на все вопросы и подобрать оптимальное решение.
+            </p>
 
-          <div class="flex flex-col sm:flex-row gap-4">
             <button
+              v-if="quizAvailable"
               class="py-4 px-8 font-bold bg-[#93BA73] text-additional-black text-[clamp(0.8rem,calc(var(--screen-height)*0.02),1.5rem)] md:text-lg font-roboto rounded-md hover:bg-opacity-90 transition-all shadow-lg"
               @click="scrollToQuiz"
             >
@@ -113,6 +116,8 @@ const showForm = ref(true);
  */
 const _isScrollDisabled = defineModel("isScrollDisabled", { required: true });
 
+const quizAvailable = defineModel("quizAvailable", { required: true });
+
 /**
  * Form submission state
  * @type {Ref<boolean>}
@@ -173,10 +178,6 @@ const submitForm = async () => {
 <style scoped>
 /* Add support for dynamic height in mobile */
 @media (max-width: 768px) {
-  .mobile-contact-section {
-    min-height: var(--screen-height, 100vh);
-  }
-
   /* Replace common vh values with calculated values */
   .py-\[7vh\] {
     padding-top: calc(var(--screen-height) * 0.07);

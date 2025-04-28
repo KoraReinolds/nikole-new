@@ -122,7 +122,7 @@
         <div class="flex flex-col lg:flex-row">
           <!-- Left Content Section with Glass Effect -->
           <div
-            class="w-full lg:w-[920px] z-10 flex flex-col justify-center text-center md:text-left glass-container-main px-4 py-[calc(var(--screen-height)*0.04)] md:px-0 md:py-0"
+            class="w-full lg:w-[920px] z-10 flex flex-col justify-center text-center md:text-left glass-container-main px-0 py-[calc(var(--screen-height)*0.04)] md:px-0 md:py-0"
           >
             <!-- Main Headline -->
             <h1 class="text-main-white2 text-[clamp(1.25rem,10vw,2.5rem)] md:text-5xl lg:text-7xl font-bold font-raleway mt-4 md:mt-16 leading-[1.2]">
@@ -132,22 +132,19 @@
               <br class="block md:hidden">
               <br class="hidden md:block">
             </h1>
-            <p class="text-main-white2 text-[clamp(1rem,5vw,2.5rem)] font-bold leading-[1.4] md:text-2xl lg:text-4xl my-4 md:mb-[64px]">
+            <p class="text-main-white2 text-[clamp(1rem,5vw,2.5rem)] font-bold leading-[1.4] md:text-2xl lg:text-4xl my-4 md:mb-12">
               Эпиляция без&nbsp;боли и&nbsp;лишних&nbsp;сеансов
             </p>
 
             <!-- Bullet Points -->
-            <ul class="space-y-2 md:space-y-4 text-main-white2 text-sm md:text-3xl font-normal md:ml-4 mb-[calc(var(--screen-height)*0.06)] md:mb-0 md:text-xl lg:text-3xl">
+            <ul class="space-y-2 md:space-y-3 text-main-white2 text-sm md:text-3xl font-normal md:ml-4 mb-[calc(var(--screen-height)*0.06)] md:mb-0">
               <li class="flex items-start">
                 <span class="mr-2 hidden md:inline">•</span>
-                <span class="w-full text-center md:text-left text-[clamp(0.5rem,calc(var(--screen-height)*0.02),2.5rem)]">от&nbsp;мастера <span class="pink-text-gradient font-bold">c опытом 13+ лет</span><br class="block md:hidden"></span>
+                <span class="md:text-2xl lg:text-3xl w-full text-center md:text-left text-sm">от&nbsp;мастера <span class="pink-text-gradient font-bold">c опытом 13+ лет</span><br class="block md:hidden"></span>
               </li>
               <li class="flex items-start">
                 <span class="mr-2 hidden md:inline">•</span>
-                <span
-                  class="
-                w-full text-center md:text-left text-[clamp(0.5rem,calc(var(--screen-height)*0.02),2.5rem)]"
-                >
+                <span class="md:text-2xl lg:text-3xl w-full text-center md:text-left text-sm">
                   <!-- с&nbsp;выгодой&nbsp;10%&nbsp;</span>для&nbsp;постоянных клиентов -->
                   в&nbsp;<span class="pink-text-gradient font-bold">центре Мурманска</span>
                 </span>
@@ -183,7 +180,7 @@
               </div>
 
               <!-- List of benefits -->
-              <ul class="space-y-2 text-main-white2 text-sm md:text-2xl font-normal w-full md:w-[390px] w-full text-center md:text-right text-[clamp(0.5rem,calc(var(--screen-height)*0.02),1.5rem)] md:text-lg lg:text-2xl">
+              <ul class="space-y-2 text-main-white2 text-sm md:text-2xl font-normal w-full md:w-[390px] w-full text-center md:text-right text-sm md:text-lg lg:text-2xl">
                 <li class="flex items-start">
                   <span class="w-full"><span class="green-text-gradient font-bold">бесплатный</span> пробный сеанс</span>
                 </li>
@@ -196,11 +193,11 @@
         </div>
 
         <!-- Right Image Section -->
-        <div class="absolute -right-[750px] bottom-0 pointer-events-none">
+        <div class="absolute -right-[850px] md:-right-[750px] bottom-0 pointer-events-none">
           <img
             src="/images/main.png"
             alt="Женщина"
-            class="object-cover z-[5] max-w-none h-full opacity-70"
+            class="object-cover z-[5] max-w-none h-full opacity-50 md:opacity-70"
           >
         </div>
       </div>
@@ -213,7 +210,10 @@
     ref="quizSection"
     class="scroll-container relative h-[1000px] md:h-[1000px] h-screen w-full quiz-background"
   >
-    <BeautyQuiz class="container mx-auto px-4 md:px-24 max-w-[1240px] h-full relative z-10 flex flex-col" />
+    <BeautyQuiz
+      class="container mx-auto px-4 md:px-12 lg:px-24 max-w-[1240px] h-full relative z-10 flex flex-col"
+      :quiz-available="quizFinished"
+    />
 
     <div class="absolute left-0 w-full bottom-[calc(var(--screen-height)*0.05)] md:bottom-14">
       <!-- Left side with flower vase image (moved to background) -->
@@ -239,23 +239,19 @@
     :is-mobile="isMobile"
   />
 
-  <BeautyFaq
-    class="scroll-container"
-    :class="{ 'h-screen': isMobile }"
-  />
+  <BeautyFaq />
 
   <div
     style="background:radial-gradient(circle, #563C34 0%, #402E28 30%, #16080E 100%);"
   >
     <BeautyContacts
       ref="contactsSection"
-      :class="{ 'h-screen': isMobile }"
-      class="scroll-container"
       :is-scroll-disabled="isScrollDisabled"
+      :quiz-available="quizFinished"
     />
 
     <BeautyFooter
-      class="scroll-container h-screen md:h-[718px]"
+      class="md:h-[718px]"
     />
   </div>
 </template>
@@ -277,6 +273,8 @@ let currentIndex = 0;
 let startY = 0;
 let endY = 0;
 let startScrollY = 0;
+
+const quizFinished = ref(false);
 
 /**
  * Updates mobile state based on device characteristics
@@ -477,7 +475,8 @@ const scrollToQuiz = () => {
  * Scrolls to the services section smoothly
  */
 const scrollToServices = () => {
-  servicesSection.value.$el.scrollIntoView({ behavior: "smooth" });
+  const services = document.getElementById("services");
+  services.scrollIntoView({ behavior: "smooth" });
   isMobileMenuOpen.value = false;
 };
 

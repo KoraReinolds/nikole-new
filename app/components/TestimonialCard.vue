@@ -3,13 +3,13 @@
   Component for displaying individual testimonial/review cards
 -->
 <template>
-  <div class="rounded-xl border p-5 shadow-sm glass-container w-full">
+  <div class="rounded-xl border p-5 shadow-sm glass-container w-full max-h-[300px] flex flex-col">
     <div class="flex justify-between items-start gap-4">
       <div class="w-1/2">
         <div class="w-half font-semibold text-[#272727] font-open-sans text-[clamp(0.25rem,4.5vw,1.5rem)] md:text-lg">
           {{ username }}
         </div>
-        <div class="text-gray-500 font-medium text-[clamp(0.25rem,3.5vw,1.5rem)] md:text-sm">
+        <div class="text-gray-500 font-medium text-md md:text-sm">
           {{ date }}
         </div>
       </div>
@@ -27,7 +27,7 @@
     >
       <div class="text-sm text-gray-700">
         <span
-          class="text-add2 font-bold text-[clamp(0.25rem,3.5vw,1.5rem)] md:text-[1.2rem] cursor-pointer hover:underline"
+          class="text-add2 font-bold text-md md:text-[1.2rem] cursor-pointer hover:underline"
           @click="$emit('serviceClick', service)"
         >{{ service }}</span>
       </div>
@@ -35,9 +35,9 @@
 
     <div
       class="mt-4 text-gray-800 leading-relaxed md:max-h-[100px] overflow-y-auto
-      text-[clamp(0.25rem,3.5vw,1.5rem)] md:text-[1rem]
+      text-sm md:text-[1rem]
       font-medium
-      max-h-[30vh]
+      h-full
     [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] [scrollbar-width:none]"
     >
       {{ text }}

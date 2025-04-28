@@ -3,7 +3,7 @@
   Reusable component for checkbox inputs with consistent styling
 -->
 <template>
-  <label :class="['flex items-center cursor-pointer gap-4 glass-container h-[7vh] md:h-8', { 'flex-row-reverse': flexRowReverse, 'cursor-not-allowed': disabled }]">
+  <label :class="['flex items-center cursor-pointer gap-4 glass-container h-[7vh] md:h-12', { 'flex-row-reverse': flexRowReverse, 'cursor-not-allowed': disabled }]">
     <div class="relative min-w-[4vh] min-h-[4vh] md:min-w-8 md:min-h-8 flex items-center justify-center">
       <input
         :value="value"

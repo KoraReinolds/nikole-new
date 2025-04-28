@@ -4,17 +4,17 @@
 -->
 <template>
   <div class="quiz-container w-full h-screen md:h-full overflow-hidden">
-    <div class="container mx-auto max-w-[1080px] h-full relative z-10 flex">
+    <div class="container mx-auto max-w-[1240px] h-full relative z-10 flex">
       <!-- Left side with quiz content -->
-      <div class="pt-[7vh] md:pt-[120px] pb-8 md:pb-16 flex flex-col w-full h-full relative z-10">
+      <div class="pt-[7vh] md:pt-[120px] pb-8 md:pb-16 flex flex-col w-full h-full relative z-10 md:px-12 lg:px-24">
         <!-- Quiz header -->
         <div class="relative w-full md:w-[630px]">
-          <h2 class="text-add2-black text-[clamp(1.25rem,6.5vw,2.5rem)] text-center md:text-left md:text-6xl font-bold font-raleway mb-[5vh] md:mb-10">
+          <h2 class="text-add2-black text-[clamp(1.25rem,6.5vw,2.5rem)] text-center md:text-left md:text-5xl lg:text-6xl font-bold font-raleway mb-[5vh] md:mb-10">
             Ответьте<br class="hidden md:block">
-            на 5 вопросов<br>
+            на 4 вопроса<br>
             и получите <span class="text-add2-sat">подарок</span>
           </h2>
-          <div class="absolute bottom-[96px] right-[44px] h-[140px] w-[140px] gift-pulse hidden md:block">
+          <div class="absolute md:bottom-[92px] lg:bottom-[96px] md:right-[154px] lg:right-[44px] lg:h-[140px] lg:w-[140px] md:h-[120px] md:w-[120px] gift-pulse hidden md:block">
             <img
               src="/images/gift.png"
               alt="Подарок"
@@ -70,14 +70,30 @@
                       <RadioOption
                         v-model="userAnswers.age"
                         value="under18"
+                        class="glass-container"
                       >
                         До 18
                       </RadioOption>
                       <RadioOption
                         v-model="userAnswers.age"
-                        value="over18"
+                        value="18-30"
+                        class="glass-container"
                       >
-                        Больше 18
+                        18 - 30
+                      </RadioOption>
+                      <RadioOption
+                        v-model="userAnswers.age"
+                        value="30-45"
+                        class="glass-container"
+                      >
+                        30 - 45
+                      </RadioOption>
+                      <RadioOption
+                        v-model="userAnswers.age"
+                        value="over45"
+                        class="glass-container"
+                      >
+                        Больше 45
                       </RadioOption>
                     </div>
                   </div>
@@ -185,15 +201,15 @@
                     <QuizHeading
                       class="glass-container"
                       :show-next-button="!!userAnswers.method"
-                      value="Выберите метод эпиляции"
+                      value="Какие из методов удаления волос предпочитаете?"
                       @back="prevStep"
                       @next="nextStep"
                     />
                     <div class="options-container">
-                      <div class="flex gap-4 text-xs md:text-lg font-medium text-add2-black glass-container">
+                      <!-- <div class="flex gap-4 text-xs md:text-lg font-medium text-add2-black glass-container">
                         <span class="w-1/2 font-bold">Безопасность</span>
                         <span class="w-1/2 font-bold">Эффективность</span>
-                      </div>
+                      </div> -->
                       <!-- Electro epilation option -->
                       <div class="glass-container">
                         <MethodOption
@@ -243,28 +259,15 @@
                       @back="prevStep"
                     />
                     <div class="options-container glass-container">
-                      <div class="flex items-center gap-2 md:gap-4">
-                        <img
-                          src="/images/gift.png"
-                          alt="Подарок"
-                          class="w-10 h-10 md:w-16 md:h-16 hidden md:block"
-                        >
-                        <p class="text-sm md:text-lg text-[#232A36] leading-tight">
-                          Персональные рекомендации уже готовы! Оставьте свой номер телефона и забирайте их в нашем Telegram боте. Мы перезвоним вам по указанному номеру телефона, чтобы записать на бесплатный пробный сеанс.
+                      <div class="flex flex-col items-center gap-4 md:gap-8 mx-4 md:mx-6 my-4 md:my-6">
+                        <p class="text-sm md:text-lg text-[#232A36] leading-tight text-center">
+                          Гайд по подбору метода удаления волос можно забрать <b class="text-add2-sat">прямо сейчас</b> в нашем Telegram боте.
                         </p>
-                      </div>
-                      <div class="flex items-center gap-2">
-                        <input
-                          v-model="userAnswers.phone"
-                          placeholder="Введите номер телефона"
-                          type="number"
-                          class="px-3 py-2 md:px-4 md:py-2 border bg-white text-[#232A36] placeholder:text-[#232A36] border-gray-300 rounded-lg w-full max-w-md text-base text-sm md:text-lg"
-                        >
                         <a
                           href="#"
-                          class="min-w-10 min-h-10 flex items-center justify-center rounded-full bg-[#229ED9] hover:bg-opacity-90 transition-all"
+                          class="min-w-10 min-h-10 flex items-center justify-center rounded-full bg-[#229ED9] hover:bg-opacity-90 transition-all gap-2 px-4"
                         >
-                          <span class="sr-only">Telegram</span>
+                          <span class="text-sm md:text-lg font-semibold">Получить гайд</span>
                           <svg
                             class="w-5 h-5 md:w-6 md:h-6 fill-white"
                             viewBox="0 0 24 24"
@@ -274,6 +277,14 @@
                           </svg>
                         </a>
                       </div>
+                      <!-- <div class="flex items-center gap-2 w-full justify-center"> -->
+                      <!-- <input
+                          v-model="userAnswers.phone"
+                          placeholder="Введите номер телефона"
+                          type="number"
+                          class="px-3 py-2 md:px-4 md:py-2 border bg-white text-[#232A36] placeholder:text-[#232A36] border-gray-300 rounded-lg w-full max-w-md text-base text-sm md:text-lg"
+                        > -->
+                      <!-- </div> -->
 
                       <template v-if="userAnswers.method === 'laser'">
                         <p class="text-sm md:text-lg text-[#232A36] mt-2 md:mt-4 leading-tight">
@@ -348,6 +359,7 @@
       </div>
     </div>
   </div>
+  {{ quizFinished }}
 </template>
 
 <script setup>
@@ -367,6 +379,11 @@ const STORAGE_KEY = "beauty_quiz_answers";
 // Define quiz steps and state
 const currentStep = ref(1);
 const totalSteps = 5;
+
+const quizFinished = defineModel("quizFinished", { required: true });
+watch(currentStep, () => {
+  quizFinished.value = currentStep.value === totalSteps;
+}, { immediate: true });
 
 // Default user answers
 const defaultAnswers = {
@@ -514,7 +531,7 @@ const _submitQuiz = () => {
 
 <style scoped>
 .options-container {
-  @apply space-y-2 md:space-y-4 mt-4 rounded-lg max-w-full md:max-w-[500px] md:pt-10
+  @apply space-y-2 mt-4 rounded-lg max-w-full md:max-w-[500px] md:pt-10
 }
 
 .quiz-container {
@@ -538,7 +555,7 @@ const _submitQuiz = () => {
   border-radius: 0.5rem;
 }
 
-@media (min-width: 768px) {
+/* @media (min-width: 768px) {
   .glass-container {
     background: none;
     backdrop-filter: none;
@@ -546,7 +563,7 @@ const _submitQuiz = () => {
     box-shadow: none;
     padding: 0;
   }
-}
+} */
 
 /* Mobile-specific styles */
 @media (max-width: 768px) {

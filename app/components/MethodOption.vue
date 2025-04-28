@@ -27,7 +27,7 @@
         >?</span>
       </div>
     </div>
-    <div class="flex flex-1 gap-4 justify-between h-full items-center w-full mt-1">
+    <!-- <div class="flex flex-1 gap-4 justify-between h-full items-center w-full mt-1">
       <div class="w-1/2 flex text-add2-black">
         <ProgressBar
           :model-value="safetyValue"
@@ -38,7 +38,6 @@
           progress-color="bg-sup2-white2"
           full-width
         />
-        <!-- <span class="w-1/2">Безопасность</span> -->
       </div>
       <div class="w-1/2 flex text-add2-black">
         <ProgressBar
@@ -50,9 +49,8 @@
           progress-color="bg-sup2-white2"
           full-width
         />
-        <!-- <span class="w-1/2">Эффективность</span> -->
       </div>
-    </div>
+    </div> -->
   </label>
 
   <!-- Teleport the tooltip to body to avoid stacking context issues -->

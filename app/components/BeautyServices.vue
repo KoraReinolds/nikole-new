@@ -3,21 +3,23 @@
   Component for displaying beauty services and testimonials
 -->
 <template>
-  <div class="relative w-full overflow-hidden">
+  <div
+    id="services"
+    class="relative w-full overflow-hidden"
+  >
     <!-- Services Section -->
     <div
       id="services-section"
-      class="relative scroll-container services-background py-[7vh] md:py-[120px]"
-      :class="{ 'h-screen': isMobile }"
+      class="relative services-background py-[7vh] md:py-[120px]"
     >
-      <div class="container mx-auto md:px-24 max-w-[1240px]">
+      <div class="container mx-auto md:px-12 lg:px-24 max-w-[1240px]">
         <!-- Section title -->
-        <h2 class="text-3xl md:text-5xl font-bold font-raleway text-sup2-black mb-[2vh] md:mb-16 text-center">
+        <h2 class="text-3xl md:text-5xl font-bold font-raleway text-sup2-black mb-[2vh] md:mb-10 lg:mb-16 text-center">
           Наши <span class="text-sup2-white py-1">услуги</span>
         </h2>
 
         <!-- Service type switcher -->
-        <div class="flex justify-center mb-6 md:mb-10">
+        <div class="flex justify-center md:mb-10">
           <!-- Desktop version -->
           <div class="hidden md:block bg-white rounded-full p-1.5 md:p-2 inline-flex shadow-md">
             <button
@@ -84,7 +86,7 @@
         </div>
 
         <!-- Services carousel for mobile -->
-        <div class="md:hidden relative flex justify-start mt-[6vh] md:mt-0 flex-col h-full">
+        <div class="md:hidden relative flex justify-start my-[5vh] md:mt-0 flex-col h-full">
           <div class="overflow-hidden relative">
             <!-- Left arrow -->
             <button
@@ -118,7 +120,7 @@
               <div
                 v-for="(service, index) in filteredServices"
                 :key="index"
-                class="w-full flex-shrink-0 px-8"
+                class="w-full flex-shrink-0 px-4"
               >
                 <div class="bg-white rounded-lg shadow-lg overflow-hidden transform transition-transform flex flex-col">
                   <div class="p-4 flex flex-col">
@@ -249,31 +251,49 @@
     <!-- Testimonials Section -->
     <div
       id="testimonials"
-      class="relative scroll-container relative w-full pt-[7vh] md:py-[120px] min-h-[500px] md:min-h-[634px]"
+      class="relative relative w-full py-[7vh] md:py-[120px]"
       style="background: radial-gradient(ellipse 50% 50% at 60%, #563C34 0%, #402E28 30%, #16080E 100%)"
-      :class="{ 'h-screen': isMobile }"
     >
       <div
-        class="mx-auto md:px-24 max-w-[1240px] relative"
+        class="mx-auto md:px-12 lg:px-24 max-w-[1240px] relative"
       >
         <div class="-bottom-[15vh] md:-bottom-[80px] absolute z-0 w-full left-0 overflow-hidden">
           <img
             src="/images/reviews.png"
             alt="Цветы в вазе"
-            class="md:w-[575px] left-0 object-contain"
+            class="hidden lg:block w-[515px] left-0 object-contain"
           >
         </div>
         <!-- Section title -->
-        <h2 class="text-3xl md:text-5xl font-bold font-raleway text-main-white2 mb-[2vh] md:mb-16 text-center md:text-end w-full text-[clamp(1.25rem,6.5vw,2.5rem)]">
+        <h2 class="text-3xl md:text-5xl font-bold font-raleway text-main-white2 mb-[5vh] md:mb-10 lg:mb-16 text-center md:text-end w-full text-[clamp(1.25rem,6.5vw,2.5rem)]">
           <span class=" text-[clamp(1.25rem,12.5vw,3.5rem)]">
             Более <span class="pink-text-gradient">100</span><br>
           </span>
           довольных клиентов
         </h2>
 
-        <div class="flex flex-col md:flex-col-reverse gap-[2vh]">
+        <div class="flex flex-col md:flex-col-reverse gap-8">
           <!-- Slider navigation -->
-          <div class="flex flex-row justify-center md:justify-end items-center mt-[2vh] md:mt-8">
+          <div class="flex flex-row justify-center md:justify-end items-center relative">
+            <!-- Left arrow -->
+            <button
+              class="md:hidden mr-4 z-20 w-8 h-8 rounded-full bg-main-gray bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all"
+              @click="prevSlide"
+            >
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M15 19l-7-7 7-7"
+                />
+              </svg>
+            </button>
             <a
               href="https://dikidi.ru/ru/profile/olga_evdokimova_171403/reviews"
               target="_blank"
@@ -281,13 +301,33 @@
             >
               Посмотреть все отзывы
             </a>
+
+            <!-- Right arrow -->
+            <button
+              class="md:hidden ml-4 z-20 w-8 h-8 rounded-full bg-main-gray bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all"
+              @click="nextSlide"
+            >
+              <svg
+                class="w-4 h-4"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                  stroke-width="2"
+                  d="M9 5l7 7-7 7"
+                />
+              </svg>
+            </button>
           </div>
-          <div class="container mx-auto max-w-[1080px] flex flex-col md:flex-row md:justify-end relative">
+          <div class="container mx-auto max-w-[1240px] flex flex-col md:flex-row md:justify-end relative">
             <!-- Testimonials slider -->
-            <div class="relative w-full md:w-[600px] md:h-[400px]">
+            <div class="relative w-full md:w-full lg:w-[600px] h-[300px]">
               <!-- Left arrow -->
               <button
-                class="absolute left-1 md:-left-10 top-1/2 transform -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-main-gray bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all"
+                class="hidden absolute left-1 md:-left-10 top-1/2 transform -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-main-gray bg-opacity-60 md:flex items-center justify-center hover:bg-opacity-100 transition-all"
                 @click="prevSlide"
               >
                 <svg
@@ -306,7 +346,7 @@
               </button>
               <!-- Right arrow -->
               <button
-                class="absolute right-1 md:-right-10 top-1/2 transform -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-main-gray bg-opacity-60 flex items-center justify-center hover:bg-opacity-100 transition-all"
+                class="hidden absolute right-1 md:-right-10 top-1/2 transform -translate-y-1/2 z-20 w-8 h-8 rounded-full bg-main-gray bg-opacity-60 md:flex items-center justify-center hover:bg-opacity-100 transition-all"
                 @click="nextSlide"
               >
                 <svg
@@ -324,10 +364,10 @@
                 </svg>
               </button>
               <!-- Testimonial cards with navigation arrows on sides -->
-              <div class="relative md:overflow-hidden md:h-[400px]">
+              <div class="relative md:overflow-hidden h-[300px]">
                 <div
                   ref="testimonialsContainer"
-                  class="flex transition-transform duration-500 ease-in-out md:h-[400px]"
+                  class="flex transition-transform duration-500 ease-in-out h-[300px]"
                   :style="{ transform: `translateX(-${(visibleSlideIndex) * 100}%)` }"
                   @touchstart="handleTouchStart"
                   @touchmove="handleTouchMove"
@@ -338,11 +378,10 @@
                     v-for="(testimonial, index) in displayTestimonials"
                     :key="testimonial.date + index"
                     class="w-full flex-shrink-0 pl-0 flex items-center justify-center"
-                    :class="{ 'h-[60vh]': isMobile }"
                   >
                     <TestimonialCard
                       :key="testimonial.date + index"
-                      class="mx-[10vw] md:mx-1"
+                      class="mx-4 md:mx-1"
                       :username="testimonial.username"
                       :date="testimonial.date"
                       :current-index="currentSlide"

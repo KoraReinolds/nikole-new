@@ -3,7 +3,7 @@
   Reusable component for radio button inputs with consistent styling
 -->
 <template>
-  <label :class="['flex gap-4 items-center cursor-pointer h-[7vh] md:h-8', { 'flex-row-reverse': flexRowReverse }]">
+  <label :class="['flex gap-4 items-center cursor-pointer h-[7vh] md:h-12', { 'flex-row-reverse': flexRowReverse }]">
     <div class="relative min-w-[4vh] min-h-[4vh] md:min-w-8 md:min-h-8 flex items-center justify-center">
       <input
         :value="value"

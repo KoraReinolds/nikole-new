@@ -3,7 +3,7 @@
   Reusable component for quiz section headings with consistent styling
 -->
 <template>
-  <div class="flex items-center gap-2 md:gap-4">
+  <div class="flex items-center gap-2 md:gap-4 md:max-w-[500px]">
     <button
       :disabled="!showBackButton"
       class="mt-1 min-w-[4vh] min-h-[4vh] md:min-w-8 md:min-h-8 flex items-center justify-center rounded-full bg-add2-sat hover:bg-opacity-90 transition-all disabled:opacity-50 disabled:cursor-not-allowed"
@@ -20,7 +20,7 @@
     <h3
       :class="[
         textColorClass,
-        'text-clamp(0.25rem,1vh,2.5rem) md:text-3xl font-bold font-montserrat text-center md:text-left w-full md:w-auto',
+        'w-full flex-1 text-clamp(0.25rem,1vh,2.5rem) md:text-xl lg:text-2xl font-bold font-montserrat text-center w-full md:w-auto',
       ]"
     >
       {{ value }}
