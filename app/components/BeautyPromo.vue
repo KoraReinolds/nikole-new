@@ -22,7 +22,7 @@
               <img
                 src="/images/logo.png"
                 alt="Николе профстудия"
-                class="h-[calc(var(--screen-height)*0.1)] md:h-36"
+                class="h-[calc(var(--screen-height)*0.1)] md:h-24"
               >
             </div>
 
