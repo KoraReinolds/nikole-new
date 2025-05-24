@@ -119,7 +119,7 @@
           </div>
         </div>
 
-        <div class="flex flex-col lg:flex-row">
+        <div class="flex flex-col lg:flex-rowflex flex-col lg:flex-rowflex flex-col lg:flex-rowflex flex-col lg:flex-rowflex flex-col lg:flex-rowflex flex-col lg:flex-rowflex flex-col lg:flex-rowflex flex-col lg:flex-rowflex flex-col lg:flex-rowflex flex-col lg:flex-row">
           <!-- Left Content Section with Glass Effect -->
           <div
             class="w-full lg:w-[920px] z-10 flex flex-col justify-center text-center md:text-left glass-container-main px-0 py-[calc(var(--screen-height)*0.04)] md:px-0 md:py-0"
